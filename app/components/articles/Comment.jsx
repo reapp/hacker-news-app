@@ -1,3 +1,4 @@
+var React = require('react/addons');
 var cx = React.addons.classSet;
 
 require('./Comment.styl');

@@ -1,3 +1,4 @@
+var React = require('react');
 var Component = require('reapp-component')();
 var Mixins = require('./mixins');
 
@@ -8,7 +9,6 @@ Component.addStatics('actions', require('./actions'));
 // decorators
 Component.addDecorator(spec => {
   spec = decorateMixins(spec);
-  // add createClass
   return React.createClass(spec);
 });
 

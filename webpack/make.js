@@ -8,12 +8,11 @@ var statsPlugin = require('./lib/statsPlugin');
 
 module.exports = function(opts) {
   var entry = {
-    main: './lib/main'
+    main: './main'
   };
 
-  if (opts.vendorChunk) {
-    entry.vendor = Object.keys(require('../package.json')["dependencies"]);
-  }
+  if (opts.vendorChunk)
+    entry.vendor = Object.keys(require('../package.json').dependencies);
 
   var jsxLoader = [
     ReactStylePlugin.loader(),
