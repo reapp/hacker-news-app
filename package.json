@@ -1,8 +1,8 @@
 {
   "author": "Nate Wienert",
-  "name": "reactor",
-  "description": "A React Isomorphic App",
-  "version": "0.3.0",
+  "name": "reapp-hn",
+  "description": "A reapp example app, for reading Hacker News",
+  "version": "1.0.0",
   "main": "./app/app.jsx",
   "scripts": {
     "test": "mocha -R spec tests/**-test.js",

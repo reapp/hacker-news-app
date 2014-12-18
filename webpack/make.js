@@ -19,7 +19,7 @@ module.exports = function(opts) {
     'jsx-loader?harmony&stripTypes'
   ];
 
-  if (opts.hotComponents)
+  if (opts.hot)
     jsxLoader.unshift('react-hot');
 
   var loaders = {
@@ -84,9 +84,9 @@ module.exports = function(opts) {
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
   }
 
-  if (opts.hotComponents) {
+  if (opts.hot) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
-    plugins.push(new webpack.NoErrorsPlugin());
+    // plugins.push(new webpack.NoErrorsPlugin());
   }
 
   if (opts.vendorChunk) {
