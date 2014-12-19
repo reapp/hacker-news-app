@@ -1,8 +1,8 @@
 var { Promise } = require('bluebird');
 var Immutable = require('immutable');
 var Reducer = require('reapp-reducer');
-var Actions = require('../actions');
-var API = require('./API');
+var Actions = require('actions');
+var API = require('deps/api');
 
 var {
     ArticlesStore,
