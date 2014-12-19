@@ -1,3 +1,4 @@
+var Component = require('component');
 var View = require('reapp-ui/views/View');
 
 module.exports = Component({

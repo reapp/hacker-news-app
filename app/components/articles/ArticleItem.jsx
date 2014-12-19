@@ -1,5 +1,6 @@
 // var Time = require('react-time');
 var React = require('react');
+var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
 var ListItem = require('reapp-ui/components/ListItem');
 var { Link } = require('react-router');

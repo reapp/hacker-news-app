@@ -1,4 +1,5 @@
 var React = require('react');
+var Component = require('component');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
 var ImmutableTreeNode = require('reapp-ui/helpers/ImmutableTreeNode');
