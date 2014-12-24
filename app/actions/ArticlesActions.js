@@ -14,22 +14,20 @@ var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  opts => {
-    var hasHotArticles = HotArticlesStore().count();
-    if (opts && !opts.nocache && hasHotArticles || !opts && hasHotArticles)
-      Actions.articlesHotLoadDone();
-    else
-      API.get('topstories.json', opts)
-        .then(res => HotArticlesStore(res) && res)
-        .then(getArticles)
-        .then(Actions.articlesHotLoadDone);
-  }
+  opts =>
+    API
+      .get('topstories.json', opts)
+      .then(res => {
+        HotArticlesStore(res);
+        insertArticles(res);
+        Actions.articlesHotLoadDone();
+      });
 );
 
 Actions.articlesHotLoadMore.listen(
   () =>
     API.get('topstories.json')
-      .then(getNextArticles)
+      .then(insertNextArticles)
       .then(Actions.articlesHotLoadMoreDone)
 );
 
@@ -65,12 +63,12 @@ function insertArticle(res, rej) {
   }
 }
 
-function getNextArticles(articles) {
+function insertNextArticles(articles) {
   page = page + 1;
-  return getArticles(articles);
+  return insertArticles(articles);
 }
 
-function getArticles(articles) {
+function insertArticles(articles) {
   var start = page * per;
 
   return Promise.all(
