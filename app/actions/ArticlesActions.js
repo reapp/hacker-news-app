@@ -1,6 +1,6 @@
 var { Promise } = require('bluebird');
 var Immutable = require('immutable');
-var Reducer = require('reapp-reducer');
+var Reducer = require('reapp-platform/reducer');
 var Actions = require('actions');
 var API = require('deps/api');
 
@@ -15,13 +15,12 @@ var per = 10;
 
 Actions.articlesHotLoad.listen(
   opts =>
-    API
-      .get('topstories.json', opts)
+    API.get('topstories.json', opts)
       .then(res => {
         HotArticlesStore(res);
         insertArticles(res);
         Actions.articlesHotLoadDone();
-      });
+      })
 );
 
 Actions.articlesHotLoadMore.listen(
