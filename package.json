@@ -20,7 +20,8 @@
     "bluebird": "~2.3.11",
     "reapp-platform": "*",
     "reapp-ui": "*",
-    "omniscient": "~2.1.0"
+    "omniscient": "~2.1.0",
+    "reapp-routes": "~0.9.0"
   },
   "devDependencies": {
     "react-hot-loader": "~1.0.4",

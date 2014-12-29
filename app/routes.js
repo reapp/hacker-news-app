@@ -1,4 +1,4 @@
-var { route, routes } = require('reapp-platform/react-router-routes');
+var { route, routes } = require('reapp-routes/react-router/generator');
 
 module.exports = routes(require,
   route('articles', '/',
