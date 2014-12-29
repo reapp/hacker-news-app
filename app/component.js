@@ -3,16 +3,16 @@ var ReappComponent = require('reapp-platform/component');
 var Reapp = require('reapp-platform');
 var Mixins = require('./mixins');
 
-var Component = ReappComponent();
+var component = ReappComponent();
 
 // statics
-Component.addStatics('stores', require('./stores'));
-Component.addStatics('actions', require('./actions'));
-Component.addStatics('mixins', Reapp.mixins);
-Component.addStatics('helpers', Reapp.helpers);
+component.addStatics('stores', require('./stores'));
+component.addStatics('actions', require('./actions'));
+component.addStatics('mixins', Reapp.mixins);
+component.addStatics('helpers', Reapp.helpers);
 
 // add global and string based mixins
-Component.addDecorator(spec => {
+component.addDecorator(spec => {
   if (spec.mixins)
     spec.mixins.map(mixin => typeof mixin === 'string' ?
       Mixins.shared[mixin] : mixin);
@@ -21,4 +21,4 @@ Component.addDecorator(spec => {
   return React.createClass(spec);
 });
 
-module.exports = Component;
+module.exports = component;
