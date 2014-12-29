@@ -1,4 +1,3 @@
-var React = require('react');
 var Run = require('reapp-routes/react-router/run');
 var Reapp = require('reapp-platform');
 var Routes = require('./routes');

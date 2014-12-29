@@ -1,13 +1,13 @@
 var React = require('react');
-var ReappComponent = require('reapp-platform/component');
+var Component = require('reapp-platform/component');
 var Reapp = require('reapp-platform');
-var Mixins = require('./mixins');
+var Mixins = require('lib/mixins');
 
-var component = ReappComponent();
+var component = Component();
 
 // statics
-component.addStatics('stores', require('./stores'));
-component.addStatics('actions', require('./actions'));
+component.addStatics('stores', require('lib/stores'));
+component.addStatics('actions', require('lib/actions'));
 component.addStatics('mixins', Reapp.mixins);
 component.addStatics('helpers', Reapp.helpers);
 

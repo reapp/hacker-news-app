@@ -11,7 +11,9 @@ var { ArticlesStore } = Component.stores;
 require('./Article.styl');
 
 module.exports = Component({
-  mixins: ['RouteState'],
+  mixins: [
+    'RouteState'
+  ],
 
   statics: {
     fetchData: params => {

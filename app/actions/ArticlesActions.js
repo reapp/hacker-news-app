@@ -2,7 +2,7 @@ var { Promise } = require('bluebird');
 var Immutable = require('immutable');
 var Reducer = require('reapp-platform/reducer');
 var Actions = require('actions');
-var API = require('deps/api');
+var API = require('lib/api');
 
 var {
     ArticlesStore,

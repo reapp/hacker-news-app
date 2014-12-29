@@ -1,4 +1,3 @@
-var Component = require('component');
 var Omniscient = require('omniscient');
 var ReactRouter = require('react-router');
 var Animated = require('reapp-ui/mixins/Animated');

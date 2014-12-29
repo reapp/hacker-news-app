@@ -1,5 +1,5 @@
 var Component = require('component');
-var API = require('deps/api');
+var API = require('lib/api');
 var { UsersStore } = require('stores');
 var Actions = require('actions');
 
