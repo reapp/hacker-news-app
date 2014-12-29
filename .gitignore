@@ -1,5 +1,5 @@
 .DS_Store
-web_modules
+server_modules
 node_modules
 public
 npm-debug.log
