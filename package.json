@@ -18,10 +18,11 @@
     "immutable": "^3.3.0",
     "fynx": "~1.3.2",
     "bluebird": "~2.3.11",
+    "omniscient": "~2.1.0",
     "reapp-platform": "*",
     "reapp-ui": "*",
-    "omniscient": "~2.1.0",
-    "reapp-routes": "~0.9.0"
+    "reapp-routes": "~0.9.0",
+    "react-router": "~0.11.6"
   },
   "devDependencies": {
     "react-hot-loader": "~1.0.4",

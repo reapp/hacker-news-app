@@ -1,4 +1,4 @@
-var Client = require('reapp-request');
+var Client = require('reapp-platform/request');
 
 var opts = {
   base: 'https://hacker-news.firebaseio.com/v0/'
