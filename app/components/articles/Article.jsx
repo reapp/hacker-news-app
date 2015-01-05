@@ -7,7 +7,6 @@ var View = require('reapp-ui/views/View');
 var BackButton = require('reapp-ui/components/buttons/BackButton');
 var { ArticlesStore } = require('stores');
 var Actions = require('actions');
-var { Promise } = require('bluebird');
 
 require('./Article.styl');
 

@@ -1,13 +1,14 @@
 var React = require('react');
 var Component = require('component');
+var Actions = require('actions');
 var List = require('reapp-ui/components/List');
 var Button = require('reapp-ui/components/Button');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
-var ArticleItem = require('./ArticleItem');
 var RotatingComponent = require('reapp-ui/helpers/RotatingComponent');
 var Icon = require('reapp-ui/components/Icon');
+var ArticleItem = require('./ArticleItem');
 
 module.exports = Component({
   getInitialState() {
@@ -20,7 +21,7 @@ module.exports = Component({
 
     this.setState({ isRefreshing: true });
 
-    Component.actions.articlesHotLoad({ nocache: true }).then(() => {
+    Actions.articlesHotLoad({ nocache: true }).then(() => {
       this.setState({ isRefreshing: false });
     });
   },
@@ -31,7 +32,7 @@ module.exports = Component({
 
     this.setState({ isRefreshing: true });
 
-    Component.actions.articlesHotLoadMore().then(() => {
+    Actions.articlesHotLoadMore().then(() => {
       this.setState({ isRefreshing: false });
     });
   },

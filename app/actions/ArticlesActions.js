@@ -1,4 +1,3 @@
-var { Promise } = require('bluebird');
 var Immutable = require('immutable');
 var reducer = require('reapp-reducer');
 var Actions = require('actions');
