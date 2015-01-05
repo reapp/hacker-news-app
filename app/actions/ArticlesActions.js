@@ -1,33 +1,33 @@
 var { Promise } = require('bluebird');
 var Immutable = require('immutable');
-var Reducer = require('reapp-platform/reducer');
+var reducer = require('reapp-reducer');
 var Actions = require('actions');
-var API = require('lib/api');
+var Client = require('lib/client');
 
 var {
     ArticlesStore,
     HotArticlesStore,
     SavedArticlesStore } = require('../stores');
 
-var loadedReducer = Reducer.bind(null, 'LOADED');
+var loadedReducer = reducer.bind(null, 'LOADED');
 var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
   opts =>
-    API.get('topstories.json', opts)
+    Client.get('topstories.json', opts)
       .then(res => {
         HotArticlesStore(res);
         insertArticles(res);
-        Actions.articlesHotLoadDone();
       })
+      .then(returnArticlesStore)
 );
 
 Actions.articlesHotLoadMore.listen(
   () =>
-    API.get('topstories.json')
+    Client.get('topstories.json')
       .then(insertNextArticles)
-      .then(Actions.articlesHotLoadMoreDone)
+      .then(returnArticlesStore)
 );
 
 Actions.articleLoad.listen(
@@ -36,13 +36,12 @@ Actions.articleLoad.listen(
     var article = ArticlesStore().get(id);
 
     if (article && article.get('status') === 'LOADED')
-      Actions.articleLoadDone(id);
+      return new Promise(article);
     else
-      API.get(`item/${id}.json`)
+      Client.get(`item/${id}.json`)
         .then(getAllKids)
         .then(loadedReducer)
-        .then(insertArticle)
-        .then(Actions.articleLoadDone.bind(this, id));
+        .then(insertArticle);
   }
 );
 
@@ -55,10 +54,13 @@ Actions.articleSave.listen(
 function insertArticle(res, rej) {
   if (rej) error(rej);
   if (res) {
+    var lastArticle;
+
     res.map(article => {
-      ArticlesStore().set(article.id, Immutable.fromJS(article));
+      lastArticle = ArticlesStore().set(article.id, Immutable.fromJS(article));
     });
-    return res;
+
+    return lastArticle;
   }
 }
 
@@ -73,8 +75,8 @@ function insertArticles(articles) {
   return Promise.all(
     articles.slice(start, start + per).map(
       article => isObject(article) ? article :
-        API.get(`item/${article}.json`)
-          .then(Reducer)
+        Client.get(`item/${article}.json`)
+          .then(reducer)
           .then(insertArticle)
     )
   );
@@ -88,13 +90,17 @@ function getAllKids(item) {
     return new Promise(res => res(item));
 
   return Promise.all(
-    kids.map(item => API.get(`item/${item}.json`).then(getAllKids))
+    kids.map(item => Client.get(`item/${item}.json`).then(getAllKids))
   )
   .then(res => {
     item.kids = res;
     item.kidsLoaded = true;
     return item;
   });
+}
+
+function returnArticlesStore() {
+  return ArticlesStore();
 }
 
 function error(err) {

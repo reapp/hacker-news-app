@@ -5,8 +5,9 @@ var Comment = require('./Comment');
 var ImmutableTreeNode = require('reapp-ui/helpers/ImmutableTreeNode');
 var View = require('reapp-ui/views/View');
 var BackButton = require('reapp-ui/components/buttons/BackButton');
-var { actions, mixins } = Component;
-var { ArticlesStore } = Component.stores;
+var { ArticlesStore } = require('stores');
+var Actions = require('actions');
+var { Promise } = require('bluebird');
 
 require('./Article.styl');
 
@@ -17,11 +18,8 @@ module.exports = Component({
 
   statics: {
     fetchData: params => {
-      actions.articleLoad(params);
-      return new Promise((res, rej) => {
-        actions.articleLoadDone(id => id === params.id &&
-          res(ArticlesStore().get(params.id)));
-      });
+      return Actions.articleLoad(params)
+        .then(article => article.get('id') === params.id && article);
     }
   },
 

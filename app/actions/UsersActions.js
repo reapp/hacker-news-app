@@ -1,8 +1,8 @@
 var Component = require('component');
-var API = require('lib/api');
+var Client = require('lib/client');
 var { UsersStore } = require('stores');
 var Actions = require('actions');
 
 Actions.userLoad.listen(id => {
-  API.get(`user/${id}.json`).then(UsersStore);
+  Client.get(`user/${id}.json`).then(UsersStore);
 });

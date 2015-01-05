@@ -15,27 +15,24 @@ module.exports = Component({
   },
 
   handleRefresh(e) {
+    if (this.state.isRefreshing)
+      return;
+
     this.setState({ isRefreshing: true });
 
-    if (!this.state.isRefreshing) {
-      var unlisten = Component.actions.articlesHotLoadDone.listen(() => {
-        this.setState({ isRefreshing: false });
-        unlisten();
-      });
-      Component.actions.articlesHotLoad({ nocache: true });
-    }
+    Component.actions.articlesHotLoad({ nocache: true }).then(() => {
+      this.setState({ isRefreshing: false });
+    });
   },
 
   handleLoadMore(e) {
-    this.setState({ isRefreshing: true });
-
     e.preventDefault();
     e.target.innerHTML = 'Loading...';
 
-    Component.actions.articlesHotLoadMore();
-    var unlisten = Component.actions.articlesHotLoadMoreDone.listen(() => {
+    this.setState({ isRefreshing: true });
+
+    Component.actions.articlesHotLoadMore().then(() => {
       this.setState({ isRefreshing: false });
-      unlisten();
     });
   },
 

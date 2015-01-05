@@ -1,12 +1,9 @@
 var Fynx = require('fynx');
 
-var actions = Fynx.createActions([
+var actions = Fynx.createAsyncActions([
   'articlesHotLoad',
-  'articlesHotLoadDone',
   'articlesHotLoadMore',
-  'articlesHotLoadMoreDone',
   'articleLoad',
-  'articleLoadDone',
   'articleSave',
   'userLoad'
 ]);

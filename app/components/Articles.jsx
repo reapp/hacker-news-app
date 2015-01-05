@@ -3,24 +3,28 @@ var Component = require('component');
 var NestedViewList = require('reapp-ui/views/NestedViewList');
 var View = require('reapp-ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
+var Actions = require('actions');
 
-var { actions, helpers, mixins, stores } = Component;
+var {
+  storeRefreshMixin,
+  storePromise,
+  RoutedViewListMixin } = require('reapp-platform');
+
+var {
+  ArticlesStore,
+  HotArticlesStore,
+  SavedArticlesStore } = require('stores');
 
 require('./Articles.styl');
 
 module.exports = Component({
   statics: {
-    fetchData: params => (
-      actions.articlesHotLoad() &&
-      helpers.storePromise(ArticlesStore, data => !!data.size)
-    )
+    fetchData: Actions.articlesHotLoad
   },
 
   mixins: [
-    mixins.routedViewListHandler,
-    mixins.listener(
-      stores.ArticlesStore
-    )
+    RoutedViewListMixin,
+    storeRefreshMixin(ArticlesStore)
   ],
 
   render() {
@@ -28,9 +32,9 @@ module.exports = Component({
       <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
         <View>
           <ArticlesHome
-            savedArticlesStore={stores.SavedArticlesStore()}
-            hotArticlesStore={stores.HotArticlesStore()}
-            articlesStore={stores.ArticlesStore()}
+            savedArticlesStore={SavedArticlesStore()}
+            hotArticlesStore={HotArticlesStore()}
+            articlesStore={ArticlesStore()}
             disable={this.numActiveRoutes() > 2}
             handle={this.props.handle} />
         </View>

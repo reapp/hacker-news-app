@@ -6,10 +6,16 @@ require('./theme/theme');
 
 Reapp.initTouch();
 
-// if (Env.CLIENT && Env.PRODUCTION)
-//   require('reapp-raf-batching');
-
-if (Reapp.env.CLIENT)
+// run the app
+if (Reapp.Env.CLIENT)
   Run.renderAsync(Routes);
 else
   Run.renderSync(Routes);
+
+// lets inject some commonly used stuff
+module.exports = {
+  React: require('react'),
+  Component: require('./component'),
+  Actions: require('./actions'),
+  Stores: require('./stores')
+};
