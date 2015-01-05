@@ -3,13 +3,6 @@ var Reapp = require('reapp-platform');
 var Routes = require('./routes');
 var { Promise } = require('bluebird');
 
-module.exports = {
-  React: require('react'),
-  Component: require('./component'),
-  Actions: require('./actions'),
-  Stores: require('./stores')
-};
-
 // lets globalize bluebird
 window.Promise = Promise;
 
