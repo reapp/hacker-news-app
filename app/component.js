@@ -1,8 +1,6 @@
 var React = require('react');
-var Component = require('reapp-component');
 var Mixins = require('./lib/mixins');
-
-var component = Component();
+var component = require('reapp-component')();
 
 // add global and string based mixins
 component.addDecorator(spec => {
