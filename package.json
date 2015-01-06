@@ -19,6 +19,7 @@
     "reapp-routes": "~0.9.0",
     "react-router": "~0.11.6",
     "reapp-request": "*",
-    "reapp-reducer": "*"
+    "reapp-reducer": "*",
+    "reapp-component": "*"
   }
 }
