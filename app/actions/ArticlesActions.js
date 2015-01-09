@@ -47,7 +47,9 @@ Actions.articleLoad.listen(
 
 Actions.articleSave.listen(
   id => {
-    SavedArticlesStore().push(id);
+    var savedArticles = SavedArticlesStore().deref();
+    savedArticles = savedArticles.push(id);
+    SavedArticlesStore(savedArticles);
   }
 );
 

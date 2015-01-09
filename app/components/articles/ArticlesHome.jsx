@@ -1,5 +1,6 @@
 var React = require('react');
 var Component = require('component');
+var Tappable = require('react-tappable');
 var Actions = require('actions');
 var List = require('reapp-ui/components/List');
 var Button = require('reapp-ui/components/Button');
@@ -37,14 +38,9 @@ module.exports = Component({
     });
   },
 
-  handleArticleHold(id) {
-    console.log('article held')
-    actions.articleSave(id);
-  },
-
-  handleArticleHoldEnd() {
-    console.log('aritcle held end')
-    // todo: alert that it saved
+  handleArticlePress(id) {
+    console.log('held article', id);
+    Actions.articleSave(id);
   },
 
   render() {
@@ -96,12 +92,9 @@ module.exports = Component({
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
             {hasArticles &&
               articles.map((article, i) =>
-                <ArticleItem
-                  onTouchHold={this.handleArticleHold.bind(this, article.get('id'))}
-                  onTouchHoldDuration={400}
-                  onTouchHoldEnd={this.handleArticleHoldEnd}
-                  cursor={article}
-                  key={i} />
+                <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
+                  <ArticleItem cursor={article} />
+                </Tappable>
               ).toArray().concat(
                 <ListItem
                   style={{textAlign:'center'}}

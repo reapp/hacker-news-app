@@ -22,7 +22,7 @@ module.exports = Component({
 
   mixins: [
     RoutedViewListMixin,
-    storeRefreshMixin(ArticlesStore)
+    storeRefreshMixin(ArticlesStore, SavedArticlesStore)
   ],
 
   handleArticlesHomeEnter() {
