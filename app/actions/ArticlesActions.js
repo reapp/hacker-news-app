@@ -38,7 +38,7 @@ Actions.articleLoad.listen(
     if (article && article.get('status') === 'LOADED')
       return new Promise(article);
     else
-      Client.get(`item/${id}.json`)
+      return Client.get(`item/${id}.json`)
         .then(getAllKids)
         .then(loadedReducer)
         .then(insertArticle);
@@ -61,7 +61,8 @@ function insertArticle(res, rej) {
       article.data.host = parseUrl({ url: article.data.url }).hostname;
 
       // save ref to last article and store
-      lastArticle = ArticlesStore().set(article.id, Immutable.fromJS(article));
+      lastArticle = Immutable.fromJS(article);
+      ArticlesStore().set(article.id, lastArticle);
     });
 
     return lastArticle;

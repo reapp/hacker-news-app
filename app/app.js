@@ -10,7 +10,7 @@ window.Promise = Promise;
 require('./theme/theme');
 
 // setup some stuff
-Promise.longStackTraces();
+// Promise.longStackTraces();
 Reapp.initTouch();
 
 // run the app

@@ -16,10 +16,7 @@ module.exports = Component({
   ],
 
   statics: {
-    fetchData: params => {
-      return Actions.articleLoad(params)
-        .then(article => article.get('id') === params.id && article);
-    }
+    fetchData: params => Actions.articleLoad(params)
   },
 
   getComments(comments) {

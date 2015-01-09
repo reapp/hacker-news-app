@@ -11,6 +11,7 @@ require('./ArticleItem.styl');
 module.exports = Component({
   render() {
     var { key, cursor, index, noLink, styles, ...props } = this.props;
+
     if (!cursor)
       return null;
 
@@ -46,7 +47,6 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={Object.assign({ after: { margin: 0 } }, styles)}
-        onClick={this.onTouch}
         wrapper={!noLink && <a className="article--link" href={article.get('url')} />}
         title={article.get('title')}
         after={articleRight}
