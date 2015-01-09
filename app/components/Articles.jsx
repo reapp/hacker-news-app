@@ -15,8 +15,6 @@ var {
   HotArticlesStore,
   SavedArticlesStore } = require('stores');
 
-require('./Articles.styl');
-
 module.exports = Component({
   statics: {
     fetchData: Actions.articlesHotLoad
