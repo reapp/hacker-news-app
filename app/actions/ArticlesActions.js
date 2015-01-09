@@ -2,6 +2,7 @@ var Immutable = require('immutable');
 var reducer = require('reapp-reducer');
 var Actions = require('actions');
 var Client = require('lib/client');
+var parseUrl = require('parseurl');
 
 var {
     ArticlesStore,
@@ -56,6 +57,10 @@ function insertArticle(res, rej) {
     var lastArticle;
 
     res.map(article => {
+      // set host
+      article.data.host = parseUrl({ url: article.data.url }).hostname;
+
+      // save ref to last article and store
       lastArticle = ArticlesStore().set(article.id, Immutable.fromJS(article));
     });
 

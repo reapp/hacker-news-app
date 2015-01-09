@@ -1,4 +1,4 @@
-// var Time = require('react-time');
+var Time = require('react-time');
 var React = require('react');
 var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
@@ -27,13 +27,17 @@ module.exports = Component({
           </Link>
         </li>
         <li className="time">
+          <Time value={new Date(article.get('time') * 1000)} relative />
+        </li>
+        <li className="url">
+          {article.get('host')}
         </li>
       </ul>
     );
 
     var articleRight = (
       <Link to="article" params={{id: article.get('id')}} activeClassName="">
-        <Icon name="speech" color="#999" />
+        <Icon name="speech" color="#999999" />
       </Link>
     );
 

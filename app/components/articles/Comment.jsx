@@ -1,9 +1,9 @@
 var React = require('react/addons');
-var cx = React.addons.classSet;
+var Component = require('component');
 
 require('./Comment.styl');
 
-module.exports = React.createClass({
+module.exports = Component({
   toggleOpened(e) {
     e.stopPropagation();
     this.props.cursor.update('closed', closed => !closed);
@@ -16,7 +16,7 @@ module.exports = React.createClass({
     classes[`level-${level}`] = true;
 
     return (
-      <div className={cx(classes)} onClick={this.toggleOpened}>
+      <div className={React.addons.classSet(classes)} onClick={this.toggleOpened}>
         <div className="comment--content">
           <h3>{cursor.get('by')}</h3>
           <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
