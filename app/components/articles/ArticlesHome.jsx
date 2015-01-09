@@ -86,7 +86,7 @@ module.exports = Component({
 
     if (this.props.disableViewList)
       disabledProps = {
-        disable: true,
+        disableScroll: true,
         touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
       };
 

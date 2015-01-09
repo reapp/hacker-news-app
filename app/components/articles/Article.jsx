@@ -38,10 +38,16 @@ module.exports = Component({
       after: { display: 'none' }
     };
 
+    // todo: not get title from DOM but calc from state
+    var title = `Comments (${document.getElementsByClassName('comment').length})`;
+    var backButton = (
+      <BackButton onClick={this.props.viewListScrollToStep.bind(null, 0)} />
+    );
+
     return (
       <View {...this.props}
         id="Article"
-        title={[<BackButton />, `Comments (${document.getElementsByClassName('comment').length})`]}
+        title={[backButton, title]}
         titleBarProps={{ height: 48 }}
         styles={{ inner: { padding: 0 } }}>
         {article && (

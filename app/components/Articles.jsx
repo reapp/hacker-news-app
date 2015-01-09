@@ -25,10 +25,15 @@ module.exports = Component({
     storeRefreshMixin(ArticlesStore)
   ],
 
+  handleArticlesHomeEnter() {
+    debugger;
+    // this.getRoutes()
+  },
+
   render() {
     return (
       <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
-        <View>
+        <View onViewEntered={this.handleArticlesHomeEnter}>
           <ArticlesHome
             savedArticlesStore={SavedArticlesStore()}
             hotArticlesStore={HotArticlesStore()}
