@@ -4,6 +4,7 @@ var iOS = require('reapp-ui/themes/ios');
 require('reapp-ui/themes/ios/stylesheets');
 
 UI.addConstants(
+  iOS.constants.base,
   require('./constants'),
   iOS.constants.components
 );
