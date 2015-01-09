@@ -47,11 +47,6 @@ module.exports = Component({
     // todo: alert that it saved
   },
 
-  disableTouchRightProps() {
-    return this.props.disable &&
-      { touchStartBoundsX: { from: 20, to: window.innerWidth - 20 } };
-  },
-
   render() {
     var {
       savedArticlesStore,
@@ -69,7 +64,6 @@ module.exports = Component({
       .map(id => articlesStore.get(id))
       .filter(x => typeof x !== 'undefined');
 
-    // styles: { self: { marginTop: -1 } }
     var refreshButton = (
       <Button
         onClick={this.handleRefresh}
@@ -88,8 +82,16 @@ module.exports = Component({
     var hasArticles = !!articles.count();
     var hasSavedArticles = !!savedArticles.count();
 
+    var disabledProps;
+
+    if (this.props.disableViewList)
+      disabledProps = {
+        disable: true,
+        touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
+      };
+
     return (
-      <DottedViewList {...props} {...this.disableTouchRightProps()}>
+      <DottedViewList {...props} {...disabledProps}>
         <View title={[handle, 'Hot Articles', refreshButton]}>
           <List styles={{ self: { borderTop: 'none' } }} nowrap>
             {hasArticles &&

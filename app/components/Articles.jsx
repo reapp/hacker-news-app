@@ -33,7 +33,7 @@ module.exports = Component({
             savedArticlesStore={SavedArticlesStore()}
             hotArticlesStore={HotArticlesStore()}
             articlesStore={ArticlesStore()}
-            disable={this.numActiveRoutes() > 2}
+            disableViewList={this.hasChildRoute()}
             handle={this.props.handle} />
         </View>
 
