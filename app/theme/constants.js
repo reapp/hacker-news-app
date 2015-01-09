@@ -1,15 +1,11 @@
-var orange = '#ff6600';
-
 module.exports = {
-  titleBarBG: orange,
-  titleBarColor: '#fff',
+  black: '#000',
+  lightGray: '#efeff4',
+  midGray: '#c4c4c4',
+  darkGray: '#8e8e93',
 
-  // colors
-  bgLight: '#efeff4',
-  blue: '#307cff',
-  dotColor: '0,0,0',
-  greyMid: '#8e8e93',
+  brandBG: '#ff6600',
+  brandColor: '#fff',
 
-  // dimensions
-  toolbarHeight: 44
+  activeBG: '#ff6600'
 };

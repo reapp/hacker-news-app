@@ -1,14 +1,18 @@
 var UI = require('reapp-ui');
-var iOSTheme = require('reapp-ui/themes/ios/all');
+var iOS = require('reapp-ui/themes/ios');
+
+require('reapp-ui/themes/ios/stylesheets');
 
 UI.addConstants(
-  iOSTheme.constants,
-  require('./constants')
+  require('./constants'),
+  iOS.constants.components
 );
 
 UI.addStyles(
-  iOSTheme.styles,
+  iOS.styles,
   require('./styles')
 );
 
-UI.addAnimations(iOSTheme.animations);
+UI.addAnimations(
+  iOS.animations
+);
