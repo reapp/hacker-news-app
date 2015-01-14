@@ -1,11 +1,13 @@
+var themeColor = '#fc6601';
+
 module.exports = {
-  brandBG: '#ff6600',
+  brandBG: themeColor,
   brandColor: '#fff',
 
-  activeBG: '#ff6600',
+  activeBG: themeColor,
   activeColor: '#fff',
 
   lightGray: '#f3f3ea',
-  midGray: '#d3d5cd'
-
+  midGray: '#d3d5cd',
+  darkGray: '#a6a89e'
 };
