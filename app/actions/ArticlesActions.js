@@ -54,21 +54,25 @@ Actions.articleSave.listen(
 );
 
 function insertArticle(res, rej) {
-  if (rej) error(rej);
-  if (res) {
-    var lastArticle;
+  if (rej)
+    return error(rej);
 
-    res.map(article => {
-      // set host
-      article.data.host = parseUrl({ url: article.data.url }).hostname;
+  var lastArticle;
 
-      // save ref to last article and store
-      lastArticle = Immutable.fromJS(article);
-      ArticlesStore().set(article.id, lastArticle);
-    });
+  res.map(article => {
+    // data transforms
+    setHost(article);
 
-    return lastArticle;
-  }
+    // save ref to last article and store
+    lastArticle = Immutable.fromJS(article);
+    ArticlesStore().set(article.id, lastArticle);
+  });
+
+  return lastArticle;
+}
+
+function setHost(article) {
+  article.data.host = parseUrl({ url: article.data.url }).hostname;
 }
 
 function insertNextArticles(articles) {

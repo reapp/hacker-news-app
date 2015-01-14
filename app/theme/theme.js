@@ -5,8 +5,9 @@ require('reapp-ui/themes/ios/stylesheets');
 
 UI.addConstants(
   iOS.constants.base,
-  require('./constants'),
-  iOS.constants.components
+  require('./constants/base'),
+  iOS.constants.components,
+  require('./constants/components')
 );
 
 UI.addStyles(
