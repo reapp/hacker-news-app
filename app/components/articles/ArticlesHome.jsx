@@ -10,10 +10,16 @@ var DottedViewList = require('reapp-ui/views/DottedViewList');
 var RotatingComponent = require('reapp-ui/helpers/RotatingComponent');
 var Icon = require('reapp-ui/components/Icon');
 var ArticleItem = require('./ArticleItem');
+var Bar = require('reapp-ui/components/Bar');
+var BarItem = require('reapp-ui/components/BarItem');
+var Drawer = require('reapp-ui/components/Drawer');
 
 module.exports = Component({
   getInitialState() {
-    return { isRefreshing: false };
+    return {
+      isRefreshing: false,
+      shownArticle: null
+    };
   },
 
   handleRefresh(e) {
@@ -39,8 +45,14 @@ module.exports = Component({
   },
 
   handleArticlePress(id) {
-    console.log('held article', id);
+    // todo: make ui alerts and integrate
     Actions.articleSave(id);
+  },
+
+  handleArticleClick(article) {
+    this.setState({
+      shownArticle: article
+    });
   },
 
   render() {
@@ -87,43 +99,61 @@ module.exports = Component({
       };
 
     return (
-      <DottedViewList {...props} {...disabledProps}>
-        <View title={[handle, 'Hot Articles', refreshButton]}>
-          <List styles={{ self: { borderTop: 'none' } }} nowrap>
-            {hasArticles &&
-              articles.map((article, i) =>
-                <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
-                  <ArticleItem cursor={article} />
-                </Tappable>
-              ).toArray().concat(
-                <ListItem
-                  style={{textAlign:'center'}}
-                  onClick={this.handleLoadMore}>
-                  Load More
-                </ListItem>
-              )
+      <div>
+        {this.state.shownArticle && (
+          <Drawer type="bottom">
+            <Bar position="top">
+              <BarItem icon="back" />
+              <BarItem icon="forward" />
+              <BarItem icon="refresh" />
+              <BarItem icon="share" />
+              <BarItem icon="close" />
+            </Bar>
+            <iframe>
+
+            </iframe>
+          </Drawer>
+        )}
+        <DottedViewList {...props} {...disabledProps}>
+          <View title={[handle, 'Hot Articles', refreshButton]}>
+            <List styles={{ self: { borderTop: 'none' } }} nowrap>
+              {hasArticles &&
+                articles.map((article, i) =>
+                  <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
+                    <ArticleItem
+                      onClick={this.handleArticleClick}
+                      cursor={article} />
+                  </Tappable>
+                ).toArray().concat(
+                  <ListItem
+                    style={{textAlign:'center'}}
+                    onClick={this.handleLoadMore}>
+                    Load More
+                  </ListItem>
+                )
+              }
+
+              {!hasArticles &&
+                <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+              }
+              </List>
+          </View>
+
+          <View title={[handle, 'Saved Articles']}>
+            {hasSavedArticles &&
+              savedArticles.map((article, i) =>
+                <ArticleItem
+                  cursor={article}
+                  key={i} />
+              ).toArray()
             }
 
-            {!hasArticles &&
-              <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+            {!hasSavedArticles &&
+              <p>My saved articles. Try swiping an articles to the right to add it here.</p>
             }
-            </List>
-        </View>
-
-        <View title={[handle, 'Saved Articles']}>
-          {hasSavedArticles &&
-            savedArticles.map((article, i) =>
-              <ArticleItem
-                cursor={article}
-                key={i} />
-            ).toArray()
-          }
-
-          {!hasSavedArticles &&
-            <p>My saved articles. Try swiping an articles to the right to add it here.</p>
-          }
-        </View>
-      </DottedViewList>
+          </View>
+        </DottedViewList>
+      </div>
     );
   }
 });

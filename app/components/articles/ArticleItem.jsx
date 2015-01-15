@@ -9,6 +9,13 @@ var Badge = require('reapp-ui/components/Badge');
 require('./ArticleItem.styl');
 
 module.exports = Component({
+  handleClick(e) {
+    e.preventDefault();
+
+    if (this.props.onClick)
+      this.props.onClick(this.props.cursor.get('data'));
+  },
+
   render() {
     var { key, cursor, index, noLink, styles, ...props } = this.props;
 
@@ -42,12 +49,19 @@ module.exports = Component({
       </Link>
     );
 
+    var articleLink = (
+      <a
+        onClick={this.handleClick}
+        className="article--link"
+        href={article.get('url')} />
+    );
+
     return (
       <ListItem
         key={key || index}
         className="ArticleItem"
         styles={Object.assign({ after: { margin: 0 } }, styles)}
-        wrapper={!noLink && <a className="article--link" href={article.get('url')} />}
+        wrapper={!noLink && articleLink}
         title={article.get('title')}
         after={articleRight}
         index={index}
