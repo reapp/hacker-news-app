@@ -101,17 +101,18 @@ module.exports = Component({
     return (
       <div>
         {this.state.shownArticle && (
-          <Drawer type="bottom">
-            <Bar position="top">
-              <BarItem icon="back" />
-              <BarItem icon="forward" />
-              <BarItem icon="refresh" />
-              <BarItem icon="share" />
-              <BarItem icon="close" />
-            </Bar>
-            <iframe>
-
-            </iframe>
+          <Drawer type="top">
+            <View>
+              <Bar position="top">
+                <BarItem icon="arrow-left" />
+                <BarItem icon="arrow-right" />
+                <BarItem icon="arrow-refresh" />
+                <BarItem icon="share" />
+                <BarItem icon="x" />
+              </Bar>
+              <iframe src={this.state.shownArticle.get('url')}>
+              </iframe>
+            </View>
           </Drawer>
         )}
         <DottedViewList {...props} {...disabledProps}>
@@ -121,7 +122,7 @@ module.exports = Component({
                 articles.map((article, i) =>
                   <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
                     <ArticleItem
-                      onClick={this.handleArticleClick}
+                      onClicked={this.handleArticleClick}
                       cursor={article} />
                   </Tappable>
                 ).toArray().concat(

@@ -12,8 +12,8 @@ module.exports = Component({
   handleClick(e) {
     e.preventDefault();
 
-    if (this.props.onClick)
-      this.props.onClick(this.props.cursor.get('data'));
+    if (this.props.onClicked)
+      this.props.onClicked(this.props.cursor.get('data'));
   },
 
   render() {
