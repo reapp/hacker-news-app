@@ -5,4 +5,4 @@ var Routes = require('./routes');
 require('./theme/theme');
 
 // run the app
-Router.run(Routes);
+Router(Routes);
