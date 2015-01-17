@@ -16,7 +16,7 @@ module.exports = Component({
   ],
 
   statics: {
-    fetchData: params => Actions.articleLoad(params)
+    fetchData: Actions.articleLoad
   },
 
   getComments(comments) {
