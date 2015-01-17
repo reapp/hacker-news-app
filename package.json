@@ -4,6 +4,7 @@
   "description": "A reapp example app, for reading Hacker News",
   "version": "1.0.0",
   "main": "./app/app.js",
+  "reapp": "true",
   "scripts": {
     "test": "",
     "start": "reapp run"
