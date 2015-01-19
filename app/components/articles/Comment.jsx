@@ -4,8 +4,7 @@ var Component = require('component');
 require('./Comment.styl');
 
 module.exports = Component({
-  toggleOpened(e) {
-    e.stopPropagation();
+  toggleOpened() {
     this.props.cursor.update('closed', closed => !closed);
   },
 
