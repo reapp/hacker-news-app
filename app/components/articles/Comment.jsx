@@ -11,8 +11,11 @@ module.exports = Component({
   render() {
     var { cursor, level, children } = this.props;
 
-    var classes = { comment: true, closed: cursor.get('closed') };
-    classes[`level-${level}`] = true;
+    var classes = {
+      [`level-${level}`]: true,
+      comment: true,
+      closed: cursor.get('closed')
+    };
 
     return (
       <div className={React.addons.classSet(classes)} onClick={this.toggleOpened}>
