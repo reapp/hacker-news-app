@@ -37,7 +37,7 @@ Actions.articleLoad.listen(
     var article = ArticlesStore().get(id);
 
     if (article && article.get('status') === 'LOADED')
-      return new Promise(article);
+      return Promise.resolve(article);
     else
       return Client.get(`item/${id}.json`)
         .then(getAllKids)
@@ -86,7 +86,8 @@ function insertArticles(articles) {
 
   return Promise.all(
     articles.slice(start, start + per).map(
-      article => isObject(article) ? article :
+      article => exists(article) ?
+        article :
         Client.get(`item/${article}.json`)
           .then(reducer)
           .then(insertArticle)
@@ -115,10 +116,10 @@ function returnArticlesStore() {
   return ArticlesStore();
 }
 
-function error(err) {
-  throw err;
+function exists(articleID) {
+  return !!ArticlesStore().get(articleID);
 }
 
-function isObject(x) {
-  return typeof x === 'object';
+function error(err) {
+  throw err;
 }
