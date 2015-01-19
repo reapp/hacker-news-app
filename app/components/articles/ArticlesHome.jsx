@@ -48,6 +48,10 @@ module.exports = Component({
     });
   },
 
+  listStyle: {
+    self: { borderTop: 'none' }
+  },
+
   render() {
     var {
       savedArticlesStore,
@@ -83,7 +87,7 @@ module.exports = Component({
 
         <DottedViewList {...props} {...disabledProps}>
           <View title={[, 'Hot Articles', refreshButton]}>
-            <List styles={{ self: { borderTop: 'none' } }} nowrap>
+            <List styles={this.listStyle} nowrap>
               {hasArticles && articles.map((article, i) =>
                 <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
                   <ArticleItem
@@ -107,11 +111,17 @@ module.exports = Component({
           </View>
 
           <View title="Saved Articles">
-            {hasSavedArticles && savedArticles.map((article, i) =>
-              <ArticleItem
-                cursor={article}
-                key={i} />
-            ).toArray()}
+            {hasSavedArticles &&
+              <List styles={this.listStyle} nowrap>
+                {savedArticles.map((article, i) =>
+                  <ArticleItem
+                    key={i}
+                    index={i}
+                    cursor={article}
+                    onClicked={this.handleArticleClick} />
+                ).toArray()}
+              </List>
+            }
 
             {!hasSavedArticles &&
               <p>My saved articles. Try swiping an articles to the right to add it here.</p>
