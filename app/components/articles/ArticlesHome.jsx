@@ -3,13 +3,11 @@ var Component = require('component');
 var Tappable = require('react-tappable');
 var Actions = require('actions');
 var List = require('reapp-ui/components/List');
-var Button = require('reapp-ui/components/Button');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
-var AnimationLoop = require('reapp-ui/helpers/AnimationLoop');
-var Icon = require('reapp-ui/components/Icon');
 var ArticleItem = require('./ArticleItem');
+var RefreshButton = require('./RefreshButton');
 
 module.exports = Component({
   getInitialState() {
@@ -20,14 +18,12 @@ module.exports = Component({
   },
 
   handleRefresh(e) {
-    if (this.state.isRefreshing)
-      return;
-
-    this.setState({ isRefreshing: true });
-
-    Actions.articlesHotLoad({ nocache: true }).then(() => {
-      this.setState({ isRefreshing: false });
-    });
+    if (!this.state.isRefreshing) {
+      this.setState({ isRefreshing: true });
+      Actions.articlesHotLoad({ nocache: true }).then(() => {
+        this.setState({ isRefreshing: false });
+      });
+    }
   },
 
   handleLoadMore(e) {
@@ -35,7 +31,6 @@ module.exports = Component({
     e.target.innerHTML = 'Loading...';
 
     this.setState({ isRefreshing: true });
-
     Actions.articlesHotLoadMore().then(() => {
       this.setState({ isRefreshing: false });
     });
@@ -57,8 +52,7 @@ module.exports = Component({
       savedArticlesStore,
       hotArticlesStore,
       articlesStore,
-      ...props
-    } = this.props;
+      ...props } = this.props;
 
     var articles = hotArticlesStore
       .map(id => articlesStore.get(id))
@@ -68,31 +62,17 @@ module.exports = Component({
       .map(id => articlesStore.get(id))
       .filter(x => typeof x !== 'undefined');
 
-    var refreshButton = (
-      <Button
-        onClick={this.handleRefresh}
-        chromeless
-        icon={
-          <AnimationLoop animation="rotate" active={this.state.isRefreshing}>
-            <Icon
-              name="arrow-refresh"
-              size={24}
-              stroke={1}
-              isInTitleBar />
-          </AnimationLoop>
-        } />
-    );
-
     var hasArticles = !!articles.count();
     var hasSavedArticles = !!savedArticles.count();
 
-    var disabledProps;
+    var disabledProps = this.props.disableViewList && {
+      disableScroll: true,
+      touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
+    };
 
-    if (this.props.disableViewList)
-      disabledProps = {
-        disableScroll: true,
-        touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-      };
+    var refreshButton = (
+      <RefreshButton onClick={this.handleRefresh} rotate={this.state.isRefreshing} />
+    );
 
     return (
       <div>
@@ -107,11 +87,13 @@ module.exports = Component({
                 articles.map((article, i) =>
                   <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
                     <ArticleItem
+                      index={i}
                       onClicked={this.handleArticleClick}
                       cursor={article} />
                   </Tappable>
                 ).toArray().concat(
                   <ListItem
+                    key={1000}
                     style={{textAlign:'center'}}
                     onClick={this.handleLoadMore}>
                     Load More

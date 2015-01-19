@@ -4,12 +4,9 @@ var NestedViewList = require('reapp-ui/views/NestedViewList');
 var View = require('reapp-ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
 var Actions = require('actions');
-
 var {
   storeRefreshMixin,
-  storePromise,
   RoutedViewListMixin } = require('reapp-platform');
-
 var {
   ArticlesStore,
   HotArticlesStore,
@@ -25,21 +22,15 @@ module.exports = Component({
     storeRefreshMixin(ArticlesStore, SavedArticlesStore)
   ],
 
-  handleArticlesHomeEnter() {
-    debugger;
-    // this.getRoutes()
-  },
-
   render() {
     return (
       <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
-        <View onViewEntered={this.handleArticlesHomeEnter}>
+        <View>
           <ArticlesHome
             savedArticlesStore={SavedArticlesStore()}
             hotArticlesStore={HotArticlesStore()}
             articlesStore={ArticlesStore()}
-            disableViewList={this.hasChildRoute()}
-            handle={this.props.handle} />
+            disableViewList={this.hasChildRoute()} />
         </View>
 
         {this.routedSubRoute()}
