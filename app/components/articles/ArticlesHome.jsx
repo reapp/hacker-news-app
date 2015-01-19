@@ -60,7 +60,6 @@ module.exports = Component({
       savedArticlesStore,
       hotArticlesStore,
       articlesStore,
-      handle,
       ...props
     } = this.props;
 
@@ -80,8 +79,8 @@ module.exports = Component({
           <RotatingComponent rotate={this.state.isRefreshing}>
             <Icon
               name="arrow-refresh"
-              size="24"
-              stroke="1"
+              size={24}
+              stroke={1}
               isInTitleBar />
           </RotatingComponent>
         } />
@@ -115,8 +114,9 @@ module.exports = Component({
             </View>
           </Drawer>
         )}
+
         <DottedViewList {...props} {...disabledProps}>
-          <View title={[handle, 'Hot Articles', refreshButton]}>
+          <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={{ self: { borderTop: 'none' } }} nowrap>
               {hasArticles &&
                 articles.map((article, i) =>
@@ -140,7 +140,7 @@ module.exports = Component({
               </List>
           </View>
 
-          <View title={[handle, 'Saved Articles']}>
+          <View title="Saved Articles">
             {hasSavedArticles &&
               savedArticles.map((article, i) =>
                 <ArticleItem
