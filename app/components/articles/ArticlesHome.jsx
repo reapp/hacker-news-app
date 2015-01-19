@@ -7,6 +7,7 @@ var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
+var ArticleDrawer = require('./ArticleDrawer');
 var RefreshButton = require('./RefreshButton');
 
 module.exports = Component({
@@ -83,23 +84,21 @@ module.exports = Component({
         <DottedViewList {...props} {...disabledProps}>
           <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={{ self: { borderTop: 'none' } }} nowrap>
-              {hasArticles &&
-                articles.map((article, i) =>
-                  <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
-                    <ArticleItem
-                      index={i}
-                      onClicked={this.handleArticleClick}
-                      cursor={article} />
-                  </Tappable>
-                ).toArray().concat(
-                  <ListItem
-                    key={1000}
-                    style={{textAlign:'center'}}
-                    onClick={this.handleLoadMore}>
-                    Load More
-                  </ListItem>
-                )
-              }
+              {hasArticles && articles.map((article, i) =>
+                <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
+                  <ArticleItem
+                    index={i}
+                    onClicked={this.handleArticleClick}
+                    cursor={article} />
+                </Tappable>
+              ).toArray().concat(
+                <ListItem
+                  key={1000}
+                  style={{textAlign:'center'}}
+                  onClick={this.handleLoadMore}>
+                  Load More
+                </ListItem>
+              )}
 
               {!hasArticles &&
                 <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
@@ -108,13 +107,11 @@ module.exports = Component({
           </View>
 
           <View title="Saved Articles">
-            {hasSavedArticles &&
-              savedArticles.map((article, i) =>
-                <ArticleItem
-                  cursor={article}
-                  key={i} />
-              ).toArray()
-            }
+            {hasSavedArticles && savedArticles.map((article, i) =>
+              <ArticleItem
+                cursor={article}
+                key={i} />
+            ).toArray()}
 
             {!hasSavedArticles &&
               <p>My saved articles. Try swiping an articles to the right to add it here.</p>

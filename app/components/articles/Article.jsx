@@ -12,7 +12,8 @@ require('./Article.styl');
 
 module.exports = Component({
   mixins: [
-    'RouteState'
+    'RouteState',
+    'Navigation'
   ],
 
   statics: {
@@ -29,35 +30,45 @@ module.exports = Component({
     )).toArray();
   },
 
+  goBackView() {
+    this.props.viewListScrollToStep(0);
+  },
+
+  articleItemStyles: {
+    self: { borderTop: 'none' },
+    after: { display: 'none' }
+  },
+
+  // no padding on view, so list shows edge-to-edge
+  viewStyles: {
+    inner: { padding: 0 }
+  },
+
   render() {
     var cursor = ArticlesStore().get(Number(this.getParams().id));
     var article = cursor && cursor.get('data');
     var commentsLoaded = article && article.get('kidsLoaded');
-    var articleItemStyles = {
-      self: { borderTop: 'none' },
-      after: { display: 'none' }
-    };
 
-    // todo: not get title from DOM but calc from state
+    // todo: not get title from DOM but calc from article.get('kids')
     var title = `Comments (${document.getElementsByClassName('comment').length})`;
-    var backButton = (
-      <BackButton onClick={this.props.viewListScrollToStep.bind(null, 0)} />
-    );
 
     return (
       <View {...this.props}
         id="Article"
-        title={[backButton, title]}
+        title={[<BackButton onClick={this.goBackView} />, title]}
         titleBarProps={{ height: 48 }}
-        styles={{ inner: { padding: 0 } }}>
-        {article && (
-          <ArticleItem cursor={cursor} styles={articleItemStyles} />
-        )}
-        {commentsLoaded && (
+        styles={this.viewStyles}>
+
+        {article &&
+          <ArticleItem cursor={cursor} styles={this.articleItemStyles} />
+        }
+
+        {commentsLoaded &&
           <div id="comments">
             {this.getComments(article.get('kids'))}
           </div>
-        )}
+        }
+
       </View>
     );
   }
