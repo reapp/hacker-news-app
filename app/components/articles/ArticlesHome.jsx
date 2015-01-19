@@ -7,12 +7,9 @@ var Button = require('reapp-ui/components/Button');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
-var RotatingComponent = require('reapp-ui/helpers/RotatingComponent');
+var AnimationLoop = require('reapp-ui/helpers/AnimationLoop');
 var Icon = require('reapp-ui/components/Icon');
 var ArticleItem = require('./ArticleItem');
-var Bar = require('reapp-ui/components/Bar');
-var BarItem = require('reapp-ui/components/BarItem');
-var Drawer = require('reapp-ui/components/Drawer');
 
 module.exports = Component({
   getInitialState() {
@@ -76,13 +73,13 @@ module.exports = Component({
         onClick={this.handleRefresh}
         chromeless
         icon={
-          <RotatingComponent rotate={this.state.isRefreshing}>
+          <AnimationLoop animation="rotate" active={this.state.isRefreshing}>
             <Icon
               name="arrow-refresh"
               size={24}
               stroke={1}
               isInTitleBar />
-          </RotatingComponent>
+          </AnimationLoop>
         } />
     );
 
@@ -100,19 +97,7 @@ module.exports = Component({
     return (
       <div>
         {this.state.shownArticle && (
-          <Drawer type="top">
-            <View>
-              <Bar position="top">
-                <BarItem icon="arrow-left" />
-                <BarItem icon="arrow-right" />
-                <BarItem icon="arrow-refresh" />
-                <BarItem icon="share" />
-                <BarItem icon="x" />
-              </Bar>
-              <iframe src={this.state.shownArticle.get('url')}>
-              </iframe>
-            </View>
-          </Drawer>
+          <ArticleDrawer url={this.state.shownArticle.get('url')} />
         )}
 
         <DottedViewList {...props} {...disabledProps}>
