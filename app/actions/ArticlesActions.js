@@ -100,16 +100,18 @@ function getAllKids(item) {
   item.closed = false;
 
   if (!kids)
-    return new Promise(res => res(item));
+    return Promise.resolve(item);
 
-  return Promise.all(
-    kids.map(item => Client.get(`item/${item}.json`).then(getAllKids))
-  )
-  .then(res => {
-    item.kids = res;
-    item.kidsLoaded = true;
-    return item;
-  });
+  return (
+    Promise.all(
+      kids.map(item => Client.get(`item/${item}.json`).then(getAllKids))
+    )
+    .then(res => {
+      item.kids = res;
+      item.kidsLoaded = true;
+      return item;
+    })
+  );
 }
 
 function returnArticlesStore() {
