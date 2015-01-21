@@ -1,12 +1,5 @@
 var webpack = require('reapp-pack/webpack');
-var path = require('path');
+var webpackCallback = require('reapp-pack/lib/callback');
+var webpackConfig = require('./build.config.js');
 
-var dir = path.join(__dirname, '..');
-var webpackConfig = require('./build.config.js')(dir);
-
-// webpack-dev-server
-webpack(webpackConfig, {
-  debug: true,
-  port: 3011,
-  dir: dir
-});
+webpack(webpackConfig, webpackCallback);

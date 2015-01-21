@@ -1,9 +1,8 @@
 var server = require('reapp-server');
 var webpackServer = require('reapp-pack/webpackServer');
 var path = require('path');
-
+var webpackConfig = require('./run.config.js');
 var dir = path.join(__dirname, '..');
-var webpackConfig = require('./run.config.js')(dir);
 
 // express server
 server({
