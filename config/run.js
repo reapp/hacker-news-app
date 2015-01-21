@@ -1,12 +1,15 @@
 var server = require('reapp-server');
 var webpackServer = require('reapp-pack/webpackServer');
-var webpackConfig = require('./config/run.config.js');
+var path = require('path');
+
+var dir = path.join(__dirname, '..');
+var webpackConfig = require('./run.config.js')(dir);
 
 // express server
 server({
-  dir: __dirname,
+  dir: dir,
   scripts: Object.keys(webpackConfig.entry),
-  layout: __dirname + '/assets/layout.html',
+  layout: dir + '/assets/layout.html',
   debug: true,
   port: 3010,
   wport: 3011
@@ -16,5 +19,5 @@ server({
 webpackServer(webpackConfig, {
   debug: true,
   port: 3011,
-  dir: __dirname
+  dir: dir
 });

@@ -1,13 +1,15 @@
 var Pack = require('reapp-pack');
-var path = require('path');
 
-module.exports = Pack.makeConfig({
-  dir: path.join(__dirname, '..'),
-  linkModules: true,
-  entry: './app/app.js',
-  devtool: 'eval',
-  target: 'web',
-  server: true,
-  port: 3011,
-  debug: true
-});
+module.exports = function(dir) {
+  return Pack.makeConfig({
+    dir: dir,
+    linkModules: true,
+    entry: './app/app.js',
+    devtool: 'eval',
+    target: 'web',
+    hot: true,
+    server: true,
+    port: 3011,
+    debug: true
+  });
+}

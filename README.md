@@ -4,7 +4,7 @@ This is a demo app built on reapp, for reading HackerNews. It shows of a few thi
 
 - Flux + immutable data management with the data helpers
 - Nesting multiple different types of ViewLists
-- Themeing
+- Theming
 
 ### TODO
 
