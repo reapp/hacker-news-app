@@ -18,5 +18,3 @@ UI.addStyles(
 UI.addAnimations(
   iOS.animations
 );
-
-window.UI = UI;
