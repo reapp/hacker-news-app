@@ -8,5 +8,5 @@ var webpackConfig = require('./build.config.js')(dir);
 webpack(webpackConfig, {
   debug: true,
   port: 3011,
-  dir: __dirname + '../'
+  dir: dir
 });
