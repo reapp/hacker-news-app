@@ -1,7 +1,7 @@
 {
   "author": "Nate Wienert",
   "name": "reapp-hn",
-  "description": "A reapp example app, for reading Hacker News",
+  "description": "A reapp example app, Hacker News Reader",
   "version": "1.0.0",
   "main": "./app/app.js",
   "reapp": "true",

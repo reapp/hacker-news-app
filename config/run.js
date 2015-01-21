@@ -18,5 +18,6 @@ server({
 webpackServer(webpackConfig, {
   debug: true,
   port: 3011,
-  dir: dir
+  dir: dir,
+  hot: true
 });
