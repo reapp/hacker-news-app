@@ -11,7 +11,7 @@
     "build": "node config/build.js"
   },
   "dependencies": {
-    "react": "~0.12.2",
+    "react": "^0.13.0-beta.1",
     "immutable": "^3.4.1",
     "fynx": "~1.6.0",
     "bluebird": "~2.5.3",

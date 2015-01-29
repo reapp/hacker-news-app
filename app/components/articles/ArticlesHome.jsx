@@ -87,7 +87,7 @@ module.exports = Component({
 
         <DottedViewList {...props} {...disabledProps}>
           <View title={[, 'Hot Articles', refreshButton]}>
-            <List styles={this.listStyle} nowrap>
+            <List styles={this.listStyle}>
               {hasArticles && articles.map((article, i) =>
                 <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
                   <ArticleItem
@@ -112,7 +112,7 @@ module.exports = Component({
 
           <View title="Saved Articles">
             {hasSavedArticles &&
-              <List styles={this.listStyle} nowrap>
+              <List styles={this.listStyle}>
                 {savedArticles.map((article, i) =>
                   <ArticleItem
                     key={i}
