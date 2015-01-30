@@ -1,3 +1,6 @@
+require('reapp-ui');
+require('reapp-platform');
+
 var Router = require('reapp-routes/react-router');
 var Routes = require('./routes');
 
