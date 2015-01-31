@@ -2,7 +2,7 @@ var React = require('react');
 var Component = require('component');
 var ArticleItem = require('./ArticleItem');
 var Comment = require('./Comment');
-var ImmutableTreeNode = require('reapp-ui/helpers/ImmutableTreeNode');
+var TreeNode = require('reapp-ui/helpers/TreeNode');
 var View = require('reapp-ui/views/View');
 var BackButton = require('reapp-ui/components/buttons/BackButton');
 var { ArticlesStore } = require('stores');
@@ -22,11 +22,11 @@ module.exports = Component({
 
   getComments(comments) {
     return comments && comments.map(comment => (
-      <ImmutableTreeNode
+      <TreeNode
         idKey="id"
-        cursor={comment}
         childKey="kids"
-        renderComponent={Comment} />
+        cursor={comment}
+        Component={Comment} />
     )).toArray();
   },
 
@@ -45,7 +45,8 @@ module.exports = Component({
   },
 
   render() {
-    var cursor = ArticlesStore().get(Number(this.getParams().id));
+    var id = Number(this.getParams().id);
+    var cursor = ArticlesStore().get(id);
     var article = cursor && cursor.get('data');
     var commentsLoaded = article && article.get('kidsLoaded');
 
