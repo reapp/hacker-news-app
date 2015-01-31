@@ -45,7 +45,7 @@ module.exports = Component({
 
     var articleRight = (
       <Link to="article" params={{id: article.get('id')}} activeClassName="">
-        <Icon name="speech" color="#999999" />
+        <Icon name="speech" color="rgba(0,0,0,0.5)" />
       </Link>
     );
 
