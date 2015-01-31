@@ -48,6 +48,12 @@ module.exports = Component({
     });
   },
 
+  closeArticleDrawer() {
+    this.setState({
+      shownArticle: false
+    });
+  },
+
   listStyle: {
     self: { borderTop: 'none' }
   },
@@ -82,7 +88,10 @@ module.exports = Component({
     return (
       <div>
         {this.state.shownArticle && (
-          <ArticleDrawer url={this.state.shownArticle.get('url')} />
+          <ArticleDrawer
+            url={this.state.shownArticle.get('url')}
+            onClose={this.closeArticleDrawer}
+          />
         )}
 
         <DottedViewList {...props} {...disabledProps}>
