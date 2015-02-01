@@ -88,11 +88,6 @@ module.exports = Component({
     var hasArticles = !!articles.count();
     var hasSavedArticles = !!savedArticles.count();
 
-    var disabledProps = this.props.freezeViewList && {
-      disableScroll: true,
-      touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-    };
-
     var refreshButton = (
       <RefreshButton
         onClick={this.handleRefresh}
@@ -111,7 +106,10 @@ module.exports = Component({
 
         <DottedViewList
           {...props}
-          {...disabledProps}
+          {...this.props.freezeViewList && {
+            disableAnimation: false, // this is bugged
+            touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
+          }}
           onViewEntered={this.viewEntered}
           scrollToStep={this.state.viewListStep}
           >
