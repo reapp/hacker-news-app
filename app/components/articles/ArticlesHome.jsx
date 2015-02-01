@@ -9,13 +9,25 @@ var DottedViewList = require('reapp-ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
 var ArticleDrawer = require('./ArticleDrawer');
 var RefreshButton = require('./RefreshButton');
+var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
 
 module.exports = Component({
   getInitialState() {
     return {
       isRefreshing: false,
-      shownArticle: null
+      shownArticle: null,
+      viewListStep: 0
     };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.freezeViewList) {
+      console.log('freeze');
+    }
+  },
+
+  viewEntered(i) {
+    console.log(i);
   },
 
   handleRefresh(e) {
@@ -76,13 +88,16 @@ module.exports = Component({
     var hasArticles = !!articles.count();
     var hasSavedArticles = !!savedArticles.count();
 
-    var disabledProps = this.props.disableViewList && {
+    var disabledProps = this.props.freezeViewList && {
       disableScroll: true,
       touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
     };
 
     var refreshButton = (
-      <RefreshButton onClick={this.handleRefresh} rotate={this.state.isRefreshing} />
+      <RefreshButton
+        onClick={this.handleRefresh}
+        active={this.state.isRefreshing}
+      />
     );
 
     return (
@@ -94,7 +109,12 @@ module.exports = Component({
           />
         )}
 
-        <DottedViewList {...props} {...disabledProps}>
+        <DottedViewList
+          {...props}
+          {...disabledProps}
+          onViewEntered={this.viewEntered}
+          scrollToStep={this.state.viewListStep}
+          >
           <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={this.listStyle}>
               {hasArticles && articles.map((article, i) =>
@@ -102,7 +122,8 @@ module.exports = Component({
                   <ArticleItem
                     index={i}
                     onClicked={this.handleArticleClick}
-                    cursor={article} />
+                    cursor={article}
+                  />
                 </Tappable>
               ).toArray().concat(
                 <ListItem
@@ -114,7 +135,9 @@ module.exports = Component({
               )}
 
               {!hasArticles &&
-                <ListItem style={{textAlign: 'center'}}>Loading...</ListItem>
+                <div style={{ padding: 20, marginLeft: -10 }}>
+                  <RotatingLoadingIcon />
+                </div>
               }
               </List>
           </View>
@@ -127,7 +150,8 @@ module.exports = Component({
                     key={i}
                     index={i}
                     cursor={article}
-                    onClicked={this.handleArticleClick} />
+                    onClicked={this.handleArticleClick}
+                  />
                 ).toArray()}
               </List>
             }

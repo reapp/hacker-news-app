@@ -7,6 +7,7 @@ var View = require('reapp-ui/views/View');
 var BackButton = require('reapp-ui/components/buttons/BackButton');
 var { ArticlesStore } = require('stores');
 var Actions = require('actions');
+var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
 
 require('./Article.styl');
 
@@ -64,12 +65,15 @@ module.exports = Component({
           <ArticleItem cursor={cursor} styles={this.articleItemStyles} />
         }
 
+        {!commentsLoaded &&
+          <RotatingLoadingIcon />
+        }
+
         {commentsLoaded &&
           <div id="comments">
             {this.getComments(article.get('kids'))}
           </div>
         }
-
       </View>
     );
   }

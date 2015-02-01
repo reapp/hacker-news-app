@@ -24,13 +24,16 @@ module.exports = Component({
 
   render() {
     return (
-      <NestedViewList {...this.routedViewListProps()} titleBarProps={{height:48}}>
+      <NestedViewList
+        {...this.routedViewListProps()}
+        titleBarProps={{height:48}}>
         <View>
           <ArticlesHome
             savedArticlesStore={SavedArticlesStore()}
             hotArticlesStore={HotArticlesStore()}
             articlesStore={ArticlesStore()}
-            disableViewList={this.hasChildRoute()} />
+            freezeViewList={this.hasChildRoute()}
+          />
         </View>
 
         {this.routedSubRoute()}
