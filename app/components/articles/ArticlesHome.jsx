@@ -16,8 +16,7 @@ module.exports = Component({
   getInitialState() {
     return {
       isRefreshing: false,
-      shownArticle: null,
-      disableViewList: false
+      shownArticle: null
     };
   },
 
@@ -61,10 +60,8 @@ module.exports = Component({
     self: { borderTop: 'none' }
   },
 
-  handleClickComments() {
-    this.setState({
-      disableViewList: true
-    })
+  parentViewListIsNested() {
+    return ViewListStateStore().get('nested') === 1;
   },
 
   render() {
@@ -101,14 +98,10 @@ module.exports = Component({
           />
         )}
 
-        <DottedViewList
-          {...props}
-          {...(this.props.hasParentRoute && {
-            disableScroll: ViewListStateStore().get('nested') === 1,
-            touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-          })}
-          scrollToStep={this.state.viewListStep}
-          >
+        <DottedViewList {...props} {...(this.parentViewListIsNested() && {
+          disableScroll: true,
+          touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
+        })}>
           <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={this.listStyle}>
               {hasArticles && articles.map((article, i) =>
