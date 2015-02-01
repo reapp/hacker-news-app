@@ -22,13 +22,14 @@ module.exports = Component({
   },
 
   getComments(comments) {
-    return comments && comments.map(comment => (
+    return comments && comments.map(comment =>
       <TreeNode
         idKey="id"
         childKey="kids"
         cursor={comment}
-        Component={Comment} />
-    )).toArray();
+        Component={Comment}
+      />
+    ).toArray();
   },
 
   goBackView() {
@@ -40,12 +41,23 @@ module.exports = Component({
     after: { display: 'none' }
   },
 
-  // no padding on view, so list shows edge-to-edge
-  viewStyles: {
-    inner: { padding: 0 }
+  viewStyles(propStyles) {
+    var styles = Object.assign({}, propStyles);
+    styles.inner = styles.inner || {};
+    Object.assign(styles.inner, { padding: 0 } );
+    return styles;
+  },
+
+  titleBarProps(props) {
+    return Object.assign(
+      {},
+      props,
+      { height: 48, transparent: false }
+    );
   },
 
   render() {
+    var { styles, titleBarProps, ...props } = this.props;
     var id = Number(this.getParams().id);
     var cursor = ArticlesStore().get(id);
     var article = cursor && cursor.get('data');
@@ -55,11 +67,12 @@ module.exports = Component({
     var title = `Comments (${document.getElementsByClassName('comment').length})`;
 
     return (
-      <View {...this.props}
+      <View
         id="Article"
         title={[<BackButton onClick={this.goBackView} />, title]}
-        titleBarProps={{ height: 48 }}
-        styles={this.viewStyles}>
+        titleBarProps={this.titleBarProps(titleBarProps)}
+        styles={this.viewStyles(styles)}
+        {...props}>
 
         {article &&
           <ArticleItem cursor={cursor} styles={this.articleItemStyles} />
