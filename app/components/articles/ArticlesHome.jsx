@@ -106,10 +106,10 @@ module.exports = Component({
 
         <DottedViewList
           {...props}
-          {...this.props.freezeViewList && {
-            disableAnimation: false, // this is bugged
+          {...(this.props.freezeViewList && {
+            disableScroll: true,
             touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-          }}
+          })}
           onViewEntered={this.viewEntered}
           scrollToStep={this.state.viewListStep}
           >
