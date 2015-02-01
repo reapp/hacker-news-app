@@ -10,7 +10,8 @@ var {
 var {
   ArticlesStore,
   HotArticlesStore,
-  SavedArticlesStore } = require('stores');
+  SavedArticlesStore,
+  ViewListStateStore } = require('stores');
 
 module.exports = Component({
   statics: {
@@ -22,17 +23,21 @@ module.exports = Component({
     storeRefreshMixin(ArticlesStore, SavedArticlesStore)
   ],
 
+  handleViewEntering(i) {
+    ViewListStateStore().set('nested', i);
+  },
+
   render() {
     return (
       <NestedViewList
         {...this.routedViewListProps()}
-        titleBarProps={{height:48}}>
+        titleBarProps={{height:48}}
+        onViewEntering={this.handleViewEntering}>
         <View>
           <ArticlesHome
             savedArticlesStore={SavedArticlesStore()}
             hotArticlesStore={HotArticlesStore()}
             articlesStore={ArticlesStore()}
-            freezeViewList={this.hasChildRoute()}
           />
         </View>
 

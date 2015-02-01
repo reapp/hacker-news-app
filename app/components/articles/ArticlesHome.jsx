@@ -10,24 +10,15 @@ var ArticleItem = require('./ArticleItem');
 var ArticleDrawer = require('./ArticleDrawer');
 var RefreshButton = require('./RefreshButton');
 var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
+var { ViewListStateStore } = require('stores');
 
 module.exports = Component({
   getInitialState() {
     return {
       isRefreshing: false,
       shownArticle: null,
-      viewListStep: 0
+      disableViewList: false
     };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.freezeViewList) {
-      console.log('freeze');
-    }
-  },
-
-  viewEntered(i) {
-    console.log(i);
   },
 
   handleRefresh(e) {
@@ -70,6 +61,12 @@ module.exports = Component({
     self: { borderTop: 'none' }
   },
 
+  handleClickComments() {
+    this.setState({
+      disableViewList: true
+    })
+  },
+
   render() {
     var {
       savedArticlesStore,
@@ -106,11 +103,10 @@ module.exports = Component({
 
         <DottedViewList
           {...props}
-          {...(this.props.freezeViewList && {
-            disableScroll: true,
+          {...(this.props.hasParentRoute && {
+            disableScroll: ViewListStateStore().get('nested') === 1,
             touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
           })}
-          onViewEntered={this.viewEntered}
           scrollToStep={this.state.viewListStep}
           >
           <View title={[, 'Hot Articles', refreshButton]}>
@@ -120,6 +116,7 @@ module.exports = Component({
                   <ArticleItem
                     index={i}
                     onClicked={this.handleArticleClick}
+                    onClickComments={this.handleClickComments}
                     cursor={article}
                   />
                 </Tappable>

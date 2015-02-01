@@ -17,7 +17,13 @@ module.exports = Component({
   },
 
   render() {
-    var { key, cursor, index, noLink, styles, ...props } = this.props;
+    var {
+      key,
+      cursor,
+      index,
+      noLink,
+      styles,
+      ...props } = this.props;
 
     if (!cursor)
       return null;
@@ -44,7 +50,11 @@ module.exports = Component({
     );
 
     var articleRight = (
-      <Link to="article" params={{id: article.get('id')}} activeClassName="">
+      <Link
+        to="article"
+        params={{id: article.get('id')}}
+        activeClassName=""
+      >
         <Icon name="speech" color="rgba(0,0,0,0.5)" />
       </Link>
     );

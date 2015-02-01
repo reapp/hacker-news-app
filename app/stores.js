@@ -1,9 +1,18 @@
 var { createCursorStore } = require('fynx');
-var { List } = require('immutable');
+var { Map, List } = require('immutable');
+
+function map() {
+  return createCursorStore(Map());
+}
+
+function list() {
+  return createCursorStore(List());
+}
 
 module.exports = {
-  ArticlesStore: createCursorStore(),
-  HotArticlesStore: createCursorStore(List()),
-  UsersStore: createCursorStore(List()),
-  SavedArticlesStore: createCursorStore(List())
+  ArticlesStore:  map(),
+  HotArticlesStore: list(),
+  UsersStore: list(),
+  SavedArticlesStore: list(),
+  ViewListStateStore: map()
 };
