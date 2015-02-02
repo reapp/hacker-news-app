@@ -3,17 +3,24 @@ var React = require('react');
 var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
 var ListItem = require('reapp-ui/components/ListItem');
-var { Link } = require('react-router');
 var Badge = require('reapp-ui/components/Badge');
+var Tappable = require('react-tappable');
+var { Link } = require('react-router');
 
 require('./ArticleItem.styl');
 
 module.exports = Component({
-  handleClick(e) {
-    e.preventDefault();
+  mixins: [
+    'Navigation'
+  ],
 
+  openArticle() {
     if (this.props.onClicked)
       this.props.onClicked(this.props.cursor.get('data'));
+  },
+
+  openComments() {
+    this.transitionTo('article', { id: this.props.cursor.get('id') })
   },
 
   render() {
@@ -50,20 +57,9 @@ module.exports = Component({
     );
 
     var articleRight = (
-      <Link
-        to="article"
-        params={{id: article.get('id')}}
-        activeClassName=""
-      >
+      <Tappable onTap={this.openComments}>
         <Icon name="speech" color="rgba(0,0,0,0.5)" />
-      </Link>
-    );
-
-    var articleLink = (
-      <a
-        onClick={this.handleClick}
-        className="article--link"
-        href={article.get('url')} />
+      </Tappable>
     );
 
     return (
@@ -71,12 +67,11 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={Object.assign({ after: { margin: 0 } }, styles)}
-        wrapper={!noLink && articleLink}
+        wrapper={<Tappable style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 20 }} onTap={this.openArticle} />}
         title={article.get('title')}
         after={articleRight}
         index={index}
-        noicon
-        {...props}>
+        noicon>
         {stats}
       </ListItem>
     );
