@@ -1,6 +1,8 @@
 require('reapp-ui');
 require('reapp-platform');
-require('./lib/phantom');
+
+// for demo
+require('reapp-ui/lib/desktopTouch');
 
 var Router = require('reapp-routes/react-router');
 var Routes = require('./routes');
