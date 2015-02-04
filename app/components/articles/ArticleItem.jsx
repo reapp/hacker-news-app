@@ -4,7 +4,7 @@ var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
 var ListItem = require('reapp-ui/components/ListItem');
 var Badge = require('reapp-ui/components/Badge');
-var Tappable = require('react-tappable');
+var Tappable = require('reapp-ui/helpers/Tappable');
 var { Link } = require('react-router');
 
 require('./ArticleItem.styl');
@@ -64,7 +64,7 @@ module.exports = Component({
 
     var articleRight = (
       <Tappable onTap={this.openComments} style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}>
-        <Icon name="speech" color="rgba(0,0,0,0.5)" stroke={0} crisp />
+        <Icon name="speech" color="rgba(0,0,0,0.4)" stroke={0} crisp />
       </Tappable>
     );
 
