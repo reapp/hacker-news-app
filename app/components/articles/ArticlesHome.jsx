@@ -85,7 +85,7 @@ module.exports = Component({
     var refreshButton = (
       <RefreshButton
         onClick={this.handleRefresh}
-        active={this.state.isRefreshing}
+        rotate={this.state.isRefreshing}
       />
     );
 

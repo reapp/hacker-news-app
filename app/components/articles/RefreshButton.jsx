@@ -9,7 +9,7 @@ module.exports = React.createClass({
         {...this.props}
         chromeless
         icon={
-          <LoadingIcon rotate={this.props.rotate} />
+          <LoadingIcon active={this.props.rotate} />
         } />
     );
   }

@@ -19,7 +19,8 @@ module.exports = Component({
       this.props.onClicked(this.props.cursor.get('data'));
   },
 
-  openComments() {
+  openComments(e) {
+    e.stopPropagation();
     this.transitionTo('article', { id: this.props.cursor.get('id') })
   },
 
@@ -57,8 +58,8 @@ module.exports = Component({
     );
 
     var articleRight = (
-      <Tappable onTap={this.openComments}>
-        <Icon name="speech" color="rgba(0,0,0,0.5)" />
+      <Tappable onTap={this.openComments} style={{width:'100%'}}>
+        <Icon name="speech" color="rgba(0,0,0,0.8)" stroke={0} crisp />
       </Tappable>
     );
 
@@ -66,8 +67,8 @@ module.exports = Component({
       <ListItem
         key={key || index}
         className="ArticleItem"
-        styles={Object.assign({ after: { margin: 0 } }, styles)}
-        wrapper={<Tappable style={{ position: 'absolute', top: 0, left: 0, bottom: 0, right: 20 }} onTap={this.openArticle} />}
+        styles={Object.assign({ after: { margin: 0, background: 'rgba(0,0,0,0.03)' } }, styles)}
+        onTap={this.openArticle}
         title={article.get('title')}
         after={articleRight}
         index={index}
