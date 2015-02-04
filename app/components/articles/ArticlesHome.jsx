@@ -1,11 +1,11 @@
 var React = require('react');
 var Component = require('component');
-var Tappable = require('react-tappable');
 var Actions = require('actions');
 var List = require('reapp-ui/components/List');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
+var Modal = require('reapp-ui/components/Modal');
 var ArticleItem = require('./ArticleItem');
 var ArticleDrawer = require('./ArticleDrawer');
 var RefreshButton = require('./RefreshButton');
@@ -16,7 +16,8 @@ module.exports = Component({
   getInitialState() {
     return {
       isRefreshing: false,
-      shownArticle: null
+      shownArticle: null,
+      showSavedModal: false
     };
   },
 
@@ -42,6 +43,11 @@ module.exports = Component({
   handleArticlePress(id) {
     // todo: make ui alerts and integrate
     Actions.articleSave(id);
+    this.setState({ showSavedModal: true });
+  },
+
+  closeModal() {
+    this.setState({ showSavedModal: false });
   },
 
   handleArticleClick(article) {
@@ -91,12 +97,16 @@ module.exports = Component({
 
     return (
       <div>
-        {this.state.shownArticle && (
+        {this.state.showSavedModal &&
+          <Modal title="Saved Article" onClose={this.closeModal} />
+        }
+
+        {this.state.shownArticle &&
           <ArticleDrawer
             url={this.state.shownArticle.get('url')}
             onClose={this.closeArticleDrawer}
           />
-        )}
+        }
 
         <DottedViewList {...props} {...(this.parentViewListIsNested() && {
           disableScroll: true,
@@ -105,14 +115,14 @@ module.exports = Component({
           <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={this.listStyle}>
               {hasArticles && articles.map((article, i) =>
-                <Tappable key={i} onPress={this.handleArticlePress.bind(null, article.get('id'))}>
-                  <ArticleItem
-                    index={i}
-                    onClicked={this.handleArticleClick}
-                    onClickComments={this.handleClickComments}
-                    cursor={article}
-                  />
-                </Tappable>
+                <ArticleItem
+                  key={i}
+                  index={i}
+                  onPress={this.handleArticlePress}
+                  onClicked={this.handleArticleClick}
+                  onClickComments={this.handleClickComments}
+                  cursor={article}
+                />
               ).toArray().concat(
                 <ListItem
                   key={1000}

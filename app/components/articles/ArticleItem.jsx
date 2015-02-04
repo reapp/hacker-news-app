@@ -24,6 +24,11 @@ module.exports = Component({
     this.transitionTo('article', { id: this.props.cursor.get('id') })
   },
 
+  saveArticle() {
+    if (this.props.onPress)
+      this.props.onPress(this.props.cursor.get('id'));
+  },
+
   render() {
     var {
       key,
@@ -59,7 +64,7 @@ module.exports = Component({
 
     var articleRight = (
       <Tappable onTap={this.openComments} style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}>
-        <Icon name="speech" color="rgba(0,0,0,0.8)" stroke={0} crisp />
+        <Icon name="speech" color="rgba(0,0,0,0.5)" stroke={0} crisp />
       </Tappable>
     );
 
@@ -68,7 +73,7 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={Object.assign({ after: { margin: 0, background: 'rgba(0,0,0,0.03)' } }, styles)}
-        onTap={this.openArticle}
+        wrapper={<Tappable onTap={this.openArticle} onPress={this.saveArticle} />}
         title={article.get('title')}
         after={articleRight}
         index={index}
