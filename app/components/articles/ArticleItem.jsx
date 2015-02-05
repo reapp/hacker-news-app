@@ -29,6 +29,12 @@ module.exports = Component({
       this.props.onPress(this.props.cursor.get('id'));
   },
 
+  styles: {
+    after: {
+      margin: 0
+    }
+  },
+
   render() {
     var {
       key,
@@ -68,16 +74,19 @@ module.exports = Component({
       </Tappable>
     );
 
+    var mergedStyles = Object.assign({}, this.styles, styles);
+
     return (
       <ListItem
         key={key || index}
         className="ArticleItem"
-        styles={Object.assign({ after: { margin: 0, background: 'rgba(0,0,0,0.03)' } }, styles)}
+        styles={mergedStyles}
         wrapper={<Tappable onTap={this.openArticle} onPress={this.saveArticle} />}
         title={article.get('title')}
         after={articleRight}
         index={index}
-        noicon>
+        noicon
+        {...props}>
         {stats}
       </ListItem>
     );

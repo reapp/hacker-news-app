@@ -1,5 +1,7 @@
 var React = require('react/addons');
 var Component = require('component');
+var Tappable = require('reapp-ui/helpers/Tappable');
+var cx = React.addons.classSet;
 
 require('./Comment.styl');
 
@@ -18,10 +20,12 @@ module.exports = Component({
     };
 
     return (
-      <div className={React.addons.classSet(classes)} onClick={this.toggleOpened}>
+      <div className={cx(classes)}>
         <div className="comment--content">
-          <h3>{cursor.get('by')}</h3>
-          <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
+          <Tappable onTap={this.toggleOpened} stopPropagation>
+            <h3>{cursor.get('by')}</h3>
+            <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
+          </Tappable>
         </div>
         {children}
       </div>

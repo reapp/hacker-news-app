@@ -13,7 +13,8 @@ module.exports = React.createClass({
         }}
         iconProps={{
           color: 'rgba(0,0,0,0.2)'
-        }} {...this.props}
+        }}
+        {...this.props}
       />
     );
   }

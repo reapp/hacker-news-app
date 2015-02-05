@@ -9,8 +9,6 @@ var { ArticlesStore } = require('stores');
 var Actions = require('actions');
 var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
 
-require('./Article.styl');
-
 module.exports = Component({
   mixins: [
     'RouteState',
@@ -36,9 +34,34 @@ module.exports = Component({
     this.props.viewListScrollToStep(0);
   },
 
-  articleItemStyles: {
-    self: { borderTop: 'none' },
-    after: { display: 'none' }
+  styles: {
+    article: {
+      self: {
+        borderTop: 'none',
+        padding: '10px',
+        background: 'rgba(0,0,0,0.1)'
+      },
+      after: {
+        display: 'none'
+      }
+    },
+
+    comments: {
+      textWrap: 'nowrap',
+      overflow: 'hidden'
+    },
+
+    fillWindow: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    },
+
+    verticalCenter: {
+      margin: 'auto'
+    }
   },
 
   viewStyles(propStyles) {
@@ -57,7 +80,11 @@ module.exports = Component({
   },
 
   render() {
-    var { styles, titleBarProps, ...props } = this.props;
+    var {
+      styles,
+      titleBarProps,
+      ...props } = this.props;
+
     var id = Number(this.getParams().id);
     var cursor = ArticlesStore().get(id);
     var article = cursor && cursor.get('data');
@@ -72,18 +99,20 @@ module.exports = Component({
         title={[<BackButton onClick={this.goBackView} />, title]}
         titleBarProps={this.titleBarProps(titleBarProps)}
         styles={this.viewStyles(styles)}
-        {...props}>
-
+        {...props}
+      >
         {article &&
-          <ArticleItem cursor={cursor} styles={this.articleItemStyles} />
+          <ArticleItem cursor={cursor} styles={this.styles.article} />
         }
 
         {!commentsLoaded &&
-          <RotatingLoadingIcon />
+          <div style={this.styles.fillWindow}>
+            <RotatingLoadingIcon styles={{self: this.styles.verticalCenter}} />
+          </div>
         }
 
         {commentsLoaded &&
-          <div id="comments">
+          <div style={this.styles.comments}>
             {this.getComments(article.get('kids'))}
           </div>
         }

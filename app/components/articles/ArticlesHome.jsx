@@ -63,7 +63,9 @@ module.exports = Component({
   },
 
   listStyle: {
-    self: { borderTop: 'none' }
+    self: {
+      borderTop: 'none'
+    }
   },
 
   parentViewListIsNested() {
@@ -88,12 +90,11 @@ module.exports = Component({
     var hasArticles = !!articles.count();
     var hasSavedArticles = !!savedArticles.count();
 
-    var refreshButton = (
+    var refreshButton =
       <RefreshButton
         onClick={this.handleRefresh}
         rotate={this.state.isRefreshing}
       />
-    );
 
     return (
       <div>
