@@ -19,12 +19,16 @@ module.exports = Component({
       closed: cursor.get('closed')
     };
 
+    if (!cursor.get('text'))
+      return null;
+
     return (
       <div className={cx(classes)}>
         <div className="comment--content">
           <Tappable onTap={this.toggleOpened} stopPropagation>
             <h3>{cursor.get('by')}</h3>
-            <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}></p>
+            <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}>
+            </p>
           </Tappable>
         </div>
         {children}

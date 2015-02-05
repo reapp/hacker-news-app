@@ -1,4 +1,4 @@
-var Omniscient = require('omniscient');
+var React = require('react/addons');
 var ReactRouter = require('react-router');
 var Animated = require('reapp-ui/mixins/Animated');
 
@@ -10,7 +10,7 @@ module.exports = {
         if (this.isAnimating())
           return true;
         else
-          return Omniscient.shouldComponentUpdate(nextProps, nextState);
+          return React.addons.PureRenderMixin;
       }
     }
   ],

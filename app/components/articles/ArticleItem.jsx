@@ -1,4 +1,4 @@
-var Time = require('react-time');
+// var Time = require('react-time');
 var React = require('react');
 var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
@@ -60,7 +60,7 @@ module.exports = Component({
           </Link>
         </li>
         <li className="time">
-          <Time value={new Date(article.get('time') * 1000)} relative />
+          {new Date(article.get('time') * 1000)}
         </li>
         <li className="url">
           {article.get('host')}

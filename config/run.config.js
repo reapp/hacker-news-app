@@ -6,7 +6,7 @@ module.exports = pack({
   dir: dir,
   linkModules: true,
   entry: './app/app.js',
-  devtool: 'eval',
+  devtool: 'source-map',
   target: 'web',
   hot: true,
   server: true,
