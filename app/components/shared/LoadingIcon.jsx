@@ -10,7 +10,6 @@ module.exports = React.createClass({
           name="arrow-refresh"
           size={24}
           stroke={1}
-          isInTitleBar
           styles={{
             self: {
               marginTop: -1
