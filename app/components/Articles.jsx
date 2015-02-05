@@ -4,9 +4,8 @@ var NestedViewList = require('reapp-ui/views/NestedViewList');
 var View = require('reapp-ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
 var Actions = require('actions');
-var {
-  storeRefreshMixin,
-  RoutedViewListMixin } = require('reapp-platform');
+var { storeRefreshMixin } = require('reapp-platform');
+var { RoutedViewListMixin } = require('reapp-routes/react-router');
 var {
   ArticlesStore,
   HotArticlesStore,
