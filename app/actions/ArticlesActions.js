@@ -4,7 +4,6 @@ var Actions = require('actions');
 var Client = require('lib/client');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
-
 var {
     ArticlesStore,
     HotArticlesStore,

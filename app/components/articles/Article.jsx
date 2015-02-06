@@ -113,7 +113,7 @@ module.exports = Component({
           </div>
         }
 
-        {commentsLoaded &&
+        {article &&
           <div style={this.styles.comments}>
             {this.getComments(article.get('kids'))}
           </div>
