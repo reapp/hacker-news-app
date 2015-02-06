@@ -40,7 +40,7 @@ module.exports = Component({
           />
         </View>
 
-        {this.routedSubRoute()}
+        {this.childRouteHandler()}
       </NestedViewList>
     );
   }
