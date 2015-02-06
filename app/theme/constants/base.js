@@ -8,6 +8,6 @@ module.exports = {
   activeColor: '#fff',
 
   lightGray: '#f3f3ea',
-  midGray: 'rgba(0,0,0,0.1)',
+  midGray: '#c3c3b7',
   darkGray: '#a6a89e'
 };

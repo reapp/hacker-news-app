@@ -1,5 +1,6 @@
 var React = require('react');
 var LoadingIcon = require('./LoadingIcon');
+var Theme = require('theme/theme');
 
 module.exports = React.createClass({
   render() {
@@ -12,7 +13,7 @@ module.exports = React.createClass({
           }
         }}
         iconProps={{
-          color: 'rgba(0,0,0,0.2)'
+          color: Theme.getConstants('midGray')
         }}
         {...this.props}
       />

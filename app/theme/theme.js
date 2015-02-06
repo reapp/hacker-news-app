@@ -18,3 +18,5 @@ UI.addStyles(
 UI.addAnimations(
   iOS.animations
 );
+
+module.exports = UI;
