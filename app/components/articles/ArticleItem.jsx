@@ -71,7 +71,12 @@ module.exports = Component({
 
     var articleRight = (
       <Tappable onTap={this.openComments} style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}>
-        <Icon name="speech" color={Theme.getConstants('midGray')} stroke={0} crisp />
+        <Icon
+          name="speech"
+          color={Theme.getConstants('darkGray')}
+          stroke={0}
+          crisp
+        />
       </Tappable>
     );
 
