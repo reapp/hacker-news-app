@@ -7,7 +7,7 @@ module.exports = {
   activeBG: themeColor,
   activeColor: '#fff',
 
-  lightGray: '#f3f3ea',
-  midGray: '#c3c3b7',
-  darkGray: '#a6a89e'
+  lightGray: '#e4e4d9',
+  midGray: '#c1c1b2',
+  darkGray: '#a5a89b'
 };

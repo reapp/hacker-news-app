@@ -30,8 +30,9 @@ module.exports = Component({
     return (
       <NestedViewList
         {...this.routedViewListProps()}
-        titleBarProps={{height:48}}
-        onViewEntering={this.handleViewEntering}>
+        onViewEntering={this.handleViewEntering}
+        renderAfterAnimation
+      >
         <View>
           <ArticlesHome
             savedArticlesStore={SavedArticlesStore()}
@@ -45,3 +46,5 @@ module.exports = Component({
     );
   }
 });
+
+// titleBarProps={{height:48}}

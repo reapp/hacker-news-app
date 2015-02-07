@@ -24,15 +24,15 @@ module.exports = Component({
 
     return (
       <div className={cx(classes)}>
-        <Tappable
-          className="comment--content"
-          onTap={this.toggleOpened}
-          stopPropagation
-        >
-          <h3>{cursor.get('by')}</h3>
-          <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}>
-          </p>
-        </Tappable>
+        <div className="comment--content">
+          <Tappable
+            onTap={this.toggleOpened}
+            stopPropagation>
+            <h3>{cursor.get('by')}</h3>
+            <p dangerouslySetInnerHTML={{__html: cursor.get('text')}}>
+            </p>
+          </Tappable>
+        </div>
         {children}
       </div>
     );

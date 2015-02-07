@@ -109,10 +109,7 @@ module.exports = Component({
           />
         }
 
-        <DottedViewList {...props} {...(this.parentViewListIsNested() && {
-          disableScroll: true,
-          touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-        })}>
+
           <View title={[, 'Hot Articles', refreshButton]}>
             <List styles={this.listStyle}>
               {hasArticles && articles.map((article, i) =>
@@ -141,26 +138,31 @@ module.exports = Component({
               </List>
           </View>
 
-          <View title="Saved Articles">
-            {hasSavedArticles &&
-              <List styles={this.listStyle}>
-                {savedArticles.map((article, i) =>
-                  <ArticleItem
-                    key={i}
-                    index={i}
-                    cursor={article}
-                    onClicked={this.handleArticleClick}
-                  />
-                ).toArray()}
-              </List>
-            }
-
-            {!hasSavedArticles &&
-              <p>My saved articles. Try swiping an articles to the right to add it here.</p>
-            }
-          </View>
-        </DottedViewList>
       </div>
     );
   }
 });
+
+// <DottedViewList {...props} {...(this.parentViewListIsNested() && {
+//   disableScroll: true,
+//   touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
+// })}>
+// <View title="Saved Articles">
+//   {hasSavedArticles &&
+//     <List styles={this.listStyle}>
+//       {savedArticles.map((article, i) =>
+//         <ArticleItem
+//           key={i}
+//           index={i}
+//           cursor={article}
+//           onClicked={this.handleArticleClick}
+//         />
+//       ).toArray()}
+//     </List>
+//   }
+
+//   {!hasSavedArticles &&
+//     <p>My saved articles. Try swiping an articles to the right to add it here.</p>
+//   }
+// </View>
+// </DottedViewList>

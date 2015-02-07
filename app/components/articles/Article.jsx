@@ -15,8 +15,10 @@ module.exports = Component({
     'Navigation'
   ],
 
-  statics: {
-    fetchData: Actions.articleLoad
+  componentDidMount() {
+    setTimeout(() => {
+      Actions.articleLoad(this.getParams());
+    }, 500);
   },
 
   getComments(comments) {
@@ -38,8 +40,7 @@ module.exports = Component({
     article: {
       self: {
         borderTop: 'none',
-        padding: '10px',
-        background: 'rgba(0,0,0,0.1)'
+        padding: '10px'
       },
       after: {
         display: 'none'
@@ -72,10 +73,8 @@ module.exports = Component({
   },
 
   titleBarProps(props) {
-    return Object.assign(
-      {},
-      props,
-      { height: 48, transparent: false }
+    return Object.assign({},
+      props, { transparent: false }
     );
   },
 
@@ -105,7 +104,7 @@ module.exports = Component({
           <ArticleItem cursor={cursor} styles={this.styles.article} />
         }
 
-        {!commentsLoaded &&
+        {!commentsLoaded && this.getAnimationState('viewList').step === 1 &&
           <div style={this.styles.fillWindow}>
             <div style={this.styles.verticalCenter}>
               <RotatingLoadingIcon active={!this.isAnimating('viewList')} />
