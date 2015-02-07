@@ -97,11 +97,7 @@ module.exports = Component({
       />
 
     return (
-      <div>
-        {this.state.showSavedModal &&
-          <Modal title="Saved Article" onClose={this.closeModal} />
-        }
-
+      <View title={[, 'Hot Articles', refreshButton]} {...props}>
         {this.state.shownArticle &&
           <ArticleDrawer
             url={this.state.shownArticle.get('url')}
@@ -109,36 +105,32 @@ module.exports = Component({
           />
         }
 
+        <List styles={this.listStyle}>
+          {hasArticles && articles.map((article, i) =>
+            <ArticleItem
+              key={i}
+              index={i}
+              onPress={this.handleArticlePress}
+              onClicked={this.handleArticleClick}
+              onClickComments={this.handleClickComments}
+              cursor={article}
+            />
+          ).toArray().concat(
+            <ListItem
+              key={1000}
+              style={{textAlign:'center'}}
+              onClick={this.handleLoadMore}>
+              Load More
+            </ListItem>
+          )}
 
-          <View title={[, 'Hot Articles', refreshButton]}>
-            <List styles={this.listStyle}>
-              {hasArticles && articles.map((article, i) =>
-                <ArticleItem
-                  key={i}
-                  index={i}
-                  onPress={this.handleArticlePress}
-                  onClicked={this.handleArticleClick}
-                  onClickComments={this.handleClickComments}
-                  cursor={article}
-                />
-              ).toArray().concat(
-                <ListItem
-                  key={1000}
-                  style={{textAlign:'center'}}
-                  onClick={this.handleLoadMore}>
-                  Load More
-                </ListItem>
-              )}
-
-              {!hasArticles &&
-                <div style={{ padding: 20, marginLeft: -10 }}>
-                  <RotatingLoadingIcon />
-                </div>
-              }
-              </List>
-          </View>
-
-      </div>
+          {!hasArticles &&
+            <div style={{ padding: 20, marginLeft: -10 }}>
+              <RotatingLoadingIcon />
+            </div>
+          }
+        </List>
+      </View>
     );
   }
 });

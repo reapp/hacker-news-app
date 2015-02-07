@@ -9,8 +9,7 @@ var { RoutedViewListMixin } = require('reapp-routes/react-router');
 var {
   ArticlesStore,
   HotArticlesStore,
-  SavedArticlesStore,
-  ViewListStateStore } = require('stores');
+  SavedArticlesStore } = require('stores');
 
 module.exports = Component({
   statics: {
@@ -22,24 +21,14 @@ module.exports = Component({
     storeRefreshMixin(ArticlesStore, SavedArticlesStore)
   ],
 
-  handleViewEntering(i) {
-    ViewListStateStore().set('nested', i);
-  },
-
   render() {
     return (
-      <NestedViewList
-        {...this.routedViewListProps()}
-        onViewEntering={this.handleViewEntering}
-        renderAfterAnimation
-      >
-        <View>
-          <ArticlesHome
-            savedArticlesStore={SavedArticlesStore()}
-            hotArticlesStore={HotArticlesStore()}
-            articlesStore={ArticlesStore()}
-          />
-        </View>
+      <NestedViewList {...this.routedViewListProps()}>
+        <ArticlesHome
+          savedArticlesStore={SavedArticlesStore()}
+          hotArticlesStore={HotArticlesStore()}
+          articlesStore={ArticlesStore()}
+        />
 
         {this.childRouteHandler()}
       </NestedViewList>

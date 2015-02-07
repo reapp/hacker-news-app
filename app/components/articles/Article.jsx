@@ -65,23 +65,9 @@ module.exports = Component({
     }
   },
 
-  viewStyles(propStyles) {
-    var styles = Object.assign({}, propStyles);
-    styles.inner = styles.inner || {};
-    Object.assign(styles.inner, { padding: 0 } );
-    return styles;
-  },
-
-  titleBarProps(props) {
-    return Object.assign({},
-      props, { transparent: false }
-    );
-  },
-
   render() {
     var {
       styles,
-      titleBarProps,
       ...props } = this.props;
 
     var id = Number(this.getParams().id);
@@ -96,8 +82,6 @@ module.exports = Component({
       <View
         id="Article"
         title={[<BackButton onClick={this.goBackView} />, title]}
-        titleBarProps={this.titleBarProps(titleBarProps)}
-        styles={this.viewStyles(styles)}
         {...props}
       >
         {article &&
