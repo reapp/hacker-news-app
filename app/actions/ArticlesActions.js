@@ -1,21 +1,23 @@
 var Immutable = require('immutable');
 var reducer = require('reapp-reducer');
 var Actions = require('actions');
-var Client = require('lib/client');
+var Request = require('lib/request');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
+
 var {
     ArticlesStore,
     HotArticlesStore,
     SavedArticlesStore } = require('../stores');
 
+var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
 var loadedReducer = reducer.bind(null, 'LOADED');
 var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
   opts =>
-    Client.get('topstories.json', opts)
+    req.get('topstories.json', opts)
       .then(res => {
         HotArticlesStore(res);
         insertArticles(res);
@@ -25,7 +27,7 @@ Actions.articlesHotLoad.listen(
 
 Actions.articlesHotLoadMore.listen(
   () =>
-    Client.get('topstories.json')
+    req.get('topstories.json')
       .then(insertNextArticles)
       .then(returnArticlesStore)
 );
@@ -38,7 +40,7 @@ Actions.articleLoad.listen(
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
     else
-      return Client.get(`item/${id}.json`)
+      return req.get(`item/${id}.json`)
         .then(getAllKids)
         .then(loadedReducer)
         .then(insertArticle);
@@ -87,7 +89,7 @@ function insertArticles(articles) {
     articles.slice(start, start + per).map(
       article => exists(article) ?
         article :
-        Client.get(`item/${article}.json`)
+        req.get(`item/${article}.json`)
           .then(reducer)
           .then(insertArticle)
     )
@@ -103,7 +105,7 @@ function getAllKids(item) {
 
   return (
     Promise.all(
-      kids.map(item => Client.get(`item/${item}.json`).then(getAllKids))
+      kids.map(item => req.get(`item/${item}.json`).then(getAllKids))
     )
     .then(res => {
       item.kids = res;
