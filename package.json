@@ -27,7 +27,6 @@
     "reapp-routes": "^0.9.0",
     "reapp-server": "^1.0.0",
     "reapp-ui": "^0.8.0",
-    "request-promise": "~0.3.3",
     "superagent": "~0.21.0",
     "superagent-bluebird-promise": "~0.6.0"
   }
