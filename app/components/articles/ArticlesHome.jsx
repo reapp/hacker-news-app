@@ -92,7 +92,7 @@ module.exports = Component({
 
     var refreshButton =
       <RefreshButton
-        onClick={this.handleRefresh}
+        onTap={this.handleRefresh}
         rotate={this.state.isRefreshing}
       />
 
@@ -111,7 +111,6 @@ module.exports = Component({
               key={i}
               index={i}
               onPress={this.handleArticlePress}
-              onClicked={this.handleArticleClick}
               onClickComments={this.handleClickComments}
               cursor={article}
             />

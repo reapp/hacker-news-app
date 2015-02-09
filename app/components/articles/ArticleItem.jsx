@@ -16,8 +16,7 @@ module.exports = Component({
   ],
 
   openArticle() {
-    if (this.props.onClicked)
-      this.props.onClicked(this.props.cursor.get('data'));
+    window.open(this.props.cursor.getIn(['data', 'url']));
   },
 
   openComments(e) {
