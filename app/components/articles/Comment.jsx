@@ -13,14 +13,14 @@ module.exports = Component({
   render() {
     var { cursor, level, children } = this.props;
 
+    if (!cursor.get('text'))
+      return null;
+
     var classes = {
       [`level-${level}`]: true,
       comment: true,
       closed: cursor.get('closed')
     };
-
-    if (!cursor.get('text'))
-      return null;
 
     return (
       <div className={cx(classes)}>

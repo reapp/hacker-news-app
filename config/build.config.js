@@ -8,5 +8,6 @@ module.exports = pack({
   entry: './app/app.js',
   devtool: 'source-map',
   target: 'web',
-  debug: true
+  debug: true,
+  env: 'production'
 });
