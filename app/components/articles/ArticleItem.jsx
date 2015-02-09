@@ -87,7 +87,8 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={mergedStyles}
-        wrapper={<Tappable onTap={this.openArticle} onPress={this.saveArticle} />}
+        onTap={this.openArticle}
+        onPress={this.saveArticle}
         title={article.get('title')}
         after={articleRight}
         index={index}

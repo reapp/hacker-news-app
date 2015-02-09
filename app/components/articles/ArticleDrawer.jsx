@@ -7,10 +7,20 @@ var View = require('reapp-ui/views/View');
 
 module.exports = Component({
   styles: {
-    viewInner: {
+    inner: {
       position: 'absolute',
       display: 'block',
       top: 50,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflow: 'none'
+    },
+
+    frame: {
+      position: 'absolute',
+      display: 'block',
+      top: 0,
       left: 0,
       right: 0,
       bottom: 0,
@@ -43,16 +53,18 @@ module.exports = Component({
     var { url } = this.props;
 
     return (
-      <Drawer from="top">
+      <Drawer from="bottom" dragger={false}>
         <View>
           <Bar position="top" display="icon">
-            <BarItem icon="arrow-left" onClick={this.iframeBack} />
-            <BarItem icon="arrow-right" onClick={this.iframeFwd} />
-            <BarItem icon="arrow-refresh" onClick={this.iframeRefresh} />
-            <BarItem icon="x" onClick={this.props.onClose} />
+            <BarItem icon="arrow-left" onTap={this.iframeBack} />
+            <BarItem icon="arrow-right" onTap={this.iframeFwd} />
+            <BarItem icon="arrow-refresh" onTap={this.iframeRefresh} />
+            <BarItem icon="x" onTap={this.props.onClose} />
           </Bar>
 
-          <iframe ref="frame" style={this.styles.viewInner} src={url}></iframe>
+          <div styles={this.styles.inner}>
+            <iframe ref="frame" style={this.styles.frame} src={url}></iframe>
+          </div>
         </View>
       </Drawer>
     );
