@@ -78,7 +78,6 @@ module.exports = Component({
           name="speech"
           color={Theme.getConstants('darkGray')}
           stroke={0}
-          crisp
         />
       </Tappable>
     );
