@@ -111,14 +111,15 @@ module.exports = Component({
               key={i}
               index={i}
               onPress={this.handleArticlePress}
+              onSelected={this.handleArticleClick}
               onClickComments={this.handleClickComments}
               cursor={article}
             />
           ).toArray().concat(
             <ListItem
               key={1000}
-              style={{textAlign:'center'}}
-              onClick={this.handleLoadMore}>
+              style={{textAlign: 'center'}}
+              onTap={this.handleLoadMore}>
               Load More
             </ListItem>
           )}

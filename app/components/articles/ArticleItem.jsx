@@ -16,7 +16,8 @@ module.exports = Component({
   ],
 
   openArticle() {
-    window.open(this.props.cursor.getIn(['data', 'url']));
+    if (this.props.onSelected)
+      this.props.onSelected(this.props.cursor.get('data'));
   },
 
   openComments(e) {
@@ -69,7 +70,10 @@ module.exports = Component({
     );
 
     var articleRight = (
-      <Tappable onTap={this.openComments} style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}>
+      <Tappable
+        onTap={this.openComments}
+        style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
+        stopPropagation>
         <Icon
           name="speech"
           color={Theme.getConstants('darkGray')}
@@ -86,8 +90,7 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={mergedStyles}
-        onTap={this.openArticle}
-        onPress={this.saveArticle}
+        wrapper={<a href={article.get('url')} target="_blank" />}
         title={article.get('title')}
         after={articleRight}
         index={index}
