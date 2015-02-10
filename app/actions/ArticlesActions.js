@@ -16,13 +16,11 @@ var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  opts =>
-    req.get('topstories.json', opts)
-      .then(res => {
-        HotArticlesStore(res);
-        insertArticles(res);
-      })
-      .then(returnArticlesStore)
+  opts => once(loadHotArticles(opts))
+);
+
+Actions.articlesHotRefresh.listen(
+  opts => loadHotArticles(opts)
 );
 
 Actions.articlesHotLoadMore.listen(
@@ -54,6 +52,15 @@ Actions.articleSave.listen(
     SavedArticlesStore(savedArticles);
   }
 );
+
+function loadHotArticles(opts) {
+  return req.get('topstories.json', opts)
+    .then(res => {
+      HotArticlesStore(res);
+      insertArticles(res);
+    })
+    .then(returnArticlesStore);
+}
 
 function insertArticle(res, rej) {
   if (rej)
@@ -125,4 +132,17 @@ function exists(articleID) {
 
 function error(err) {
   throw err;
+}
+
+function once(fn, context) {
+  var result;
+
+  return function() {
+    if (fn) {
+      result = fn.apply(context || this, arguments);
+      fn = null;
+    }
+
+    return result;
+  };
 }

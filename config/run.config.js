@@ -5,7 +5,7 @@ module.exports = pack({
   dir: path.join(__dirname, '..'),
   linkModules: true,
   entry: './app/app.js',
-  devtool: 'eval',
+  devtool: 'source-map',
   target: 'web',
   env: 'production',
   hot: true,

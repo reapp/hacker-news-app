@@ -17,10 +17,6 @@ module.exports = Component({
       return null;
 
     var closed = cursor.get('closed');
-
-    var text = !closed &&
-      <p dangerouslySetInnerHTML={{__html: cursor.get('text')}} />;
-
     var classes = {
       [`level-${level}`]: true,
       comment: true
@@ -33,7 +29,11 @@ module.exports = Component({
             onTap={this.toggleOpened}
             stopPropagation>
             <h3>{cursor.get('by')}</h3>
-            {text}
+            {!closed &&
+              <div className={`closed-${closed}`}>
+                <p dangerouslySetInnerHTML={{__html: cursor.get('text')}} />
+              </div>
+            }
           </Tappable>
         </div>
         {!closed && children}

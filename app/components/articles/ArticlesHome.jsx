@@ -24,7 +24,7 @@ module.exports = Component({
   handleRefresh(e) {
     if (!this.state.isRefreshing) {
       this.setState({ isRefreshing: true });
-      Actions.articlesHotLoad({ nocache: true }).then(() => {
+      Actions.articlesHotRefresh().then(() => {
         this.setState({ isRefreshing: false });
       });
     }
