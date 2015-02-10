@@ -16,7 +16,7 @@ var page = 0;
 var per = 10;
 
 Actions.articlesHotLoad.listen(
-  opts => once(loadHotArticles(opts))
+  opts => loadHotArticlesOnce(opts)
 );
 
 Actions.articlesHotRefresh.listen(
@@ -61,6 +61,8 @@ function loadHotArticles(opts) {
     })
     .then(returnArticlesStore);
 }
+
+var loadHotArticlesOnce = once(loadHotArticles);
 
 function insertArticle(res, rej) {
   if (rej)
