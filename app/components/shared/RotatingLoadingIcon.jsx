@@ -13,7 +13,7 @@ module.exports = React.createClass({
           }
         }}
         iconProps={{
-          color: Theme.getConstants('midGray')
+          color: Theme.getConstants('mid')
         }}
         {...this.props}
       />

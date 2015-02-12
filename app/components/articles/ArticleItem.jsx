@@ -76,7 +76,7 @@ module.exports = Component({
         stopPropagation>
         <Icon
           name="speech"
-          color={Theme.getConstants('darkGray')}
+          color={Theme.getConstants('mid')}
           stroke={0}
         />
       </Tappable>
