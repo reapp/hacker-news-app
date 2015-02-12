@@ -81,7 +81,7 @@ module.exports = Component({
     return (
       <View
         id="Article"
-        title={[<BackButton onClick={this.goBackView} />, title]}
+        title={[<BackButton onTap={this.goBackView} />, title]}
         styles={{ inner: { padding: 0 } }}
         {...props}
       >
