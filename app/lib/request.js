@@ -7,7 +7,6 @@ require('superagent-bluebird-promise');
 class Request {
   constructor({ base }) {
     this.base = base || '';
-    this.requests = {};
   }
 
   setBase(url) {
@@ -23,10 +22,7 @@ class Request {
     opts = opts || {};
 
     return Superagent.get(this.getUrl(url)).promise().then(
-      res => {
-        this.requests[url] = res.body;
-        return res.body;
-      },
+      res => res.body,
       error
     );
   }

@@ -18,7 +18,7 @@ module.exports = Component({
   componentDidMount() {
     setTimeout(() => {
       Actions.articleLoad(this.getParams());
-    }, 500);
+    }, 400);
   },
 
   getComments(comments) {
