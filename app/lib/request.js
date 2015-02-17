@@ -1,8 +1,5 @@
 var Parseurl = require('parseurl');
-// var Superagent = require('superagent');
 var { Promise } = require('bluebird');
-
-// require('superagent-bluebird-promise');
 
 class Request {
   constructor({ base }) {
@@ -29,7 +26,7 @@ class Request {
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
           if ((xhr.status >= 200 && xhr.status<=299) || xhr.status == 304)
-            res(JSON.parse(xhr.responseText));
+            res(xhr.responseText);
           else
             rej('Error in ajax communication: ' + xhr.statusText);
         }

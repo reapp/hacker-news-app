@@ -2,16 +2,26 @@ var Immutable = require('immutable');
 var reducer = require('reapp-reducer');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
-Promise.longStackTraces();
 
 var Actions = require('../actions');
-var Request = require('../lib/request');
+var RequestWorker = require('../lib/request.worker');
+var base = 'https://hacker-news.firebaseio.com/v0/';
+
+function req(url, opts) {
+  return new Promise((res, rej) => {
+    var Request = RequestWorker();
+    Request.postMessage({ url, opts, base, type: 'get' });
+    Request.onmessage = function(event) {
+      res(JSON.parse(event.data));
+    };
+  });
+}
+
 var {
     ArticlesStore,
     HotArticlesStore,
     SavedArticlesStore } = require('../stores');
 
-var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
 var loadedReducer = reducer.bind(null, 'LOADED');
 var page = 0;
 var per = 10;
@@ -26,7 +36,7 @@ Actions.articlesHotRefresh.listen(
 
 Actions.articlesHotLoadMore.listen(
   () =>
-    req.get('topstories.json')
+    req('topstories.json')
       .then(insertNextArticles)
       .then(returnArticlesStore)
 );
@@ -39,7 +49,7 @@ Actions.articleLoad.listen(
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
     else
-      return req.get(`item/${id}.json`)
+      return req(`item/${id}.json`)
         .then(getAllKids)
         .then(loadedReducer)
         .then(insertArticle);
@@ -55,7 +65,7 @@ Actions.articleSave.listen(
 );
 
 function loadHotArticles(opts) {
-  return req.get('topstories.json', opts)
+  return req('topstories.json', opts)
     .then(res => {
       HotArticlesStore(res);
       insertArticles(res);
@@ -99,7 +109,7 @@ function insertArticles(articles) {
     articles.slice(start, start + per).map(
       article => exists(article) ?
         article :
-        req.get(`item/${article}.json`)
+        req(`item/${article}.json`)
           .then(reducer)
           .then(insertArticle)
     )
@@ -115,7 +125,7 @@ function getAllKids(item) {
 
   return (
     Promise.all(
-      kids.map(item => req.get(`item/${item}.json`).then(getAllKids))
+      kids.map(item => req(`item/${item}.json`).then(getAllKids))
     )
     .then(res => {
       item.kids = res;
