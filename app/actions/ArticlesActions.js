@@ -1,10 +1,11 @@
 var Immutable = require('immutable');
 var reducer = require('reapp-reducer');
-var Actions = require('actions');
-var Request = require('lib/request');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
+Promise.longStackTraces();
 
+var Actions = require('../actions');
+var Request = require('../lib/request');
 var {
     ArticlesStore,
     HotArticlesStore,

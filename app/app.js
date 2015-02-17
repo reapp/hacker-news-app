@@ -1,3 +1,7 @@
+var { Promise } = require('bluebird');
+window.Promise = Promise;
+Promise.longStackTraces();
+
 require('reapp-ui');
 require('reapp-platform');
 

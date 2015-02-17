@@ -3,9 +3,10 @@ var Component = require('component');
 var NestedViewList = require('reapp-ui/views/NestedViewList');
 var View = require('reapp-ui/views/View');
 var ArticlesHome = require('./articles/ArticlesHome');
-var Actions = require('actions');
+var ActionsWorker = require('../actions.worker');
 var { storeRefreshMixin } = require('reapp-platform');
 var { RoutedViewListMixin } = require('reapp-routes/react-router');
+var { Promise } = require('bluebird');
 var {
   ArticlesStore,
   HotArticlesStore,
@@ -13,7 +14,18 @@ var {
 
 module.exports = Component({
   statics: {
-    fetchData: Actions.articlesHotLoad
+    fetchData() {
+      var Worker = ActionsWorker();
+      console.log('worker', Worker);
+      Worker.postMessage({ name: 'articlesHotLoad' });
+      Worker.onmessage = function(event) {
+        console.log('articles receive message', event);
+      }
+
+      return new Promise(function(res, rej) {
+        console.log('articles post message');
+      });
+    }
   },
 
   mixins: [

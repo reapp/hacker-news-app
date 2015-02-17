@@ -1,8 +1,8 @@
 var Parseurl = require('parseurl');
-var Superagent = require('superagent');
+// var Superagent = require('superagent');
 var { Promise } = require('bluebird');
 
-require('superagent-bluebird-promise');
+// require('superagent-bluebird-promise');
 
 class Request {
   constructor({ base }) {
@@ -22,13 +22,20 @@ class Request {
   get(url, opts) {
     opts = opts || {};
 
-    return Superagent.get(this.getUrl(url)).promise().then(
-      res => {
-        this.requests[url] = res.body;
-        return res.body;
-      },
-      error
-    );
+    return new Promise((res, rej) => {
+      var xhr = new XMLHttpRequest();
+      console.log(this.getUrl(url))
+      xhr.open('get', this.getUrl(url), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+          if ((xhr.status >= 200 && xhr.status<=299) || xhr.status == 304)
+            res(JSON.parse(xhr.responseText));
+          else
+            rej('Error in ajax communication: ' + xhr.statusText);
+        }
+      };
+      xhr.send(null);
+    });
   }
 }
 
