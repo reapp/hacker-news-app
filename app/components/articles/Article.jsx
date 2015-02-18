@@ -78,8 +78,8 @@ module.exports = Component({
 
     var id = Number(this.getParams().id);
     var cursor = ArticlesStore().get(id);
-    var article = cursor && cursor.get('data');
-    var commentsLoaded = article && article.get('kidsLoaded');
+    var article = cursor.get('data');
+    var commentsLoaded = cursor.get('status') === 'LOADED';
 
     // todo: not get title from DOM but calc from article.get('kids')
     var title = `Comments (${document.getElementsByClassName('comment').length})`;
