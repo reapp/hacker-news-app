@@ -7,7 +7,7 @@ module.exports = React.createClass({
     return (
       <AnimationLoop animation="rotate" {...this.props}>
         <Icon
-          name="arrow-refresh"
+          file={require('reapp-ui/assets/icons/arrow-refresh.svg')}
           size={24}
           stroke={1}
           styles={{

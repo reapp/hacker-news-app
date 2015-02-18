@@ -75,9 +75,10 @@ module.exports = Component({
         style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
         stopPropagation>
         <Icon
-          name="speech"
+          file={require('reapp-ui/assets/icons/speech.svg')}
           color={Theme.getConstants('mid')}
           stroke={0}
+          styles={{self: { margin: 'auto' }}}
         />
       </Tappable>
     );
