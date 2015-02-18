@@ -6,8 +6,9 @@ module.exports = pack({
   dir: dir,
   linkModules: true,
   entry: './app/app.js',
-  devtool: 'source-map',
+  devtool: 'none',
   target: 'web',
   debug: true,
-  env: 'production'
+  env: 'production',
+  platform: 'ios'
 });
