@@ -8,8 +8,7 @@ var { storeRefreshMixin } = require('reapp-platform');
 var { RoutedViewListMixin } = require('reapp-routes/react-router');
 var {
   ArticlesStore,
-  HotArticlesStore,
-  SavedArticlesStore } = require('stores');
+  HotArticlesStore } = require('stores');
 
 module.exports = Component({
   statics: {
@@ -18,14 +17,13 @@ module.exports = Component({
 
   mixins: [
     RoutedViewListMixin,
-    storeRefreshMixin(ArticlesStore, SavedArticlesStore)
+    storeRefreshMixin(ArticlesStore)
   ],
 
   render() {
     return (
       <NestedViewList {...this.routedViewListProps()}>
         <ArticlesHome
-          savedArticlesStore={SavedArticlesStore()}
           hotArticlesStore={HotArticlesStore()}
           articlesStore={ArticlesStore()}
         />

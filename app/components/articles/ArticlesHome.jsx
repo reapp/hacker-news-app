@@ -74,7 +74,6 @@ module.exports = Component({
 
   render() {
     var {
-      savedArticlesStore,
       hotArticlesStore,
       articlesStore,
       ...props } = this.props;
@@ -83,12 +82,7 @@ module.exports = Component({
       .map(id => articlesStore.get(id))
       .filter(x => typeof x !== 'undefined');
 
-    var savedArticles = savedArticlesStore
-      .map(id => articlesStore.get(id))
-      .filter(x => typeof x !== 'undefined');
-
     var hasArticles = !!articles.count();
-    var hasSavedArticles = !!savedArticles.count();
 
     var refreshButton =
       <RefreshButton

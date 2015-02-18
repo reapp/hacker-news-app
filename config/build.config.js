@@ -10,5 +10,6 @@ module.exports = pack({
   target: 'web',
   debug: true,
   env: 'production',
-  platform: 'ios'
+  platform: 'ios',
+  minify: true
 });
