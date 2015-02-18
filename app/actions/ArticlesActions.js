@@ -35,8 +35,6 @@ Actions.articleLoad.listen(
     loadingStatus[id] = true;
     var article = ArticlesStore().get(id);
 
-    console.log('articleLoad', id)
-
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
     else
