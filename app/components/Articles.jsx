@@ -6,9 +6,7 @@ var ArticlesHome = require('./articles/ArticlesHome');
 var Actions = require('actions');
 var { storeRefreshMixin } = require('reapp-platform');
 var { RoutedViewListMixin } = require('reapp-routes/react-router');
-var {
-  ArticlesStore,
-  HotArticlesStore } = require('stores');
+var { ArticlesStore, HotArticlesStore } = require('stores');
 
 module.exports = Component({
   statics: {
@@ -33,5 +31,3 @@ module.exports = Component({
     );
   }
 });
-
-// titleBarProps={{height:48}}

@@ -4,14 +4,13 @@ var Actions = require('actions');
 var Request = require('lib/request');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
+var { ArticlesStore, HotArticlesStore } = require('../stores');
 
-var {
-    ArticlesStore,
-    HotArticlesStore,
-    SavedArticlesStore } = require('../stores');
+window.Stores = { ArticlesStore, HotArticlesStore }
 
 var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
 var loadedReducer = reducer.bind(null, 'LOADED');
+var loadingStatus = {};
 var page = 0;
 var per = 10;
 
@@ -31,25 +30,33 @@ Actions.articlesHotLoadMore.listen(
 );
 
 Actions.articleLoad.listen(
-  params => {
-    var id = Number(params.id);
+  id => {
+    id = parseInt(id, 10);
+    loadingStatus[id] = true;
     var article = ArticlesStore().get(id);
+
+    console.log('articleLoad', id)
 
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
     else
       return req.get(`item/${id}.json`)
+        .then(res => {
+          res.parentId = res.id;
+          return res;
+        })
         .then(getAllKids)
         .then(loadedReducer)
         .then(insertArticle);
   }
 );
 
-Actions.articleSave.listen(
+Actions.articleUnload.listen(
   id => {
-    var savedArticles = SavedArticlesStore().deref();
-    savedArticles = savedArticles.push(id);
-    SavedArticlesStore(savedArticles);
+    id = parseInt(id, 10);
+    loadingStatus[id] = false;
+    ArticlesStore().setIn([id, 'data', 'kids'], null);
+    ArticlesStore().setIn([id, 'status'], 'OK');
   }
 );
 
@@ -74,9 +81,11 @@ function insertArticle(res, rej) {
     // data transforms
     setHost(article);
 
-    // save ref to last article and store
-    lastArticle = Immutable.fromJS(article);
-    ArticlesStore().set(article.id, lastArticle);
+    if (loadingStatus[article.id] !== false) {
+      // save ref to last article and store
+      lastArticle = Immutable.fromJS(article);
+      ArticlesStore().set(article.id, lastArticle);
+    }
   });
 
   return lastArticle;
@@ -106,6 +115,11 @@ function insertArticles(articles) {
 }
 
 function getAllKids(item) {
+  var parentId = item.parentId;
+
+  if (!loadingStatus[parentId])
+    return Promise.resolve(false);
+
   var kids = item.kids;
   item.closed = false;
 
@@ -114,7 +128,14 @@ function getAllKids(item) {
 
   return (
     Promise.all(
-      kids.map(item => req.get(`item/${item}.json`).then(getAllKids))
+      kids.map(kid => {
+        return loadingStatus[parentId] ?
+          req.get(`item/${kid}.json`).then(res => {
+            res.parentId = parentId;
+            return getAllKids(res)
+          }) :
+          null
+      })
     )
     .then(res => {
       item.kids = res;

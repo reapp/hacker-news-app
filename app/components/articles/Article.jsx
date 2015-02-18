@@ -16,9 +16,15 @@ module.exports = Component({
   ],
 
   componentDidMount() {
+    this._id = this.getParams().id;
+
     setTimeout(() => {
-      Actions.articleLoad(this.getParams());
-    }, 400);
+      Actions.articleLoad(this._id);
+    }, 450);
+  },
+
+  componentWillUnmount() {
+    Actions.articleUnload(this._id);
   },
 
   getComments(comments) {
