@@ -20,7 +20,7 @@ module.exports = Component({
 
     setTimeout(() => {
       Actions.articleLoad(this._id);
-    }, 450);
+    }, 560);
   },
 
   componentWillUnmount() {
