@@ -8,7 +8,8 @@
   "scripts": {
     "test": "",
     "start": "node config/run.js",
-    "build": "node config/build.js"
+    "build": "node config/build.js",
+    "ios": "node config/build.ios.js"
   },
   "dependencies": {
     "bluebird": "~2.9.6",
