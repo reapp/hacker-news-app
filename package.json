@@ -21,7 +21,7 @@
     "react": "^0.13.0-beta.1",
     "react-router": "git+https://github.com/reapp/react-router#0cb83ddd3c",
     "reapp-component": "^1.0.0",
-    "reapp-pack": "^1.0.0",
+    "reapp-pack": "^1.2.0",
     "reapp-platform": "^1.0.2",
     "reapp-reducer": "^1.0.0",
     "reapp-request": "^0.2.0",
