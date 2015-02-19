@@ -16,8 +16,10 @@ module.exports = Component({
   ],
 
   openArticle() {
-    if (this.props.onSelected)
-      this.props.onSelected(this.props.cursor.get('data'));
+    window.open(encodeURI('your url'), '_system', 'location=no');
+
+    // if (this.props.onSelected)
+    //   this.props.onSelected(this.props.cursor.get('data'));
   },
 
   openComments(e) {

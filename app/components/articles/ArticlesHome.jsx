@@ -50,7 +50,7 @@ module.exports = Component({
     this.setState({ showSavedModal: false });
   },
 
-  handleArticleClick(article) {
+  handleArticleSelect(article) {
     this.setState({
       shownArticle: article
     });
@@ -105,7 +105,7 @@ module.exports = Component({
               key={i}
               index={i}
               onPress={this.handleArticlePress}
-              onSelected={this.handleArticleClick}
+              onSelected={this.handleArticleSelect}
               onClickComments={this.handleClickComments}
               cursor={article}
             />
@@ -141,7 +141,7 @@ module.exports = Component({
 //           key={i}
 //           index={i}
 //           cursor={article}
-//           onClicked={this.handleArticleClick}
+//           onClicked={this.handleArticleSelect}
 //         />
 //       ).toArray()}
 //     </List>
