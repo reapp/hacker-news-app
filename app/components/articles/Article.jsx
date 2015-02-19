@@ -78,6 +78,10 @@ module.exports = Component({
 
     var id = Number(this.getParams().id);
     var cursor = ArticlesStore().get(id);
+
+    if (!cursor)
+      return null;
+
     var article = cursor.get('data');
     var commentsLoaded = cursor.get('status') === 'LOADED';
 

@@ -5,9 +5,7 @@ var List = require('reapp-ui/components/List');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
 var DottedViewList = require('reapp-ui/views/DottedViewList');
-var Modal = require('reapp-ui/components/Modal');
 var ArticleItem = require('./ArticleItem');
-var ArticleDrawer = require('./ArticleDrawer');
 var RefreshButton = require('./RefreshButton');
 var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
 var { ViewListStateStore } = require('stores');
@@ -15,9 +13,7 @@ var { ViewListStateStore } = require('stores');
 module.exports = Component({
   getInitialState() {
     return {
-      isRefreshing: false,
-      shownArticle: null,
-      showSavedModal: false
+      isRefreshing: false
     };
   },
 
@@ -37,28 +33,6 @@ module.exports = Component({
     this.setState({ isRefreshing: true });
     Actions.articlesHotLoadMore().then(() => {
       this.setState({ isRefreshing: false });
-    });
-  },
-
-  handleArticlePress(id) {
-    // todo: make ui alerts and integrate
-    Actions.articleSave(id);
-    this.setState({ showSavedModal: true });
-  },
-
-  closeModal() {
-    this.setState({ showSavedModal: false });
-  },
-
-  handleArticleSelect(article) {
-    this.setState({
-      shownArticle: article
-    });
-  },
-
-  closeArticleDrawer() {
-    this.setState({
-      shownArticle: false
     });
   },
 
@@ -92,20 +66,11 @@ module.exports = Component({
 
     return (
       <View title={[, 'Hot Articles', refreshButton]} {...props}>
-        {this.state.shownArticle &&
-          <ArticleDrawer
-            url={this.state.shownArticle.get('url')}
-            onClose={this.closeArticleDrawer}
-          />
-        }
-
         <List styles={this.listStyle}>
           {hasArticles && articles.map((article, i) =>
             <ArticleItem
               key={i}
               index={i}
-              onPress={this.handleArticlePress}
-              onSelected={this.handleArticleSelect}
               onClickComments={this.handleClickComments}
               cursor={article}
             />
@@ -128,27 +93,3 @@ module.exports = Component({
     );
   }
 });
-
-// <DottedViewList {...props} {...(this.parentViewListIsNested() && {
-//   disableScroll: true,
-//   touchStartBoundsX: { from: 20, to: window.innerWidth - 20 }
-// })}>
-// <View title="Saved Articles">
-//   {hasSavedArticles &&
-//     <List styles={this.listStyle}>
-//       {savedArticles.map((article, i) =>
-//         <ArticleItem
-//           key={i}
-//           index={i}
-//           cursor={article}
-//           onClicked={this.handleArticleSelect}
-//         />
-//       ).toArray()}
-//     </List>
-//   }
-
-//   {!hasSavedArticles &&
-//     <p>My saved articles. Try swiping an articles to the right to add it here.</p>
-//   }
-// </View>
-// </DottedViewList>

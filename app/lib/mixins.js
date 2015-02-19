@@ -7,9 +7,9 @@ module.exports = {
     Animated(),
     {
       shouldComponentUpdate(nextProps, nextState) {
-        return this.isAnimating() ?
+        return this.isAnimating('viewList') ?
           true :
-          shouldupdate(nextProps, nextState);
+          shouldupdate.call(this, nextProps, nextState);
       }
     }
   ],
