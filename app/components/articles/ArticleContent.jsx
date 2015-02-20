@@ -6,6 +6,16 @@ var TreeNode = require('reapp-ui/helpers/TreeNode');
 var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
 
 module.exports = Component({
+  getInitialState() {
+    return {
+      showLoader: false
+    };
+  },
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ showLoader: true }), 800);
+  },
+
   styles: {
     article: {
       self: {
@@ -51,7 +61,7 @@ module.exports = Component({
           <ArticleItem cursor={cursor} styles={this.styles.article} />
         }
 
-        {!commentsLoaded &&
+        {!commentsLoaded && this.state.showLoader &&
           <div style={this.styles.fillWindow}>
             <div style={this.styles.verticalCenter}>
               <RotatingLoadingIcon active={!this.isAnimating('viewList')} />
