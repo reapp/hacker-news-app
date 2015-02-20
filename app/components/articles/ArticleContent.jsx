@@ -28,6 +28,7 @@ module.exports = Component({
     },
 
     comments: {
+      display: 'block',
       textWrap: 'nowrap',
       overflow: 'hidden'
     },
