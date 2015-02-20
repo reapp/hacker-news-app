@@ -8,8 +8,7 @@ var ArticleContent = require('./ArticleContent');
 
 module.exports = Component({
   mixins: [
-    'RouteState',
-    'Navigation'
+    'RouteState'
   ],
 
   componentDidMount() {
@@ -28,6 +27,14 @@ module.exports = Component({
     this.props.viewListScrollToStep(0);
   },
 
+  styles: {
+    view: {
+      inner: {
+        padding: 0
+      }
+    }
+  },
+
   render() {
     var { styles, ...props } = this.props;
 
@@ -36,9 +43,8 @@ module.exports = Component({
 
     return (
       <View
-        id="Article"
         title={[<BackButton onTap={this.goBackView} />, 'Comments']}
-        styles={{ inner: { padding: 0 } }}
+        styles={this.styles.view}
         {...props}>
         <ArticleContent cursor={cursor} />
       </View>
