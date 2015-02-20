@@ -4,7 +4,6 @@ var Actions = require('actions');
 var List = require('reapp-ui/components/List');
 var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
-var DottedViewList = require('reapp-ui/views/DottedViewList');
 var ArticleItem = require('./ArticleItem');
 var RefreshButton = require('./RefreshButton');
 var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
@@ -40,10 +39,6 @@ module.exports = Component({
     self: {
       borderTop: 'none'
     }
-  },
-
-  parentViewListIsNested() {
-    return ViewListStateStore().get('nested') === 1;
   },
 
   render() {
