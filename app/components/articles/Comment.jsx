@@ -6,8 +6,27 @@ var cx = React.addons.classSet;
 require('./Comment.styl');
 
 module.exports = Component({
-  toggleOpened() {
-    this.props.cursor.update('closed', closed => !closed);
+  toggleOpened(e) {
+    if (!e.target || e.target.tagName !== 'A')
+      this.props.cursor.update('closed', closed => !closed);
+  },
+
+  componentDidMount() {
+    this.handleLinks();
+  },
+
+  componentDidUpdate() {
+    this.handleLinks();
+  },
+
+  handleLinks() {
+    this.refs.content.getDOMNode().addEventListener('click', function(e) {
+      if (e.target && e.target.tagName === 'A') {
+        e.preventDefault();
+        var url = e.target.getAttribute('href');
+        window.open(encodeURI(url), '_system');
+      }
+    });
   },
 
   render() {
@@ -25,7 +44,7 @@ module.exports = Component({
 
     return (
       <div className={cx(classes)}>
-        <div className="comment--content">
+        <div className="comment--content" ref="content">
           <Tappable
             onTap={this.toggleOpened}
             stopPropagation>

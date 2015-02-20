@@ -51,7 +51,7 @@ module.exports = Component({
           <ArticleItem cursor={cursor} styles={this.styles.article} />
         }
 
-        {!commentsLoaded && this.getAnimationState('viewList').step === 1 &&
+        {!commentsLoaded &&
           <div style={this.styles.fillWindow}>
             <div style={this.styles.verticalCenter}>
               <RotatingLoadingIcon active={!this.isAnimating('viewList')} />

@@ -29,23 +29,17 @@ module.exports = Component({
   },
 
   render() {
-    var {
-      styles,
-      ...props } = this.props;
+    var { styles, ...props } = this.props;
 
     var id = Number(this.getParams().id);
     var cursor = ArticlesStore().get(id);
 
-    // todo: not get title from DOM but calc from article.get('kids')
-    var title = `Comments (${document.getElementsByClassName('comment').length})`;
-
     return (
       <View
         id="Article"
-        title={[<BackButton onTap={this.goBackView} />, title]}
+        title={[<BackButton onTap={this.goBackView} />, 'Comments']}
         styles={{ inner: { padding: 0 } }}
-        {...props}
-      >
+        {...props}>
         <ArticleContent cursor={cursor} />
       </View>
     );

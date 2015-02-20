@@ -15,11 +15,9 @@ module.exports = Component({
     'Navigation'
   ],
 
-  openArticle() {
-    window.open(encodeURI('your url'), '_system', 'location=no');
-
-    // if (this.props.onSelected)
-    //   this.props.onSelected(this.props.cursor.get('data'));
+  handleTap() {
+    var url = this.props.cursor.getIn(['data', 'url']);
+    window.open(encodeURI(url), '_system');
   },
 
   openComments(e) {
@@ -92,7 +90,7 @@ module.exports = Component({
         key={key || index}
         className="ArticleItem"
         styles={mergedStyles}
-        wrapper={<a href={article.get('url')} target="_blank" />}
+        onTap={this.handleTap}
         title={article.get('title')}
         after={articleRight}
         index={index}
