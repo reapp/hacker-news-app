@@ -13,8 +13,6 @@ require('./theme/theme');
 // inappbrowser
 if (window.cordova && window.cordova.InAppBrowser)
   window.open = window.cordova.InAppBrowser.open;
-else
-  console.log(window.cordova)
 
 // run the app
 Router(Routes);
