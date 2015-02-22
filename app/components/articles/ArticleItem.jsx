@@ -32,8 +32,8 @@ module.exports = Component({
 
   styles: {
     content: {
-      paddingTop: 14,
-      paddingBottom: 14
+      paddingTop: 12,
+      paddingBottom: 12
     },
 
     after: {
