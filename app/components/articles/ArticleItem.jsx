@@ -31,8 +31,17 @@ module.exports = Component({
   },
 
   styles: {
+    content: {
+      paddingTop: 14,
+      paddingBottom: 14
+    },
+
     after: {
       margin: 0
+    },
+
+    children: {
+      WebkitLineClamp: 'none'
     }
   },
 
@@ -76,7 +85,7 @@ module.exports = Component({
         stopPropagation>
         <Icon
           file={require('reapp-ui/assets/icons/speech.svg')}
-          color={Theme.getConstants('mid')}
+          color={'#ab511f'}
           stroke={0}
           styles={{self: { margin: 'auto' }}}
         />

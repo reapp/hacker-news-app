@@ -72,7 +72,12 @@ module.exports = Component({
           ).toArray().concat(
             <ListItem
               key={1000}
-              style={{textAlign: 'center'}}
+              styles={{
+                content: {
+                  textAlign: 'center',
+                  padding: 20
+                }
+              }}
               onTap={this.handleLoadMore}>
               Load More
             </ListItem>
