@@ -6,7 +6,18 @@ var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
 var { ArticlesStore, HotArticlesStore } = require('../stores');
 
-window.Stores = { ArticlesStore, HotArticlesStore }
+window.Stores = { ArticlesStore, HotArticlesStore };
+
+// wait for animations
+var AnimateStore = require('reapp-ui/stores/AnimateStore');
+function waitForAnimations(res) {
+  var animating = () => AnimateStore('viewList').step % 1 !== 0;
+
+  var doneAnimating = (cb) => !animating() ? cb(null) :
+      setTimeout(doneAnimating.bind(this, cb), 50);
+
+  return Promise.promisify(doneAnimating)().then(() => res);
+}
 
 var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
 var loadedReducer = reducer.bind(null, 'LOADED');
@@ -25,6 +36,7 @@ Actions.articlesHotRefresh.listen(
 Actions.articlesHotLoadMore.listen(
   () =>
     req.get('topstories.json')
+      .then(waitForAnimations)
       .then(insertNextArticles)
       .then(returnArticlesStore)
 );
@@ -43,8 +55,10 @@ Actions.articleLoad.listen(
           res.parentId = res.id;
           return res;
         })
+        .then(waitForAnimations)
         .then(getAllKids)
         .then(loadedReducer)
+        .then(waitForAnimations)
         .then(insertArticle);
   }
 );
@@ -60,6 +74,7 @@ Actions.articleUnload.listen(
 
 function loadHotArticles(opts) {
   return req.get('topstories.json', opts)
+    .then(waitForAnimations)
     .then(res => {
       HotArticlesStore(res);
       insertArticles(res);

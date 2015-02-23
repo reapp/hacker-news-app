@@ -37,6 +37,9 @@ module.exports = Component({
     if (!closed)
       text = cursor.get('text');
 
+    if (!text)
+      return null;
+
     var classes = {
       [`level-${level}`]: true,
       comment: true
