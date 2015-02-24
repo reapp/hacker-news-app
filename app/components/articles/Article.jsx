@@ -13,10 +13,7 @@ module.exports = Component({
 
   componentDidMount() {
     this._id = this.getParams().id;
-
-    setTimeout(() => {
-      Actions.articleLoad(this._id);
-    }, 500);
+    Actions.articleLoad(this._id);
   },
 
   componentWillUnmount() {

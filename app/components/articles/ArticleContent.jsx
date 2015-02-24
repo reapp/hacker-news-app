@@ -65,7 +65,7 @@ module.exports = Component({
         {!commentsLoaded && this.state.showLoader &&
           <div style={this.styles.fillWindow}>
             <div style={this.styles.verticalCenter}>
-              <RotatingLoadingIcon active={!this.isAnimating('viewList')} />
+              <RotatingLoadingIcon blockOnAnimation="viewList" />
             </div>
           </div>
         }
