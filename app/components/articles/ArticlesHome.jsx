@@ -83,7 +83,7 @@ module.exports = Component({
             </ListItem>
           )}
 
-          {!hasArticles &&
+          {!hasArticles && !this.props.inactive &&
             <div style={{ padding: 20, marginLeft: -10 }}>
               <RotatingLoadingIcon />
             </div>

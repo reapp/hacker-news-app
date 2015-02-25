@@ -20,7 +20,7 @@ module.exports = Component({
 
   render() {
     return (
-      <NestedViewList {...this.routedViewListProps()}>
+      <NestedViewList {...this.routedViewListProps()} preload>
         <ArticlesHome
           hotArticlesStore={HotArticlesStore()}
           articlesStore={ArticlesStore()}
