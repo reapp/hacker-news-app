@@ -19,9 +19,17 @@ module.exports = Component({
   styles: {
     article: {
       self: {
-        borderTop: 'none',
-        padding: '10px'
+        padding: '0 10px'
       },
+
+      title: {
+        marginBottom: '10px'
+      },
+
+      content: {
+        borderTop: 'none'
+      },
+
       after: {
         display: 'none'
       }

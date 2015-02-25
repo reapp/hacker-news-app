@@ -47,7 +47,7 @@ module.exports = Component({
         <div className="comment--content" ref="content">
           <Tappable
             onTap={this.toggleOpened}
-            stopPropagation>
+            style={{ padding: '8px 12px' }}>
             <h3>{cursor.get('by')}</h3>
             {!closed && text &&
               <div>
