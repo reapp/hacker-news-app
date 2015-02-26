@@ -11,5 +11,6 @@ module.exports = pack({
   debug: true,
   env: 'production',
   platform: 'web',
-  minify: true
+  minify: true,
+  separateStylesheet: true
 });
