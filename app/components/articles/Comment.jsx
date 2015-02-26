@@ -50,7 +50,9 @@ module.exports = Component({
             maxTapTime={1000}
             onTap={this.toggleOpened}
             styles={{ self: { padding: '8px 20px' } }}>
+
             <h3>{cursor.get('by')}</h3>
+
             {!closed && text &&
               <div>
                 <p dangerouslySetInnerHTML={{__html: text}} />

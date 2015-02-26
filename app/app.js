@@ -4,6 +4,9 @@ require('reapp-platform');
 // for demo
 require('reapp-ui/lib/desktopTouch');
 
+// app icon
+require('../assets/icon.png');
+
 var Router = require('reapp-routes/react-router');
 var Routes = require('./routes');
 
