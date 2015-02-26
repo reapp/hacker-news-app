@@ -47,6 +47,7 @@ module.exports = Component({
         <div className="comment--content" ref="content">
           <Tappable
             tapFocusStyle={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
+            maxTapTime={1000}
             onTap={this.toggleOpened}
             styles={{ self: { padding: '8px 20px' } }}>
             <h3>{cursor.get('by')}</h3>
