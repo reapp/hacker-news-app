@@ -4,7 +4,7 @@ var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
 var ListItem = require('reapp-ui/components/ListItem');
 var Badge = require('reapp-ui/components/Badge');
-var Tappable = require('reapp-ui/helpers/Tappable');
+var Button = require('reapp-ui/components/Button');
 var { Link } = require('react-router');
 var Theme = require('theme/theme');
 
@@ -79,17 +79,19 @@ module.exports = Component({
     );
 
     var articleRight = (
-      <Tappable
+      <Button
         onTap={this.openComments}
+        tapActiveStyle={{opacity: 0.2}}
         style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
-        stopPropagation>
+        stopPropagation
+        chromeless>
         <Icon
           file={require('reapp-ui/assets/icons/speech.svg')}
           color={'#ab511f'}
           stroke={0}
           styles={{self: { margin: 'auto' }}}
         />
-      </Tappable>
+      </Button>
     );
 
     var mergedStyles = Object.assign({}, this.styles, styles);
