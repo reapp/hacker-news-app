@@ -46,8 +46,9 @@ module.exports = Component({
       <div className={cx(classes)}>
         <div className="comment--content" ref="content">
           <Tappable
+            tapFocusStyle={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
             onTap={this.toggleOpened}
-            style={{ padding: '8px 12px' }}>
+            styles={{ self: { padding: '8px 20px' } }}>
             <h3>{cursor.get('by')}</h3>
             {!closed && text &&
               <div>

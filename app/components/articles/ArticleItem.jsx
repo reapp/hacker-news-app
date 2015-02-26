@@ -17,7 +17,7 @@ module.exports = Component({
 
   handleTap() {
     var url = this.props.cursor.getIn(['data', 'url']);
-    window.open(encodeURI(url), '_system');
+    window.open(url, window.cordova ? '_system' : '_blank');
   },
 
   openComments(e) {
@@ -81,7 +81,7 @@ module.exports = Component({
     var articleRight = (
       <Button
         onTap={this.openComments}
-        tapActiveStyle={{opacity: 0.2}}
+        tapFocusStyle={{opacity: 0.2}}
         style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
         stopPropagation
         chromeless>

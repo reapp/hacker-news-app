@@ -7,7 +7,7 @@ module.exports = pack({
   entry: './app/app.js',
   devtool: 'source-map',
   target: 'web',
-  env: 'production',
+  env: 'development',
   hot: true,
   server: true,
   port: 3011,

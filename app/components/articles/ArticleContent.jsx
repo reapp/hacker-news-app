@@ -23,7 +23,8 @@ module.exports = Component({
       },
 
       title: {
-        marginBottom: '10px'
+        fontSize: '16px',
+        marginBottom: '6px'
       },
 
       content: {
@@ -78,7 +79,7 @@ module.exports = Component({
           </div>
         }
 
-        {commentsLoaded &&
+        {commentsLoaded && comments &&
           <div style={this.styles.comments}>
             {comments && comments.map(comment =>
               <TreeNode
@@ -88,6 +89,12 @@ module.exports = Component({
                 Component={Comment}
               />
             )}
+          </div>
+        }
+
+        {commentsLoaded && !comments &&
+          <div className="verticalCenter">
+            <h3>No comments</h3>
           </div>
         }
       </div>
