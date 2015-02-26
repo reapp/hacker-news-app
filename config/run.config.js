@@ -1,8 +1,4 @@
-var pack = require('reapp-pack');
-var path = require('path');
-
-module.exports = pack({
-  dir: path.join(__dirname, '..'),
+module.exports = {
   linkModules: true,
   entry: './app/app.js',
   devtool: 'source-map',
@@ -12,4 +8,4 @@ module.exports = pack({
   server: true,
   port: 3011,
   debug: true
-});
+};

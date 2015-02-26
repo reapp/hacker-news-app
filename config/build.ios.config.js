@@ -1,14 +1,10 @@
-var pack = require('reapp-pack');
-var path = require('path');
-var dir = path.join(__dirname, '..');
-
-module.exports = pack({
-  dir: dir,
+module.exports = {
   linkModules: true,
   entry: './app/app.js',
   devtool: 'none',
   target: 'web',
   debug: true,
   env: 'production',
-  minify: true
-});
+  minify: true,
+  separateStylesheet: true
+};
