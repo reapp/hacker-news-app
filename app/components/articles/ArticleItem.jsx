@@ -16,8 +16,9 @@ module.exports = Component({
   ],
 
   handleTap() {
-    var url = this.props.cursor.getIn(['data', 'url']);
-    window.open(url, window.cordova ? '_system' : '_blank');
+    this.transitionTo('/article/' + this.props.cursor.get('id') + '/view');
+    // var url = this.props.cursor.getIn(['data', 'url']);
+    // window.open(url, window.cordova ? '_system' : '_blank');
   },
 
   openComments(e) {
