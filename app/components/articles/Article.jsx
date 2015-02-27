@@ -2,7 +2,7 @@ var React = require('react');
 var Component = require('component');
 var View = require('reapp-ui/views/View');
 var BackButton = require('reapp-ui/components/buttons/BackButton');
-var { ArticlesStore } = require('stores');
+var Store = require('store');
 var Actions = require('actions');
 var ArticleContent = require('./ArticleContent');
 
@@ -39,7 +39,7 @@ module.exports = Component({
     var { styles, ...props } = this.props;
 
     var id = Number(this.getParams().id);
-    var cursor = ArticlesStore().get(id);
+    var cursor = Store().getIn(['articles', id]);
 
     return (
       <View

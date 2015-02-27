@@ -4,9 +4,7 @@ var Actions = require('actions');
 var Request = require('lib/request');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
-var { ArticlesStore, HotArticlesStore } = require('../stores');
-
-window.Stores = { ArticlesStore, HotArticlesStore };
+var Store = require('../store');
 
 // wait for animations
 var AnimateStore = require('reapp-ui/stores/AnimateStore');
@@ -45,7 +43,7 @@ Actions.articleLoad.listen(
   id => {
     id = parseInt(id, 10);
     loadingStatus[id] = true;
-    var article = ArticlesStore().get(id);
+    var article = Store().getIn(['articles', id]);
 
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
@@ -67,8 +65,8 @@ Actions.articleUnload.listen(
   id => {
     id = parseInt(id, 10);
     loadingStatus[id] = false;
-    ArticlesStore().setIn([id, 'data', 'kids'], null);
-    ArticlesStore().setIn([id, 'status'], 'OK');
+    Store().setIn(['articles', id, 'data', 'kids'], null);
+    Store().setIn(['articles', id, 'status'], 'OK');
   }
 );
 
@@ -76,7 +74,7 @@ function loadHotArticles(opts) {
   return req.get('topstories.json', opts)
     .then(waitForAnimations)
     .then(res => {
-      HotArticlesStore(res);
+      Store().set('hotArticles', res);
       insertArticles(res);
     })
     .then(returnArticlesStore);
@@ -97,7 +95,7 @@ function insertArticle(res, rej) {
     if (loadingStatus[article.id] !== false) {
       // save ref to last article and store
       lastArticle = Immutable.fromJS(article);
-      ArticlesStore().set(article.id, lastArticle);
+      Store().setIn(['articles', article.id], lastArticle);
     }
   });
 
@@ -159,11 +157,11 @@ function getAllKids(item) {
 }
 
 function returnArticlesStore() {
-  return ArticlesStore();
+  return Store().get('articles');
 }
 
 function exists(articleID) {
-  return !!ArticlesStore().get(articleID);
+  return !!Store().getIn(['articles', articleID]);
 }
 
 function error(err) {
