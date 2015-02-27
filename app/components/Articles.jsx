@@ -5,13 +5,9 @@ var Actions = require('actions');
 var { storeRefreshMixin } = require('reapp-platform');
 var { RoutedViewListMixin } = require('reapp-routes/react-router');
 var Store = require('store');
-
-var List = require('reapp-ui/components/List');
-var ListItem = require('reapp-ui/components/ListItem');
 var View = require('reapp-ui/views/View');
-var ArticleItem = require('./articles/ArticleItem');
 var RefreshButton = require('./articles/RefreshButton');
-var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
+var ArticlesContent = require('./ArticlesContent');
 
 module.exports = Component({
   statics: {
@@ -48,21 +44,7 @@ module.exports = Component({
     });
   },
 
-  listStyle: {
-    self: {
-      borderTop: 'none'
-    }
-  },
-
   render() {
-    var articles;
-    var hasArticles = Store().get('articles').size > 0;
-
-    if (hasArticles)
-      articles = Store().get('hotArticles')
-        .map(id => Store().getIn(['articles', id]))
-        .filter(x => typeof x !== 'undefined');
-
     var refreshButton =
       <RefreshButton
         onTap={this.handleRefresh}
@@ -72,34 +54,10 @@ module.exports = Component({
     return (
       <NestedViewList {...this.routedViewListProps()} preload>
         <View title={[, 'Hot Articles', refreshButton]}>
-          <List styles={this.listStyle}>
-            {hasArticles && articles.map((article, i) =>
-              <ArticleItem
-                key={i}
-                index={i}
-                onClickComments={this.handleClickComments}
-                cursor={article}
-              />
-            ).concat(
-              <ListItem
-                key={1000}
-                styles={{
-                  content: {
-                    textAlign: 'center',
-                    padding: 20
-                  }
-                }}
-                onTap={this.handleLoadMore}>
-                Load More
-              </ListItem>
-            )}
-
-            {!hasArticles && !this.props.inactive &&
-              <div style={{ padding: 20, marginLeft: -10 }}>
-                <RotatingLoadingIcon />
-              </div>
-            }
-          </List>
+          <ArticlesContent
+            store={Store()}
+            onLoadMore={this.handleLoadMore}
+          />
         </View>
 
         {this.childRouteHandler()}
