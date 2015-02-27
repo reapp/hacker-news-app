@@ -1,5 +1,4 @@
 require('reapp-ui');
-require('reapp-platform');
 
 // for demo
 require('reapp-ui/lib/desktopTouch');
