@@ -6,7 +6,7 @@ var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
 var Store = require('../store');
 
-// wait for animations
+// todo: put this in reapp-ui: wait for animations
 var AnimateStore = require('reapp-ui/stores/AnimateStore');
 function waitForAnimations(res) {
   var animating = () => AnimateStore('viewList').step % 1 !== 0;
