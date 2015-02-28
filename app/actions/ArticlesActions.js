@@ -4,12 +4,12 @@ var Actions = require('actions');
 var Request = require('lib/request');
 var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
-var Store = require('../store');
+var store = require('../store');
 
 // todo: put this in reapp-ui: wait for animations
-var AnimateStore = require('reapp-ui/stores/AnimateStore');
+var animateStore = require('reapp-ui/stores/AnimateStore');
 function waitForAnimations(res) {
-  var animating = () => AnimateStore('viewList').step % 1 !== 0;
+  var animating = () => animateStore('viewList').step % 1 !== 0;
 
   var doneAnimating = (cb) => !animating() ? cb(null) :
       setTimeout(doneAnimating.bind(this, cb), 50);
@@ -43,7 +43,7 @@ Actions.articleLoad.listen(
   id => {
     id = parseInt(id, 10);
     loadingStatus[id] = true;
-    var article = Store().getIn(['articles', id]);
+    var article = store().getIn(['articles', id]);
 
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
@@ -65,8 +65,8 @@ Actions.articleUnload.listen(
   id => {
     id = parseInt(id, 10);
     loadingStatus[id] = false;
-    Store().setIn(['articles', id, 'data', 'kids'], null);
-    Store().setIn(['articles', id, 'status'], 'OK');
+    store().setIn(['articles', id, 'data', 'kids'], null);
+    store().setIn(['articles', id, 'status'], 'OK');
   }
 );
 
@@ -74,7 +74,7 @@ function loadHotArticles(opts) {
   return req.get('topstories.json', opts)
     .then(waitForAnimations)
     .then(res => {
-      Store().set('hotArticles', res);
+      store().set('hotArticles', res);
       insertArticles(res);
     })
     .then(returnArticlesStore);
@@ -95,7 +95,7 @@ function insertArticle(res, rej) {
     if (loadingStatus[article.id] !== false) {
       // save ref to last article and store
       lastArticle = Immutable.fromJS(article);
-      Store().setIn(['articles', article.id], lastArticle);
+      store().setIn(['articles', article.id], lastArticle);
     }
   });
 
@@ -104,11 +104,6 @@ function insertArticle(res, rej) {
 
 function setHost(article) {
   article.data.host = parseUrl({ url: article.data.url }).hostname;
-}
-
-function insertNextArticles(articles) {
-  page = page + 1;
-  return insertArticles(articles);
 }
 
 function insertArticles(articles) {
@@ -123,6 +118,11 @@ function insertArticles(articles) {
           .then(insertArticle)
     )
   );
+}
+
+function insertNextArticles(articles) {
+  page = page + 1;
+  return insertArticles(articles);
 }
 
 function getAllKids(item) {
@@ -143,9 +143,9 @@ function getAllKids(item) {
         return loadingStatus[parentId] ?
           req.get(`item/${kid}.json`).then(res => {
             res.parentId = parentId;
-            return getAllKids(res)
+            return getAllKids(res);
           }) :
-          null
+          null;
       })
     )
     .then(res => {
@@ -157,11 +157,11 @@ function getAllKids(item) {
 }
 
 function returnArticlesStore() {
-  return Store().get('articles');
+  return store().get('articles');
 }
 
 function exists(articleID) {
-  return !!Store().getIn(['articles', articleID]);
+  return !!store().getIn(['articles', articleID]);
 }
 
 function error(err) {
