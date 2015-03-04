@@ -8,13 +8,9 @@ module.exports = {
     Animated(),
     {
       shouldComponentUpdate(nextProps, nextState) {
-        console.log(
-          PureRenderMixin.shouldComponentUpdate.call(this, nextProps, nextState),
-          shouldupdate.call(this, nextProps, nextState)
-        );
         return this.isAnimatingSafe('viewList') ?
           true :
-          PureRenderMixin.shouldComponentUpdate.call(this, nextProps, nextState);
+          shouldupdate.call(this, nextProps, nextState);
       }
     }
   ],
