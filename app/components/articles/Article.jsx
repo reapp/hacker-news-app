@@ -36,10 +36,10 @@ module.exports = Component({
   },
 
   render() {
-    var { styles, ...props } = this.props;
+    var { styles, articlesStore, ...props } = this.props;
 
     var id = Number(this.getParams().id);
-    var cursor = Store().getIn(['articles', id]);
+    var cursor = articlesStore.get(id);
 
     return (
       <View

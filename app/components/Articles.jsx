@@ -45,6 +45,7 @@ module.exports = Component({
   },
 
   render() {
+    var store = Store();
     var refreshButton =
       <RefreshButton
         onTap={this.handleRefresh}
@@ -55,12 +56,14 @@ module.exports = Component({
       <NestedViewList {...this.routedViewListProps()} preload>
         <View title={[, 'Hot Articles', refreshButton]}>
           <ArticlesContent
-            store={Store()}
+            store={store}
             onLoadMore={this.handleLoadMore}
           />
         </View>
 
-        {this.childRouteHandler()}
+        {this.childRouteHandler({
+          articlesStore: store.get('articles')
+        })}
       </NestedViewList>
     );
   }
