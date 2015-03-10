@@ -3,6 +3,18 @@ var Component = require('component');
 var Tappable = require('reapp-ui/helpers/Tappable');
 var cx = React.addons.classSet;
 
+function isSelecting() {
+  // if (window.getSelection) {
+  //   if (window.getSelection().empty) {  // Chrome
+  //     window.getSelection().empty();
+  //   } else if (window.getSelection().removeAllRanges) {  // Firefox
+  //     window.getSelection().removeAllRanges();
+  //   }
+  // } else if (document.selection) {  // IE?
+  //   document.selection.empty();
+  // }
+}
+
 require('./Comment.styl');
 
 module.exports = Component({
@@ -21,6 +33,8 @@ module.exports = Component({
 
   handleLinks() {
     this.refs.content.getDOMNode().addEventListener('click', function(e) {
+      clearSelection();
+
       if (e.target && e.target.tagName === 'A') {
         e.preventDefault();
         var url = e.target.getAttribute('href');

@@ -53,7 +53,7 @@ module.exports = Component({
       />
 
     return (
-      <NestedViewList {...this.routedViewListProps()} preload>
+      <NestedViewList {...this.routedViewListProps()}>
         <View title={[, 'Hot Articles', refreshButton]}>
           <ArticlesContent
             store={store}

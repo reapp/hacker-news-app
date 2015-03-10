@@ -4,7 +4,7 @@
   "description": "A reapp example app, Hacker News Reader",
   "version": "1.0.0",
   "main": "./app/app.js",
-  "reapp": "0.7",
+  "reapp": "0.8",
   "scripts": {
     "test": "",
     "start": "node config/run.js",

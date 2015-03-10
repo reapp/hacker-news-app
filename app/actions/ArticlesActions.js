@@ -6,16 +6,9 @@ var parseUrl = require('parseurl');
 var { Promise } = require('bluebird');
 var store = require('../store');
 
-// todo: put this in reapp-ui: wait for animations
-var animateStore = require('reapp-ui/stores/AnimateStore');
-function waitForAnimations(res) {
-  var animating = () => animateStore('viewList').step % 1 !== 0;
-
-  var doneAnimating = (cb) => !animating() ? cb(null) :
-      setTimeout(doneAnimating.bind(this, cb), 50);
-
-  return Promise.promisify(doneAnimating)().then(() => res);
-}
+// dont do stuff during view list animations
+var waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
+var waitForViewList = res => waitForAnimation('viewList').then(() => res);
 
 var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
 var loadedReducer = reducer.bind(null, 'LOADED');
