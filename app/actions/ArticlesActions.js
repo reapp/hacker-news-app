@@ -27,7 +27,7 @@ Actions.articlesHotRefresh.listen(
 Actions.articlesHotLoadMore.listen(
   () =>
     req.get('topstories.json')
-      .then(waitForAnimations)
+      .then(waitForViewList)
       .then(insertNextArticles)
       .then(returnArticlesStore)
 );
@@ -46,10 +46,10 @@ Actions.articleLoad.listen(
           res.parentId = res.id;
           return res;
         })
-        .then(waitForAnimations)
+        .then(waitForViewList)
         .then(getAllKids)
         .then(loadedReducer)
-        .then(waitForAnimations)
+        .then(waitForViewList)
         .then(insertArticle);
   }
 );
@@ -65,7 +65,7 @@ Actions.articleUnload.listen(
 
 function loadHotArticles(opts) {
   return req.get('topstories.json', opts)
-    .then(waitForAnimations)
+    .then(waitForViewList)
     .then(res => {
       store().set('hotArticles', res);
       insertArticles(res);
