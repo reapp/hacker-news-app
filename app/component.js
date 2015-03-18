@@ -5,6 +5,7 @@ var component = require('reapp-component')();
 // decorate all classes
 component.addDecorator(spec => {
   spec = mixinMixins(spec);
+  spec.contextTypes = Object.assign({ router: React.PropTypes.func }, spec.contextTypes);
   return React.createClass(spec);
 });
 

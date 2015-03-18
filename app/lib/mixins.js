@@ -1,5 +1,4 @@
-var ReactRouter = require('react-router');
-var { PureRenderMixin } = require('react/addons').addons;
+var { ParentRouteMixin } = require('reapp-routes/react-router');
 var shouldupdate = require('omniscient/shouldupdate');
 var Animated = require('reapp-ui/mixins/Animated');
 
@@ -15,8 +14,6 @@ module.exports = {
     }
   ],
   shared: {
-    'RouteState': ReactRouter.State,
-    'RouteHandler': ReactRouter.RouteHandlerMixin,
-    'Navigation': ReactRouter.Navigation
+    'RouteHandler': ParentRouteMixin
   }
 };

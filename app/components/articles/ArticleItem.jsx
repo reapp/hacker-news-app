@@ -11,10 +11,6 @@ var Theme = require('theme/theme');
 require('./ArticleItem.styl');
 
 module.exports = Component({
-  mixins: [
-    'Navigation'
-  ],
-
   handleTap() {
     var url = this.props.cursor.getIn(['data', 'url']);
     window.open(url, window.cordova ? '_system' : '_blank');
@@ -22,7 +18,7 @@ module.exports = Component({
 
   openComments(e) {
     e.stopPropagation();
-    this.transitionTo('article', { id: this.props.cursor.get('id') })
+    this.context.router.transitionTo('article', { id: this.props.cursor.get('id') })
   },
 
   saveArticle() {

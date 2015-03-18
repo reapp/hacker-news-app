@@ -7,12 +7,8 @@ var Actions = require('actions');
 var ArticleContent = require('./ArticleContent');
 
 module.exports = Component({
-  mixins: [
-    'RouteState'
-  ],
-
   componentDidMount() {
-    this._id = this.getParams().id;
+    this._id = this.context.router.getCurrentParams().id;
 
     setTimeout(() => {
       Actions.articleLoad(this._id);
@@ -38,7 +34,7 @@ module.exports = Component({
   render() {
     var { styles, articlesStore, ...props } = this.props;
 
-    var id = Number(this.getParams().id);
+    var id = Number(this.context.router.getCurrentParams().id);
     var cursor = articlesStore.get(id);
 
     return (
