@@ -20,4 +20,4 @@ UI.addAnimations(
   iOS.animations
 );
 
-module.exports = UI;
+module.exports = UI.getTheme();

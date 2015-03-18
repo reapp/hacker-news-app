@@ -8,6 +8,8 @@ var Store = require('store');
 var View = require('reapp-ui/views/View');
 var RefreshButton = require('./articles/RefreshButton');
 var ArticlesContent = require('./ArticlesContent');
+var Theme = require('reapp-ui/helpers/Theme');
+var theme = require('theme/theme');
 
 module.exports = Component({
   statics: {
@@ -53,18 +55,20 @@ module.exports = Component({
       />
 
     return (
-      <NestedViewList {...this.routedViewListProps()}>
-        <View title={[, 'Hot Articles', refreshButton]}>
-          <ArticlesContent
-            store={store}
-            onLoadMore={this.handleLoadMore}
-          />
-        </View>
+      <Theme {...theme}>
+        <NestedViewList {...this.routedViewListProps()}>
+          <View title={[, 'Hot Articles', refreshButton]}>
+            <ArticlesContent
+              store={store}
+              onLoadMore={this.handleLoadMore}
+            />
+          </View>
 
-        {this.childRouteHandler({
-          articlesStore: store.get('articles')
-        })}
-      </NestedViewList>
+          {this.childRouteHandler({
+            articlesStore: store.get('articles')
+          })}
+        </NestedViewList>
+      </Theme>
     );
   }
 });

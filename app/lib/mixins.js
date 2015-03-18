@@ -5,7 +5,7 @@ var Animated = require('reapp-ui/mixins/Animated');
 
 module.exports = {
   global: [
-    Animated(),
+    Animated,
     {
       shouldComponentUpdate(nextProps, nextState) {
         return this.isAnimatingSafe('viewList') ?
