@@ -21,13 +21,13 @@
     "parseurl": "~1.3.0",
     "qs": "^2.3.3",
     "react": "^0.13.1",
-    "react-router": "git+https://github.com/reapp/react-router#0ceb428804b71d3",
+    "react-router": "git+https://github.com/reapp/react-router#1d00e252",
     "reapp-component": "^1.0.0",
     "reapp-platform": "^1.0.2",
     "reapp-reducer": "^1.0.0",
     "reapp-request": "^0.2.0",
-    "reapp-routes": "^0.9.0",
-    "reapp-ui": "^0.10.0",
+    "reapp-routes": "^0.10.0",
+    "reapp-ui": "^0.11.0",
     "superagent": "~0.21.0",
     "superagent-bluebird-promise": "~0.6.0"
   }
