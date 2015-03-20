@@ -21,7 +21,7 @@
     "parseurl": "~1.3.0",
     "qs": "^2.3.3",
     "react": "^0.13.1",
-    "react-router": "git+https://github.com/reapp/react-router#1d00e252",
+    "react-router": "^0.13.0",
     "reapp-component": "^1.0.0",
     "reapp-platform": "^1.0.2",
     "reapp-reducer": "^1.0.0",
