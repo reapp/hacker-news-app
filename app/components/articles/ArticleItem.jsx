@@ -33,7 +33,8 @@ module.exports = Component({
     },
 
     after: {
-      margin: 0
+      margin: 0,
+      padding: 0
     },
 
     children: {
@@ -56,22 +57,22 @@ module.exports = Component({
     var article = cursor.get('data');
 
     var stats = (
-      <ul>
-        <li className="score">
+      <div className="meta">
+        <div className="score">
           <Badge>{article.get('score')}</Badge>
-        </li>
-        <li className="author">
+        </div>
+        <div className="author">
           <Link to="user" params={{id: article.get('by')}} activeClassName="">
             {article.get('by')}
           </Link>
-        </li>
-        <li className="time">
+        </div>
+        <div className="time">
           {new Date(article.get('time') * 1000)}
-        </li>
-        <li className="url">
+        </div>
+        <div className="url">
           {article.get('host')}
-        </li>
-      </ul>
+        </div>
+      </div>
     );
 
     var articleRight = (
