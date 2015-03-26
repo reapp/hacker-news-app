@@ -1,7 +1,6 @@
-var React = require('react/addons');
+var React = require('react');
 var Component = require('component');
 var Tappable = require('reapp-ui/helpers/Tappable');
-var cx = React.addons.classSet;
 
 function clearSelection() {
   if (window.getSelection) {
@@ -51,13 +50,8 @@ module.exports = Component({
     if (!closed)
       text = cursor.get('text');
 
-    var classes = {
-      [`level-${level}`]: true,
-      comment: true
-    };
-
     return (
-      <div className={cx(classes)}>
+      <div className={`level-${level} comment`}>
         <div className="comment--content" ref="content">
           <Tappable
             tapFocusStyle={{ backgroundColor: 'rgba(0,0,0,0.1)' }}

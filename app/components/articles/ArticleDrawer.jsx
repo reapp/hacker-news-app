@@ -1,7 +1,6 @@
 var React = require('react');
 var Component = require('component');
 var Bar = require('reapp-ui/components/Bar');
-var BarItem = require('reapp-ui/components/BarItem');
 var Drawer = require('reapp-ui/components/Drawer');
 var View = require('reapp-ui/views/View');
 
@@ -56,10 +55,10 @@ module.exports = Component({
       <Drawer from="bottom" dragger={false}>
         <View>
           <Bar position="top" display="icon">
-            <BarItem icon="arrow-left" onTap={this.iframeBack} />
-            <BarItem icon="arrow-right" onTap={this.iframeFwd} />
-            <BarItem icon="arrow-refresh" onTap={this.iframeRefresh} />
-            <BarItem icon="x" onTap={this.props.onClose} />
+            <Bar.Item icon="arrow-left" onTap={this.iframeBack} />
+            <Bar.Item icon="arrow-right" onTap={this.iframeFwd} />
+            <Bar.Item icon="arrow-refresh" onTap={this.iframeRefresh} />
+            <Bar.Item icon="x" onTap={this.props.onClose} />
           </Bar>
 
           <div styles={this.styles.inner}>

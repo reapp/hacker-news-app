@@ -2,7 +2,7 @@
 var React = require('react');
 var Component = require('component');
 var Icon = require('reapp-ui/components/Icon');
-var ListItem = require('reapp-ui/components/ListItem');
+var List = require('reapp-ui/components/List');
 var Badge = require('reapp-ui/components/Badge');
 var Button = require('reapp-ui/components/Button');
 var { Link } = require('react-router');
@@ -94,7 +94,7 @@ module.exports = Component({
     var mergedStyles = Object.assign({}, this.styles, styles);
 
     return (
-      <ListItem
+      <List.Item
         key={key || index}
         className="ArticleItem"
         styles={mergedStyles}
@@ -105,7 +105,7 @@ module.exports = Component({
         noicon
         {...props}>
         {stats}
-      </ListItem>
+      </List.Item>
     );
   }
 });
