@@ -1,6 +1,6 @@
-var Fynx = require('fynx');
+import { createAsyncActions } from 'fynx';
 
-module.exports = Fynx.createAsyncActions([
+export default createAsyncActions([
   'articlesHotLoad',
   'articlesHotRefresh',
   'articlesHotLoadMore',
@@ -11,5 +11,5 @@ module.exports = Fynx.createAsyncActions([
 ]);
 
 // Required here so actions are bundled with the app
-require('./actions/ArticlesActions');
-require('./actions/UsersActions');
+import './actions/ArticlesActions';
+import './actions/UsersActions';
