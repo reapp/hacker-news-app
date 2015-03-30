@@ -10,8 +10,10 @@ import Comment from './Comment';
 import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
 
 export default class Article extends Component {
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       showLoader: false
     };
   }
@@ -43,7 +45,7 @@ export default class Article extends Component {
 
     return (
       <View {...props}
-        title={[<BackButton onTap={this.goBackView} />, 'Comments']}
+        title={[<BackButton onTap={this.goBackView.bind(this)} />, 'Comments']}
         styles={styles.view}>
 
         {article &&

@@ -38,6 +38,8 @@ export default class ArticleItem extends Component {
     if (!article)
       return null;
 
+    console.log(this.context)
+
     const stats = (
       <div className="meta">
         <div className="score">
@@ -61,7 +63,7 @@ export default class ArticleItem extends Component {
 
     const articleRight = (
       <Button
-        onTap={this.openComments}
+        onTap={this.openComments.bind(this)}
         tapFocusStyle={{opacity: 0.2}}
         style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
         stopPropagation
@@ -82,7 +84,7 @@ export default class ArticleItem extends Component {
         key={key || index}
         className="ArticleItem"
         styles={mergedStyles}
-        onTap={this.handleTap}
+        onTap={this.handleTap.bind(this)}
         title={article.get('title')}
         after={articleRight}
         index={index}

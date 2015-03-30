@@ -1,6 +1,7 @@
 import {
   React,
   Reapp,
+  Routed,
   View,
   List } from 'reapp-kit';
 
@@ -12,10 +13,9 @@ import RefreshButton from './articles/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
-export default class Articles extends React.Component {
+export default Routed(class extends React.Component {
   constructor(props) {
-    super(props);
-
+    store.listen(() => this.forceUpdate(), this);
     this.state = {
       isRefreshing: false
     };
@@ -62,7 +62,8 @@ export default class Articles extends React.Component {
           {articles &&
             <List>
               {articles.map((article, i) =>
-                <ArticleItem key={i} index={i} article={article} />
+                <ArticleItem key={i} index={i}
+                  article={store().getIn(['articles', article, 'data'])} />
               )}
 
               <List.Item
@@ -80,7 +81,7 @@ export default class Articles extends React.Component {
       </Reapp>
     );
   }
-};
+});
 
 const styles = {
   loadMore: {
