@@ -3,23 +3,29 @@ import {
   Reapp,
   View,
   List } from 'reapp-kit';
-import Actions from 'actions';
-import Store from 'store';
+
+import actions from 'actions';
+import store from 'store';
+import theme from 'theme';
+
 import RefreshButton from './articles/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
-import theme from '../theme';
 
-Actions.articlesHotLoad();
+export default class Articles extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default class Articles extends Reapp {
-  getInitialState() {
-    return {
+    this.state = {
       isRefreshing: false
     };
   }
 
-  handleRefresh(e) {
+  componentWillMount() {
+    actions.articlesHotLoad();
+  }
+
+  handleRefresh() {
     if (!this.state.isRefreshing) {
       this.setState({ isRefreshing: true });
       Actions.articlesHotRefresh().then(() => {
@@ -37,7 +43,7 @@ export default class Articles extends Reapp {
   }
 
   render() {
-    const articles = Store().get('hotArticles');
+    const articles = store().get('hotArticles');
     const refresh =
       <RefreshButton
         onTap={this.handleRefresh.bind(this)}
@@ -45,7 +51,7 @@ export default class Articles extends Reapp {
       />
 
     return (
-      <Reapp theme={theme} store={Store}>
+      <Reapp context={{ theme, store, actions }}>
         <View title="Hot Articles" titleRight={refresh}>
           {!articles &&
             <div style={{ padding: 20, marginLeft: -10 }}>
@@ -68,8 +74,8 @@ export default class Articles extends Reapp {
           }
         </View>
 
-        {this.childRouteHandler({
-          articles: Store().get('articles')
+        {this.props.child && this.props.child({
+          articles: store().get('articles')
         })}
       </Reapp>
     );

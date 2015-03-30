@@ -5,7 +5,6 @@ import {
   BackButton,
   TreeNode
   } from 'reapp-kit';
-import Actions from 'actions';
 import ArticleItem from './ArticleItem';
 import Comment from './Comment';
 import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
@@ -21,14 +20,14 @@ export default class Article extends Component {
     this._id = this.context.router.getCurrentParams().id;
 
     setTimeout(() => {
-      Actions.articleLoad(this._id);
+      this.context.actions.articleLoad(this._id);
     }, 450);
 
     setTimeout(() => this.setState({ showLoader: true }), 800);
   }
 
   componentWillUnmount() {
-    Actions.articleUnload(this._id);
+    this.context.actions.articleUnload(this._id);
   }
 
   goBackView() {
