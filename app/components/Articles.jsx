@@ -9,21 +9,19 @@ import {
 import actions from 'actions';
 import store from 'store';
 import theme from 'theme';
+const context = { theme, store, actions };
 
 import RefreshButton from './articles/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
-export default Reapp({ theme, store, actions }, class extends React.Component {
-  constructor(props) {
-    store.listen(() => this.forceUpdate(), this);
+actions.articlesHotLoad();
+
+export default Reapp(context, class extends React.Component {
+  constructor() {
     this.state = {
       isRefreshing: false
     };
-  }
-
-  componentWillMount() {
-    actions.articlesHotLoad();
   }
 
   handleRefresh() {

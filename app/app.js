@@ -1,6 +1,6 @@
 import { router, route } from 'reapp-kit';
 
-export default router(require,
+router(require,
   route('articles', '/',
     route('article', '/article/:id'),
     route('user', '/user/:id')
