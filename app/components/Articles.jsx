@@ -1,31 +1,27 @@
-import React from 'react';
-import Component from 'component';
-import NestedViewList from 'reapp-ui/views/NestedViewList';
+import {
+  React,
+  Reapp,
+  View,
+  List,
+  Theme } from 'reapp-kit';
+
 import Actions from 'actions';
 import Store from 'store';
-import { storeRefreshMixin } from 'reapp-platform';
-import { RoutedViewListMixin } from 'reapp-routes/react-router';
-import View from 'reapp-ui/views/View';
 import RefreshButton from './articles/RefreshButton';
-import ArticlesContent from './ArticlesContent';
-import Theme from 'reapp-ui/helpers/Theme';
+import ArticleItem from './articles/ArticleItem';
+import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
 import theme from 'theme/theme';
 
-export default Component({
-  statics: {
-    fetchData: Actions.articlesHotLoad
-  },
-
-  mixins: [
-    RoutedViewListMixin,
-    storeRefreshMixin(Store)
-  ],
+export default class Articles extends Reapp {
+  componentWillMount() {
+    Actions.articlesHotLoad();
+  }
 
   getInitialState() {
     return {
       isRefreshing: false
     };
-  },
+  }
 
   handleRefresh(e) {
     if (!this.state.isRefreshing) {
@@ -34,41 +30,63 @@ export default Component({
         this.setState({ isRefreshing: false });
       });
     }
-  },
+  }
 
   handleLoadMore(e) {
-    e.preventDefault();
     e.target.innerHTML = 'Loading...';
-
     this.setState({ isRefreshing: true });
     Actions.articlesHotLoadMore().then(() => {
       this.setState({ isRefreshing: false });
     });
-  },
+  }
 
   render() {
-    const articles = Store().get('articles');
-    const hotArticles = Store().get('hotArticles');
-
-    var refreshButton =
-      <RefreshButton
-        onTap={this.handleRefresh}
-        rotate={this.state.isRefreshing}
-      />
-
+    const articles = Store().get('hotArticles');
     return (
-      <Theme {...theme}>
-        <NestedViewList {...this.routedViewListProps()}>
-          <View title={[, 'Hot Articles', refreshButton]}>
-            <ArticlesContent
-              articles={hotArticles}
-              onLoadMore={this.handleLoadMore}
+      <Reapp theme={theme} store={Store()}>
+        <View>
+          <TitleBar right={
+            <RefreshButton
+              onTap={this.handleRefresh.bind(this)}
+              rotate={this.state.isRefreshing}
             />
-          </View>
+          }>
+            Hot Articles
+          </TitleBar>
 
-          {this.childRouteHandler({ articles })}
-        </NestedViewList>
-      </Theme>
+          {!articles &&
+            <div style={{ padding: 20, marginLeft: -10 }}>
+              <RotatingLoadingIcon />
+            </div>
+          }
+
+          {articles &&
+          <List>
+            {articles.map((article, i) =>
+              <ArticleItem key={i} index={i} article={article} />
+            )}
+
+            <List.Item
+              styles={styles.loadMore}
+              onTap={this.handleLoadMore.bind(this)}>
+              Load More
+            </List.Item>
+          </List>
+        </View>
+
+        {this.childRouteHandler({
+          articles: Store().get('articles')
+        })}
+      </Reapp>
     );
   }
-});
+};
+
+const styles = {
+  loadMore: {
+    content: {
+      textAlign: 'center',
+      padding: 20
+    }
+  }
+};
