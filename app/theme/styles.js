@@ -1,7 +1,6 @@
-var { makeStyles } = require('reapp-ui');
-var requirer = (name) => require('./styles/' + name);
+import { makeStyles } from 'reapp-ui';
 
-module.exports = makeStyles(requirer, [
+export default makeStyles(name => require('./styles/' + name), [
   'Button',
   'Dots',
   'TitleBar'

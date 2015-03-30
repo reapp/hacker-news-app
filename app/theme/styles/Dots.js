@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   dot: {
     background: 'rgba(255,255,255,0.2)'
   },

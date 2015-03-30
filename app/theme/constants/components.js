@@ -1,4 +1,4 @@
-module.exports = (c) => ({
+export default c => ({
   badgeBG: '#c1c1bb',
   listBG: 'none',
   listItemBorderColor: '#e8e9de',
