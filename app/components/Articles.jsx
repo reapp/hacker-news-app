@@ -2,9 +2,7 @@ import {
   React,
   Reapp,
   View,
-  List,
-  Theme } from 'reapp-kit';
-
+  List } from 'reapp-kit';
 import Actions from 'actions';
 import Store from 'store';
 import RefreshButton from './articles/RefreshButton';
