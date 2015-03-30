@@ -61,17 +61,18 @@ export default class Articles extends Reapp {
           }
 
           {articles &&
-          <List>
-            {articles.map((article, i) =>
-              <ArticleItem key={i} index={i} article={article} />
-            )}
+            <List>
+              {articles.map((article, i) =>
+                <ArticleItem key={i} index={i} article={article} />
+              )}
 
-            <List.Item
-              styles={styles.loadMore}
-              onTap={this.handleLoadMore.bind(this)}>
-              Load More
-            </List.Item>
-          </List>
+              <List.Item
+                styles={styles.loadMore}
+                onTap={this.handleLoadMore.bind(this)}>
+                Load More
+              </List.Item>
+            </List>
+          }
         </View>
 
         {this.childRouteHandler({
