@@ -1,7 +1,6 @@
 import {
   React,
   Reapp,
-  Routed,
   View,
   NestedViewList,
   List } from 'reapp-kit';
@@ -20,24 +19,23 @@ actions.articlesHotLoad();
 export default Reapp(context, class extends React.Component {
   constructor() {
     this.state = {
-      isRefreshing: false
+      refreshing: false
     };
   }
 
   handleRefresh() {
-    if (!this.state.isRefreshing) {
-      this.setState({ isRefreshing: true });
-      Actions.articlesHotRefresh().then(() => {
-        this.setState({ isRefreshing: false });
-      });
-    }
+    if (this.state.refreshing) return;
+    this.setState({ refreshing: true });
+    Actions.articlesHotRefresh().then(() => {
+      this.setState({ refreshing: false });
+    });
   }
 
   handleLoadMore(e) {
     e.target.innerHTML = 'Loading...';
-    this.setState({ isRefreshing: true });
+    this.setState({ refreshing: true });
     Actions.articlesHotLoadMore().then(() => {
-      this.setState({ isRefreshing: false });
+      this.setState({ refreshing: false });
     });
   }
 
@@ -46,7 +44,7 @@ export default Reapp(context, class extends React.Component {
     const refresh =
       <RefreshButton
         onTap={this.handleRefresh.bind(this)}
-        rotate={this.state.isRefreshing}
+        rotate={this.state.refreshing}
       />
 
     return (
