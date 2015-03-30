@@ -1,6 +1,6 @@
 var React = require('react');
 var LoadingIcon = require('./LoadingIcon');
-var theme = require('theme/theme');
+var theme = require('theme');
 
 module.exports = React.createClass({
   render() {

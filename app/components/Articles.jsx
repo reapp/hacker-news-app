@@ -10,11 +10,9 @@ import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 import theme from '../theme';
 
-export default class Articles extends Reapp {
-  componentWillMount() {
-    Actions.articlesHotLoad();
-  }
+Actions.articlesHotLoad();
 
+export default class Articles extends Reapp {
   getInitialState() {
     return {
       isRefreshing: false
@@ -47,7 +45,7 @@ export default class Articles extends Reapp {
       />
 
     return (
-      <Reapp theme={theme} store={Store()}>
+      <Reapp theme={theme} store={Store}>
         <View title="Hot Articles" titleRight={refresh}>
           {!articles &&
             <div style={{ padding: 20, marginLeft: -10 }}>

@@ -1,28 +1,30 @@
-import React from 'react';
-import Component from 'component';
-import Bar from 'reapp-ui/components/Bar';
-import Drawer from 'reapp-ui/components/Drawer';
-import View from 'reapp-ui/views/View';
+import {
+  React,
+  Component,
+  Bar,
+  Drawer,
+  View
+  } from 'reapp-kit';
 
-export default Component({
+export default class ArticleDrawer extends Component {
   getFrame() {
     return this.refs.frame.getDOMNode();
-  },
+  }
 
   iframeBack() {
     if (this.getFrame().history)
       this.getFrame().history.back();
-  },
+  }
 
   iframeFwd() {
     if (this.getFrame().history)
       this.getFrame().history.forward();
-  },
+  }
 
   iframeRefresh() {
     var frame = this.getFrame();
     frame.src = this.props.url;
-  },
+  }
 
   render() {
     var { url } = this.props;
@@ -44,7 +46,7 @@ export default Component({
       </Drawer>
     );
   }
-});
+}
 
 const styles = {
   inner: {

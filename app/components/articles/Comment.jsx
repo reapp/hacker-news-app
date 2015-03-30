@@ -1,22 +1,24 @@
-import React from 'react';
-import Component from 'component';
-import Tappable from 'reapp-ui/helpers/Tappable';
+import {
+  React,
+  Component,
+  Tappable
+  } from 'reapp-kit';
 
 import './Comment.styl';
 
-export default Component({
+export default class Comment extends Component {
   toggleOpened(e) {
     if (!e.target || e.target.tagName !== 'A')
       this.props.cursor.update('closed', closed => !closed);
-  },
+  }
 
   componentDidMount() {
     this.handleLinks();
-  },
+  }
 
   componentDidUpdate() {
     this.handleLinks();
-  },
+  }
 
   handleLinks() {
     this.refs.content.getDOMNode().addEventListener('click', function(e) {
@@ -26,15 +28,12 @@ export default Component({
         window.open(encodeURI(url), '_system');
       }
     });
-  },
+  }
 
   render() {
-    var { cursor, level, children } = this.props;
-    var closed = cursor.get('closed');
-    var text;
-
-    if (!closed)
-      text = cursor.get('text');
+    const { cursor, level, children } = this.props;
+    const closed = cursor.get('closed');
+    const text = !closed && cursor.get('text');
 
     return (
       <div className={`level-${level} comment`}>
@@ -58,4 +57,4 @@ export default Component({
       </div>
     );
   }
-});
+}

@@ -1,10 +1,13 @@
-import Component from 'component';
-import View from 'reapp-ui/views/View';
+import {
+  React,
+  Component,
+  View
+  } from 'reapp-kit';
 
-export default Component({
+export default class User extends Component {
   render() {
-    var { cursor } = this.props;
-    var user = cursor.get('user') || { get: () => 'Loading' };
+    const { cursor } = this.props;
+    const user = cursor.get('user') || { get: () => 'Loading' };
 
     return (
       <View title={user.get('id')}>
@@ -15,4 +18,4 @@ export default Component({
       </View>
     );
   }
-});
+}

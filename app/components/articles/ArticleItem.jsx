@@ -1,30 +1,30 @@
-// var Time = require('react-time');
-import React from 'react';
-import Component from 'component';
-import Icon from 'reapp-ui/components/Icon';
-import List from 'reapp-ui/components/List';
-import Badge from 'reapp-ui/components/Badge';
-import Button from 'reapp-ui/components/Button';
-import { Link } from 'react-router';
-import Theme from 'theme/theme';
+import {
+  React,
+  Component,
+  Icon,
+  List,
+  Badge,
+  Button,
+  Tappable
+  } from 'reapp-kit';
 
 import './ArticleItem.styl';
 
-export default Component({
+export default class ArticleItem extends Component {
   handleTap() {
     var url = this.props.article.getIn(['data', 'url']);
     window.open(url, window.cordova ? '_system' : '_blank');
-  },
+  }
 
   openComments(e) {
     e.stopPropagation();
     this.context.router.transitionTo('article', { id: this.props.article.get('id') })
-  },
+  }
 
   saveArticle() {
     if (this.props.onPress)
       this.props.onPress(this.props.article.get('id'));
-  },
+  }
 
   render() {
     const {
@@ -44,9 +44,11 @@ export default Component({
           <Badge>{article.get('score')}</Badge>
         </div>
         <div className="author">
-          <Link to="user" params={{id: article.get('by')}} activeClassName="">
+          <Tappable onTap={() => this.context.router.transitionTo('user', {
+            id: article.get('by')
+          })}>
             {article.get('by')}
-          </Link>
+          </Tappable>
         </div>
         <div className="time">
           {new Date(article.get('time') * 1000)}
@@ -90,9 +92,7 @@ export default Component({
       </List.Item>
     );
   }
-});
-
-// <Time value={new Date(article.get('time') * 1000)} relative />
+}
 
 const styles = {
   content: {
