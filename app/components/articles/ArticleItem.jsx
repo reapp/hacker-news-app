@@ -38,8 +38,6 @@ export default class ArticleItem extends Component {
     if (!article)
       return null;
 
-    console.log(this.context)
-
     const stats = (
       <div className="meta">
         <div className="score">

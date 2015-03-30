@@ -3,6 +3,7 @@ import {
   Reapp,
   Routed,
   View,
+  NestedViewList,
   List } from 'reapp-kit';
 
 import actions from 'actions';
@@ -13,7 +14,7 @@ import RefreshButton from './articles/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
-export default Routed(class extends React.Component {
+export default Reapp({ theme, store, actions }, class extends React.Component {
   constructor(props) {
     store.listen(() => this.forceUpdate(), this);
     this.state = {
@@ -51,7 +52,7 @@ export default Routed(class extends React.Component {
       />
 
     return (
-      <Reapp context={{ theme, store, actions }}>
+      <NestedViewList {...this.props.viewListProps}>
         <View title="Hot Articles" titleRight={refresh}>
           {!articles &&
             <div style={{ padding: 20, marginLeft: -10 }}>
@@ -78,7 +79,7 @@ export default Routed(class extends React.Component {
         {this.props.child && this.props.child({
           articles: store().get('articles')
         })}
-      </Reapp>
+      </NestedViewList>
     );
   }
 });
