@@ -1,16 +1,15 @@
-import Immutable, { fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import reducer from 'reapp-reducer';
 import Actions from 'actions';
-import Request from 'lib/request';
 import parseUrl from 'parseurl';
-import { Promise } from 'bluebird';
 import store from '../store';
 
 // dont do stuff during view list animations
 const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
 const waitForViewList = res => waitForAnimation('viewList').then(() => res);
 
-const req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
+const url = path => `https://hacker-news.firebaseio.com/v0/${path}`;
+const get = path => fetch(url(path)).then(validResponse);
 const loadedReducer = reducer.bind(null, 'LOADED');
 const loadingStatus = {};
 
@@ -27,7 +26,7 @@ Actions.articlesHotRefresh.listen(
 
 Actions.articlesHotLoadMore.listen(
   () =>
-    req.get('topstories.json')
+    get('topstories.json')
       .then(waitForViewList)
       .then(insertNextArticles)
       .then(returnArticlesStore)
@@ -42,7 +41,7 @@ Actions.articleLoad.listen(
     if (article && article.get('status') === 'LOADED')
       return Promise.resolve(article);
     else
-      return req.get(`item/${id}.json`)
+      return get(`item/${id}.json`)
         .then(res => {
           res.parentId = res.id;
           return res;
@@ -64,8 +63,8 @@ Actions.articleUnload.listen(
   }
 );
 
-function loadHotArticles(opts) {
-  return req.get('topstories.json', opts)
+function loadHotArticles() {
+  return get('topstories.json')
     .then(waitForViewList)
     .then(articles => {
       const start = page * per;
@@ -77,6 +76,13 @@ function loadHotArticles(opts) {
 }
 
 var loadHotArticlesOnce = once(loadHotArticles);
+
+function validResponse(response) {
+  if (response.status >= 400)
+    throw new Error('Bad response from server');
+  else
+    return response.json();
+}
 
 function insertArticle(res, rej) {
   if (rej)
@@ -107,7 +113,7 @@ function insertArticles(articles) {
     articles.map(
       article => exists(article) ?
         article :
-        req.get(`item/${article}.json`)
+        get(`item/${article}.json`)
           .then(reducer)
           .then(insertArticle)
     )
@@ -135,7 +141,7 @@ function getAllKids(item) {
     Promise.all(
       kids.map(kid => {
         return loadingStatus[parentId] ?
-          req.get(`item/${kid}.json`).then(res => {
+          get(`item/${kid}.json`).then(res => {
             res.parentId = parentId;
             return getAllKids(res);
           }) :

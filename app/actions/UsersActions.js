@@ -1,11 +1,8 @@
 var Actions = require('actions');
-var Request = require('lib/request');
-var Store = require('store');
-
-var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
+var store = require('store');
 
 Actions.userLoad.listen(id => {
-  Client.get(`user/${id}.json`).then(res => {
-    Store.set('users', res);
+  fetch(`https://hacker-news.firebaseio.com/v0/user/${id}.json`).then(res => {
+    store().set('users', res);
   });
 });
