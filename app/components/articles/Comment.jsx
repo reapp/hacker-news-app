@@ -41,7 +41,7 @@ export default class Comment extends Component {
           <Tappable
             tapFocusStyle={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
             maxTapTime={900}
-            onTap={this.toggleOpened}
+            onTap={this.toggleOpened.bind(this)}
             styles={{ self: { padding: '8px 20px' } }}>
 
             <h3>{cursor.get('by')}</h3>

@@ -78,10 +78,7 @@ function loadHotArticles() {
 var loadHotArticlesOnce = once(loadHotArticles);
 
 function validResponse(response) {
-  if (response.status >= 400)
-    throw new Error('Bad response from server');
-  else
-    return response.json();
+  return response.json();
 }
 
 function insertArticle(res, rej) {
