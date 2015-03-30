@@ -18,7 +18,7 @@ export default class ArticleItem extends Component {
 
   openComments(e) {
     e.stopPropagation();
-    this.context.router.transitionTo('article', { id: this.props.article.get('id') })
+    this.router.transitionTo('article', { id: this.props.article.get('id') })
   }
 
   saveArticle() {
@@ -44,7 +44,7 @@ export default class ArticleItem extends Component {
           <Badge>{article.get('score')}</Badge>
         </div>
         <div className="author">
-          <Tappable onTap={() => this.context.router.transitionTo('user', {
+          <Tappable onTap={() => this.router.transitionTo('user', {
             id: article.get('by')
           })}>
             {article.get('by')}
