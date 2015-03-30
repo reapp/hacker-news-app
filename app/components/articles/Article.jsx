@@ -19,17 +19,18 @@ export default class Article extends Component {
   }
 
   componentDidMount() {
-    this._id = this.context.router.getCurrentParams().id;
+    this._id = this.router.getCurrentParams().id;
+    const self = this;
 
     setTimeout(() => {
-      this.context.actions.articleLoad(this._id);
+      self.actions.articleLoad(self._id);
     }, 450);
 
     setTimeout(() => this.setState({ showLoader: true }), 800);
   }
 
   componentWillUnmount() {
-    this.context.actions.articleUnload(this._id);
+    this.actions.articleUnload(this._id);
   }
 
   goBackView() {
@@ -38,14 +39,17 @@ export default class Article extends Component {
 
   render() {
     const { articles, ...props } = this.props;
-    const id = Number(this.context.router.getCurrentParams().id);
+    const id = Number(this.router.getCurrentParams().id);
     const article = articles.getIn([id, 'data']);
     const commentsLoaded = article && article.get('status') === 'LOADED';
     const comments = article && article.get('kids');
 
     return (
       <View {...props}
-        title={[<BackButton onTap={this.goBackView.bind(this)} />, 'Comments']}
+        title={[
+          <BackButton onTap={this.goBackView.bind(this)} />,
+          'Comments'
+        ]}
         styles={styles.view}>
 
         {article &&
