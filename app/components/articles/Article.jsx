@@ -6,7 +6,7 @@ var Store = require('store');
 var Actions = require('actions');
 var ArticleContent = require('./ArticleContent');
 
-module.exports = Component({
+export default Component({
   componentDidMount() {
     this._id = this.context.router.getCurrentParams().id;
 
@@ -23,27 +23,26 @@ module.exports = Component({
     this.props.viewListScrollToStep(0);
   },
 
-  styles: {
-    view: {
-      inner: {
-        padding: 0
-      }
-    }
-  },
-
   render() {
-    var { styles, articlesStore, ...props } = this.props;
+    var { articles, ...props } = this.props;
 
     var id = Number(this.context.router.getCurrentParams().id);
-    var cursor = articlesStore.get(id);
+    var article = articles.getIn([id, 'data']);
 
     return (
-      <View
+      <View {...props}
         title={[<BackButton onTap={this.goBackView} />, 'Comments']}
-        styles={this.styles.view}
-        {...props}>
-        <ArticleContent cursor={cursor} />
+        styles={styles.view}>
+        <ArticleContent article={article} />
       </View>
     );
   }
 });
+
+const styles = {
+  view: {
+    inner: {
+      padding: 0
+    }
+  }
+};

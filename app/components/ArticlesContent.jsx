@@ -1,11 +1,10 @@
-var React = require('react');
-var Component = require('component');
-var ArticleItem = require('./articles/ArticleItem');
-var RotatingLoadingIcon = require('components/shared/RotatingLoadingIcon');
-var List = require('reapp-ui/components/List');
-var ListItem = require('reapp-ui/components/ListItem');
+import React from 'react';
+import Component from 'component';
+import ArticleItem from './articles/ArticleItem';
+import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
+import List from 'reapp-ui/components/List';
 
-module.exports = Component({
+export default Component({
   listStyle: {
     self: {
       borderTop: 'none'
@@ -13,28 +12,21 @@ module.exports = Component({
   },
 
   render() {
-    var { store } = this.props;
-    var articles = store.get('articles');
-    var hotArticles = store.get('hotArticles');
-
-    var hasArticles = articles.size > 0;
-
-    if (hasArticles)
-      articles = hotArticles
-        .map(id => articles.get(id))
-        .filter(x => typeof x !== 'undefined');
+    const { articles } = this.props;
 
     return (
       <List styles={this.listStyle}>
-        {hasArticles && articles.map((article, i) =>
+        {articles && articles.map((article, i) =>
           <ArticleItem
             key={i}
             index={i}
             onClickComments={this.handleClickComments}
             cursor={article}
           />
-        ).concat(
-          <ListItem
+        )}
+
+        {articles &&
+          <List.Item
             key={1000}
             styles={{
               content: {
@@ -44,10 +36,10 @@ module.exports = Component({
             }}
             onTap={this.props.onLoadMore}>
             Load More
-          </ListItem>
-        )}
+          </List.Item>
+        }
 
-        {!hasArticles && !this.props.inactive &&
+        {!articles && !this.props.inactive &&
           <div style={{ padding: 20, marginLeft: -10 }}>
             <RotatingLoadingIcon />
           </div>

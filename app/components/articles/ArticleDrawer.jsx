@@ -1,34 +1,10 @@
-var React = require('react');
-var Component = require('component');
-var Bar = require('reapp-ui/components/Bar');
-var Drawer = require('reapp-ui/components/Drawer');
-var View = require('reapp-ui/views/View');
+import React from 'react';
+import Component from 'component';
+import Bar from 'reapp-ui/components/Bar';
+import Drawer from 'reapp-ui/components/Drawer';
+import View from 'reapp-ui/views/View';
 
-module.exports = Component({
-  styles: {
-    inner: {
-      position: 'absolute',
-      display: 'block',
-      top: 50,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      overflow: 'none'
-    },
-
-    frame: {
-      position: 'absolute',
-      display: 'block',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      width: '100%',
-      height: '100%',
-      border: 'none'
-    }
-  },
-
+export default Component({
   getFrame() {
     return this.refs.frame.getDOMNode();
   },
@@ -69,3 +45,27 @@ module.exports = Component({
     );
   }
 });
+
+const styles = {
+  inner: {
+    position: 'absolute',
+    display: 'block',
+    top: 50,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: 'none'
+  },
+
+  frame: {
+    position: 'absolute',
+    display: 'block',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    border: 'none'
+  }
+};

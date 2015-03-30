@@ -1,7 +1,7 @@
-var { createCursorStore } = require('fynx');
-var Immutable = require('immutable');
+import { createCursorStore } from 'fynx';
+import Immutable from 'immutable';
 
-module.exports = createCursorStore(
+export default createCursorStore(
   Immutable.fromJS({
     articles: {},
     hotArticles: [],

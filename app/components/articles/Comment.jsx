@@ -1,22 +1,10 @@
-var React = require('react');
-var Component = require('component');
-var Tappable = require('reapp-ui/helpers/Tappable');
+import React from 'react';
+import Component from 'component';
+import Tappable from 'reapp-ui/helpers/Tappable';
 
-function clearSelection() {
-  if (window.getSelection) {
-    if (window.getSelection().empty) {  // Chrome
-      window.getSelection().empty();
-    } else if (window.getSelection().removeAllRanges) {  // Firefox
-      window.getSelection().removeAllRanges();
-    }
-  } else if (document.selection) {  // IE?
-    document.selection.empty();
-  }
-}
+import './Comment.styl';
 
-require('./Comment.styl');
-
-module.exports = Component({
+export default Component({
   toggleOpened(e) {
     if (!e.target || e.target.tagName !== 'A')
       this.props.cursor.update('closed', closed => !closed);
@@ -32,8 +20,6 @@ module.exports = Component({
 
   handleLinks() {
     this.refs.content.getDOMNode().addEventListener('click', function(e) {
-      // clearSelection();
-
       if (e.target && e.target.tagName === 'A') {
         e.preventDefault();
         var url = e.target.getAttribute('href');

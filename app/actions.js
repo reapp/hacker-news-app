@@ -1,6 +1,6 @@
 var Fynx = require('fynx');
 
-var actions = Fynx.createAsyncActions([
+module.exports = Fynx.createAsyncActions([
   'articlesHotLoad',
   'articlesHotRefresh',
   'articlesHotLoadMore',
@@ -9,8 +9,6 @@ var actions = Fynx.createAsyncActions([
   'articleSave',
   'userLoad'
 ]);
-
-module.exports = actions;
 
 // Required here so actions are bundled with the app
 require('./actions/ArticlesActions');

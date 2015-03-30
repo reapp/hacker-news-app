@@ -1,7 +1,7 @@
-var Component = require('component');
-var View = require('reapp-ui/views/View');
+import Component from 'component';
+import View from 'reapp-ui/views/View';
 
-module.exports = Component({
+export default Component({
   render() {
     var { cursor } = this.props;
     var user = cursor.get('user') || { get: () => 'Loading' };

@@ -1,62 +1,44 @@
 // var Time = require('react-time');
-var React = require('react');
-var Component = require('component');
-var Icon = require('reapp-ui/components/Icon');
-var List = require('reapp-ui/components/List');
-var Badge = require('reapp-ui/components/Badge');
-var Button = require('reapp-ui/components/Button');
-var { Link } = require('react-router');
-var Theme = require('theme/theme');
+import React from 'react';
+import Component from 'component';
+import Icon from 'reapp-ui/components/Icon';
+import List from 'reapp-ui/components/List';
+import Badge from 'reapp-ui/components/Badge';
+import Button from 'reapp-ui/components/Button';
+import { Link } from 'react-router';
+import Theme from 'theme/theme';
 
-require('./ArticleItem.styl');
+import './ArticleItem.styl';
 
-module.exports = Component({
+export default Component({
   handleTap() {
-    var url = this.props.cursor.getIn(['data', 'url']);
+    var url = this.props.article.getIn(['data', 'url']);
     window.open(url, window.cordova ? '_system' : '_blank');
   },
 
   openComments(e) {
     e.stopPropagation();
-    this.context.router.transitionTo('article', { id: this.props.cursor.get('id') })
+    this.context.router.transitionTo('article', { id: this.props.article.get('id') })
   },
 
   saveArticle() {
     if (this.props.onPress)
-      this.props.onPress(this.props.cursor.get('id'));
-  },
-
-  styles: {
-    content: {
-      paddingTop: 12,
-      paddingBottom: 12
-    },
-
-    after: {
-      margin: 0,
-      padding: 0
-    },
-
-    children: {
-      WebkitLineClamp: 'none'
-    }
+      this.props.onPress(this.props.article.get('id'));
   },
 
   render() {
-    var {
+    const {
       key,
-      cursor,
+      article,
       index,
       noLink,
       styles,
       ...props } = this.props;
 
-    if (!cursor)
+    if (!article)
       return null;
 
-    var article = cursor.get('data');
-
-    var stats = (
+    const stats = (
       <div className="meta">
         <div className="score">
           <Badge>{article.get('score')}</Badge>
@@ -75,7 +57,7 @@ module.exports = Component({
       </div>
     );
 
-    var articleRight = (
+    const articleRight = (
       <Button
         onTap={this.openComments}
         tapFocusStyle={{opacity: 0.2}}
@@ -91,7 +73,7 @@ module.exports = Component({
       </Button>
     );
 
-    var mergedStyles = Object.assign({}, this.styles, styles);
+    const mergedStyles = Object.assign({}, this.styles, styles);
 
     return (
       <List.Item
@@ -111,3 +93,19 @@ module.exports = Component({
 });
 
 // <Time value={new Date(article.get('time') * 1000)} relative />
+
+const styles = {
+  content: {
+    paddingTop: 12,
+    paddingBottom: 12
+  },
+
+  after: {
+    margin: 0,
+    padding: 0
+  },
+
+  children: {
+    WebkitLineClamp: 'none'
+  }
+};

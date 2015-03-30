@@ -1,20 +1,21 @@
-var Immutable = require('immutable');
-var reducer = require('reapp-reducer');
-var Actions = require('actions');
-var Request = require('lib/request');
-var parseUrl = require('parseurl');
-var { Promise } = require('bluebird');
-var store = require('../store');
+import Immutable, { fromJS } from 'immutable';
+import reducer from 'reapp-reducer';
+import Actions from 'actions';
+import Request from 'lib/request';
+import parseUrl from 'parseurl';
+import { Promise } from 'bluebird';
+import store from '../store';
 
 // dont do stuff during view list animations
-var waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
-var waitForViewList = res => waitForAnimation('viewList').then(() => res);
+const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
+const waitForViewList = res => waitForAnimation('viewList').then(() => res);
 
-var req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
-var loadedReducer = reducer.bind(null, 'LOADED');
-var loadingStatus = {};
-var page = 0;
-var per = 10;
+const req = new Request({ base: 'https://hacker-news.firebaseio.com/v0/' });
+const loadedReducer = reducer.bind(null, 'LOADED');
+const loadingStatus = {};
+
+let page = 0;
+const per = 10;
 
 Actions.articlesHotLoad.listen(
   opts => loadHotArticlesOnce(opts)
@@ -66,9 +67,11 @@ Actions.articleUnload.listen(
 function loadHotArticles(opts) {
   return req.get('topstories.json', opts)
     .then(waitForViewList)
-    .then(res => {
-      store().set('hotArticles', res);
-      insertArticles(res);
+    .then(articles => {
+      const start = page * per;
+      const hotArticles = articles.slice(0, start + per);
+      store().set('hotArticles', hotArticles);
+      insertArticles(hotArticles);
     })
     .then(returnArticlesStore);
 }
@@ -87,7 +90,7 @@ function insertArticle(res, rej) {
 
     if (loadingStatus[article.id] !== false) {
       // save ref to last article and store
-      lastArticle = Immutable.fromJS(article);
+      lastArticle = fromJS(article);
       store().setIn(['articles', article.id], lastArticle);
     }
   });
@@ -100,10 +103,8 @@ function setHost(article) {
 }
 
 function insertArticles(articles) {
-  var start = page * per;
-
   return Promise.all(
-    articles.slice(start, start + per).map(
+    articles.map(
       article => exists(article) ?
         article :
         req.get(`item/${article}.json`)

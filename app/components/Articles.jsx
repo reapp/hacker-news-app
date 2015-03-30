@@ -1,17 +1,17 @@
-var React = require('react');
-var Component = require('component');
-var NestedViewList = require('reapp-ui/views/NestedViewList');
-var Actions = require('actions');
-var { storeRefreshMixin } = require('reapp-platform');
-var { RoutedViewListMixin } = require('reapp-routes/react-router');
-var Store = require('store');
-var View = require('reapp-ui/views/View');
-var RefreshButton = require('./articles/RefreshButton');
-var ArticlesContent = require('./ArticlesContent');
-var Theme = require('reapp-ui/helpers/Theme');
-var theme = require('theme/theme');
+import React from 'react';
+import Component from 'component';
+import NestedViewList from 'reapp-ui/views/NestedViewList';
+import Actions from 'actions';
+import Store from 'store';
+import { storeRefreshMixin } from 'reapp-platform';
+import { RoutedViewListMixin } from 'reapp-routes/react-router';
+import View from 'reapp-ui/views/View';
+import RefreshButton from './articles/RefreshButton';
+import ArticlesContent from './ArticlesContent';
+import Theme from 'reapp-ui/helpers/Theme';
+import theme from 'theme/theme';
 
-module.exports = Component({
+export default Component({
   statics: {
     fetchData: Actions.articlesHotLoad
   },
@@ -47,7 +47,9 @@ module.exports = Component({
   },
 
   render() {
-    var store = Store();
+    const articles = Store().get('articles');
+    const hotArticles = Store().get('hotArticles');
+
     var refreshButton =
       <RefreshButton
         onTap={this.handleRefresh}
@@ -59,14 +61,12 @@ module.exports = Component({
         <NestedViewList {...this.routedViewListProps()}>
           <View title={[, 'Hot Articles', refreshButton]}>
             <ArticlesContent
-              store={store}
+              articles={hotArticles}
               onLoadMore={this.handleLoadMore}
             />
           </View>
 
-          {this.childRouteHandler({
-            articlesStore: store.get('articles')
-          })}
+          {this.childRouteHandler({ articles })}
         </NestedViewList>
       </Theme>
     );
