@@ -9,8 +9,8 @@ import Actions from 'actions';
 import Store from 'store';
 import RefreshButton from './articles/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
-import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
-import theme from 'theme/theme';
+import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
+import theme from '../theme';
 
 export default class Articles extends Reapp {
   componentWillMount() {
@@ -42,18 +42,15 @@ export default class Articles extends Reapp {
 
   render() {
     const articles = Store().get('hotArticles');
+    const refresh =
+      <RefreshButton
+        onTap={this.handleRefresh.bind(this)}
+        rotate={this.state.isRefreshing}
+      />
+
     return (
       <Reapp theme={theme} store={Store()}>
-        <View>
-          <TitleBar right={
-            <RefreshButton
-              onTap={this.handleRefresh.bind(this)}
-              rotate={this.state.isRefreshing}
-            />
-          }>
-            Hot Articles
-          </TitleBar>
-
+        <View title="Hot Articles" titleRight={refresh}>
           {!articles &&
             <div style={{ padding: 20, marginLeft: -10 }}>
               <RotatingLoadingIcon />
