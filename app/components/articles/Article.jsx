@@ -38,11 +38,14 @@ export default class Article extends Component {
   }
 
   render() {
-    const { articles, ...props } = this.props;
-    const id = Number(this.router.getCurrentParams().id);
-    const article = articles.getIn([id, 'data']);
-    const commentsLoaded = article && article.get('status') === 'LOADED';
-    const comments = article && article.get('kids');
+    const { article, ...props } = this.props;
+
+    if (!article)
+      return null;
+
+    const articleData = article.get('data');
+    const commentsLoaded = article.get('status') === 'LOADED';
+    const comments = articleData && articleData.get('kids');
 
     return (
       <View {...props}
@@ -52,8 +55,8 @@ export default class Article extends Component {
         ]}
         styles={styles.view}>
 
-        {article &&
-          <ArticleItem article={article} styles={styles.article} />
+        {articleData &&
+          <ArticleItem article={articleData} styles={styles.article} />
         }
 
         {!commentsLoaded && this.state.showLoader &&
@@ -64,13 +67,11 @@ export default class Article extends Component {
           </div>
         }
 
-        {commentsLoaded && comments &&
+        {commentsLoaded && comments.size &&
           <div style={styles.comments}>
-            {comments && comments.map(comment =>
+            {comments.map(comment =>
               <TreeNode
-                idKey="id"
-                childKey="kids"
-                article={comment}
+                cursor={comment}
                 Component={Comment}
               />
             )}
@@ -90,7 +91,7 @@ export default class Article extends Component {
 
 const styles = {
   view: {
-    inner: {
+    static: {
       padding: 0
     }
   },

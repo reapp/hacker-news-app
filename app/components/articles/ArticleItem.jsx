@@ -32,7 +32,6 @@ export default class ArticleItem extends Component {
       article,
       index,
       noLink,
-      styles,
       ...props } = this.props;
 
     if (!article)
@@ -63,25 +62,23 @@ export default class ArticleItem extends Component {
       <Button
         onTap={this.openComments.bind(this)}
         tapFocusStyle={{opacity: 0.2}}
-        style={{width:'100%', flexGrow:1, WebkitFlexGrow:1}}
+        styles={styles.commentsButton}
         stopPropagation
         chromeless>
         <Icon
           file={require('reapp-ui/assets/icons/speech.svg')}
           color={'#ab511f'}
           stroke={0}
-          styles={{self: { margin: 'auto' }}}
+          styles={styles.commentsIcon}
         />
       </Button>
     );
-
-    const mergedStyles = Object.assign({}, this.styles, styles);
 
     return (
       <List.Item
         key={key || index}
         className="ArticleItem"
-        styles={mergedStyles}
+        styles={styles.item}
         onTap={this.handleTap.bind(this)}
         title={article.get('title')}
         after={articleRight}
@@ -95,17 +92,33 @@ export default class ArticleItem extends Component {
 }
 
 const styles = {
-  content: {
-    paddingTop: 12,
-    paddingBottom: 12
+  item: {
+    content: {
+      paddingTop: 12,
+      paddingBottom: 12
+    },
+
+    after: {
+      margin: 0,
+      padding: 0
+    },
+
+    children: {
+      WebkitLineClamp: 'none'
+    }
   },
 
-  after: {
-    margin: 0,
-    padding: 0
+  commentsButton: {
+    self: {
+      width:'100%',
+      flexGrow: 1,
+      WebkitFlexGrow: 1
+    }
   },
 
-  children: {
-    WebkitLineClamp: 'none'
+  commmentsIcon: {
+    self: {
+      margin: 'auto'
+    }
   }
 };

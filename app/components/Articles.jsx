@@ -1,6 +1,7 @@
 import {
   React,
   Reapp,
+  Component,
   View,
   NestedViewList,
   List } from 'reapp-kit';
@@ -16,7 +17,7 @@ import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
 actions.articlesHotLoad();
 
-export default Reapp(context, class extends React.Component {
+export default Reapp(context, class extends Component {
   constructor() {
     this.state = {
       refreshing: false
@@ -41,6 +42,12 @@ export default Reapp(context, class extends React.Component {
 
   render() {
     const articles = store().get('hotArticles');
+    const id = this.router.getCurrentParams().id;
+    let article;
+
+    if (id)
+      article = store().getIn(['articles', Number(id)]);
+
     const refresh =
       <RefreshButton
         onTap={this.handleRefresh.bind(this)}
@@ -72,9 +79,7 @@ export default Reapp(context, class extends React.Component {
           }
         </View>
 
-        {this.props.child && this.props.child({
-          articles: store().get('articles')
-        })}
+        {this.props.child && this.props.child({ article })}
       </NestedViewList>
     );
   }
