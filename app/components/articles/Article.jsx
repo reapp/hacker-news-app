@@ -1,10 +1,10 @@
-var React = require('react');
-var Component = require('component');
-var View = require('reapp-ui/views/View');
-var BackButton = require('reapp-ui/components/buttons/BackButton');
-var Store = require('store');
-var Actions = require('actions');
-var ArticleContent = require('./ArticleContent');
+import React from 'react';
+import Component from 'component';
+import View from 'reapp-ui/views/View';
+import BackButton from 'reapp-ui/components/buttons/BackButton';
+import Store from 'store';
+import Actions from 'actions';
+import ArticleContent from './ArticleContent';
 
 export default Component({
   componentDidMount() {
