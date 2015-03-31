@@ -1,7 +1,4 @@
-import {
-  React,
-  Icon,
-  AnimationLoop } from 'reapp-kit';
+import { React, Icon, AnimationLoop } from 'reapp-kit';
 
 export default class extends React.Component {
   render() {

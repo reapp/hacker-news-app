@@ -1,7 +1,4 @@
-import {
-  React,
-  View
-  } from 'reapp-kit';
+import { React, View } from 'reapp-kit';
 
 export default class User extends React.Component {
   render() {

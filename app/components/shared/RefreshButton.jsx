@@ -1,7 +1,4 @@
-import {
-  React,
-  Button
-  } from 'reapp-kit';
+import { React, Button } from 'reapp-kit';
 
 import LoadingIcon from './LoadingIcon';
 

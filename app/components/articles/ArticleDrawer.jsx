@@ -1,9 +1,4 @@
-import {
-  React,
-  Bar,
-  Drawer,
-  View
-  } from 'reapp-kit';
+import { React, Bar, Drawer, View } from 'reapp-kit';
 
 export default class ArticleDrawer extends React.Component {
   getFrame() {

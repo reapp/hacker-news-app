@@ -1,7 +1,4 @@
-import {
-  React,
-  Tappable
-  } from 'reapp-kit';
+import { React, Tappable } from 'reapp-kit';
 
 export default class Comment extends React.Component {
   toggleOpened(e) {

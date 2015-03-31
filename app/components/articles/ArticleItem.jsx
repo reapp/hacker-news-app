@@ -1,11 +1,4 @@
-import {
-  React,
-  Icon,
-  List,
-  Badge,
-  Button,
-  Tappable
-  } from 'reapp-kit';
+import { React, Icon, List, Badge, Button, Tappable } from 'reapp-kit';
 
 export default class ArticleItem extends React.Component {
   handleTap() {

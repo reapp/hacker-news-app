@@ -1,9 +1,4 @@
-import {
-  React,
-  View,
-  BackButton,
-  TreeNode
-  } from 'reapp-kit';
+import { React, View, BackButton, TreeNode } from 'reapp-kit';
 import ArticleItem from './ArticleItem';
 import Comment from './Comment';
 import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
