@@ -36,6 +36,7 @@ export default Reapp(class extends React.Component {
     const articles = store.get('hotArticles');
     const id = this.context.router.getCurrentParams().id;
     const article = id && store.getIn(['articles', Number(id)]);
+    const Child = this.props.child;
 
     return (
       <NestedViewList {...this.props.viewListProps}>
@@ -67,7 +68,9 @@ export default Reapp(class extends React.Component {
           }
         </View>
 
-        {this.props.child && this.props.child({ article })}
+        {Child &&
+          <Child article={article} />
+        }
       </NestedViewList>
     );
   }
