@@ -3,8 +3,6 @@ import {
   Tappable
   } from 'reapp-kit';
 
-import './Comment.styl';
-
 export default class Comment extends React.Component {
   toggleOpened(e) {
     if (!e.target || e.target.tagName !== 'A')
@@ -39,7 +37,7 @@ export default class Comment extends React.Component {
       <div styles={[s.div, s.comment, s.level[level]]}>
         <div styles={[s.div, s.content]} ref="content">
           <Tappable
-            tapFocusStyle={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
+            tapFocusStyle={s.tapFocus}
             maxTapTime={900}
             onTap={this.toggleOpened.bind(this)}
             styles={s.tappable}>
@@ -86,6 +84,10 @@ const styles = {
     self: {
       padding: '8px 20px'
     }
+  },
+
+  tapFocus: {
+    backgroundColor: 'rgba(0,0,0,0.1)'
   },
 
   title: {

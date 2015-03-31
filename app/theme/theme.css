@@ -1,3 +1,13 @@
 body {
   background: #f3f3ea;
 }
+
+.comment p a {
+  pointer-events: auto;
+  padding: 8px 0;
+  margin: -8px 0;
+}
+
+.comment code {
+  wordWrap: break-word;
+}
