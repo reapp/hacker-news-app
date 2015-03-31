@@ -1,4 +1,4 @@
-import UI from 'reapp-ui';
+import { theme } from 'reapp-kit';
 import iOS from 'reapp-ui/themes/ios';
 
 import 'reapp-ui/themes/ios/stylesheets';
@@ -8,12 +8,8 @@ import base from './constants/base';
 import components from './constants/components';
 import styles from './styles';
 
-UI.addConstants(
-  iOS.constants.base, base,
-  iOS.constants.components, components
-);
-
-UI.addStyles(iOS.styles, styles);
-UI.addAnimations(iOS.animations);
-
-export default UI;
+theme({
+  constants: [iOS.constants.base, base, iOS.constants.components, components],
+  styles: [iOS.styles, styles],
+  animations: [iOS.animations]
+});

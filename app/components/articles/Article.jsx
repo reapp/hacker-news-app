@@ -17,14 +17,14 @@ export default class Article extends React.Component {
     const self = this;
 
     setTimeout(() => {
-      self.actions.articleLoad(self._id);
+      self.action.articleLoad(self._id);
     }, 450);
 
     setTimeout(() => this.setState({ showLoader: true }), 800);
   }
 
   componentWillUnmount() {
-    this.actions.articleUnload(this._id);
+    this.action.articleUnload(this._id);
   }
 
   goBackView() {

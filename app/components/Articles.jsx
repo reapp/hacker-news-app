@@ -1,27 +1,24 @@
 import { React, Reapp, View, NestedViewList, List } from 'reapp-kit';
 
-import actions from 'actions';
-import store from 'store';
-import theme from 'theme';
-const context = { theme, store, actions };
-
 import RefreshButton from './shared/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
-actions.articlesHotLoad();
-
-export default Reapp(context, class extends React.Component {
+export default Reapp(class extends React.Component {
   constructor() {
     this.state = {
       refreshing: false
     };
   }
 
+  componentWillMount() {
+    this.context.actions.articlesHotLoad();
+  }
+
   handleRefresh() {
     if (this.state.refreshing) return;
     this.setState({ refreshing: true });
-    actions.articlesHotRefresh().then(() => {
+    this.actions.articlesHotRefresh().then(() => {
       this.setState({ refreshing: false });
     });
   }
@@ -29,15 +26,16 @@ export default Reapp(context, class extends React.Component {
   handleLoadMore(e) {
     e.target.innerHTML = 'Loading...';
     this.setState({ refreshing: true });
-    actions.articlesHotLoadMore().then(() => {
+    this.actions.articlesHotLoadMore().then(() => {
       this.setState({ refreshing: false });
     });
   }
 
   render() {
-    const articles = store().get('hotArticles');
-    const id = this.router.getCurrentParams().id;
-    const article = id && store().getIn(['articles', Number(id)]);
+    const store = this.context.store();
+    const articles = store.get('hotArticles');
+    const id = this.context.router.getCurrentParams().id;
+    const article = id && store.getIn(['articles', Number(id)]);
 
     return (
       <NestedViewList {...this.props.viewListProps}>
@@ -57,7 +55,7 @@ export default Reapp(context, class extends React.Component {
             <List>
               {articles.map((article, i) =>
                 <ArticleItem key={i} index={i}
-                  article={store().getIn(['articles', article, 'data'])} />
+                  article={store.getIn(['articles', article, 'data'])} />
               )}
 
               <List.Item

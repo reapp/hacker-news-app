@@ -1,8 +1,9 @@
+import { actions, store as s } from 'reapp-kit';
 import { fromJS } from 'immutable';
 import reducer from 'reapp-reducer';
-import Actions from 'actions';
 import parseUrl from 'parseurl';
-import store from '../store';
+
+const store = s();
 
 // dont do stuff during view list animations
 const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
@@ -16,52 +17,42 @@ const loadingStatus = {};
 let page = 0;
 const per = 10;
 
-Actions.articlesHotLoad.listen(
-  opts => loadHotArticlesOnce(opts)
+actions('articlesHotLoad', opts => loadHotArticlesOnce(opts));
+actions('articlesHotRefresh', opts => loadHotArticles(opts));
+
+actions('articlesHotLoadMore', () =>
+  get('topstories.json')
+    .then(waitForViewList)
+    .then(insertNextArticles)
+    .then(returnArticlesStore)
 );
 
-Actions.articlesHotRefresh.listen(
-  opts => loadHotArticles(opts)
-);
+actions('articleLoad', id => {
+  id = parseInt(id, 10);
+  loadingStatus[id] = true;
+  let article = store().getIn(['articles', id]);
 
-Actions.articlesHotLoadMore.listen(
-  () =>
-    get('topstories.json')
+  if (article && article.get('status') === 'LOADED')
+    return Promise.resolve(article);
+  else
+    return get(`item/${id}.json`)
+      .then(res => {
+        res.parentId = res.id;
+        return res;
+      })
       .then(waitForViewList)
-      .then(insertNextArticles)
-      .then(returnArticlesStore)
-);
+      .then(getAllKids)
+      .then(loadedReducer)
+      .then(waitForViewList)
+      .then(insertArticle);
+});
 
-Actions.articleLoad.listen(
-  id => {
-    id = parseInt(id, 10);
-    loadingStatus[id] = true;
-    var article = store().getIn(['articles', id]);
-
-    if (article && article.get('status') === 'LOADED')
-      return Promise.resolve(article);
-    else
-      return get(`item/${id}.json`)
-        .then(res => {
-          res.parentId = res.id;
-          return res;
-        })
-        .then(waitForViewList)
-        .then(getAllKids)
-        .then(loadedReducer)
-        .then(waitForViewList)
-        .then(insertArticle);
-  }
-);
-
-Actions.articleUnload.listen(
-  id => {
-    id = parseInt(id, 10);
-    loadingStatus[id] = false;
-    store().setIn(['articles', id, 'data', 'kids'], null);
-    store().setIn(['articles', id, 'status'], 'OK');
-  }
-);
+actions('articleUnload', id => {
+  id = parseInt(id, 10);
+  loadingStatus[id] = false;
+  store().setIn(['articles', id, 'data', 'kids'], null);
+  store().setIn(['articles', id, 'status'], 'OK');
+});
 
 function loadHotArticles() {
   return get('topstories.json')
@@ -75,7 +66,7 @@ function loadHotArticles() {
     .then(returnArticlesStore);
 }
 
-var loadHotArticlesOnce = once(loadHotArticles);
+const loadHotArticlesOnce = once(loadHotArticles);
 
 function validResponse(response) {
   return response.json();
@@ -85,7 +76,7 @@ function insertArticle(res, rej) {
   if (rej)
     return error(rej);
 
-  var lastArticle;
+  let lastArticle;
 
   res.map(article => {
     // data transforms
@@ -120,12 +111,12 @@ function insertNextArticles(articles) {
 }
 
 function getAllKids(item) {
-  var parentId = item.parentId;
+  let parentId = item.parentId;
 
   if (!loadingStatus[parentId])
     return Promise.resolve(false);
 
-  var kids = item.kids;
+  let kids = item.kids;
   item.closed = false;
 
   if (!kids)
@@ -163,7 +154,7 @@ function error(err) {
 }
 
 function once(fn, context) {
-  var result;
+  let result;
 
   return function() {
     if (fn) {

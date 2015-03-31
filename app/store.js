@@ -1,11 +1,8 @@
-import { createCursorStore } from 'fynx';
-import Immutable from 'immutable';
+import { store } from 'reapp-kit';
 
-export default createCursorStore(
-  Immutable.fromJS({
-    articles: {},
-    hotArticles: [],
-    users: [],
-    savedArticles: []
-  })
-);
+export default store({
+  articles: {},
+  hotArticles: [],
+  users: [],
+  savedArticles: []
+});
