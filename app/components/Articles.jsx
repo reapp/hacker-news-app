@@ -37,20 +37,16 @@ export default Reapp(context, class extends React.Component {
   render() {
     const articles = store().get('hotArticles');
     const id = this.router.getCurrentParams().id;
-    let article;
-
-    if (id)
-      article = store().getIn(['articles', Number(id)]);
-
-    const refresh =
-      <RefreshButton
-        onTap={this.handleRefresh.bind(this)}
-        rotate={this.state.refreshing}
-      />
+    const article = id && store().getIn(['articles', Number(id)]);
 
     return (
       <NestedViewList {...this.props.viewListProps}>
-        <View title="Hot Articles" titleRight={refresh}>
+        <View title="Hot Articles" titleRight={
+          <RefreshButton
+            onTap={this.handleRefresh.bind(this)}
+            rotate={this.state.refreshing}
+          />
+        }>
           {!articles &&
             <div style={styles.iconContainer}>
               <RotatingLoadingIcon />
