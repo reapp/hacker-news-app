@@ -1,8 +1,9 @@
-var React = require('react');
-var Icon = require('reapp-ui/components/Icon');
-var AnimationLoop = require('reapp-ui/helpers/AnimationLoop');
+import {
+  React,
+  Icon,
+  AnimationLoop } from 'reapp-kit';
 
-module.exports = React.createClass({
+export default class extends React.Component {
   render() {
     return (
       <AnimationLoop animation="rotate" {...this.props}>
@@ -20,4 +21,4 @@ module.exports = React.createClass({
       </AnimationLoop>
     );
   }
-});
+}

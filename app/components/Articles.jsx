@@ -10,7 +10,7 @@ import store from 'store';
 import theme from 'theme';
 const context = { theme, store, actions };
 
-import RefreshButton from './articles/RefreshButton';
+import RefreshButton from './shared/RefreshButton';
 import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 

@@ -1,22 +1,19 @@
-var React = require('react');
-var LoadingIcon = require('./LoadingIcon');
-var theme = require('theme');
+import { React } from 'reapp-kit';
+import LoadingIcon from './LoadingIcon';
+import theme from 'theme';
 
-module.exports = React.createClass({
+export default class extends React.Component {
   render() {
     return (
-      <LoadingIcon active={true} styles={
-        {
+      <LoadingIcon active={true} styles={{
           self: {
             width: 24,
             margin: 'auto',
           }
         }}
-        iconProps={{
-          color: theme.constants.mid
-        }}
+        iconProps={{ color: theme.constants.mid }}
         {...this.props}
       />
     );
   }
-});
+}
