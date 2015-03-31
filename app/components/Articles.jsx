@@ -1,9 +1,4 @@
-import {
-  React,
-  Reapp,
-  View,
-  NestedViewList,
-  List } from 'reapp-kit';
+import { React, Reapp, View, NestedViewList, List } from 'reapp-kit';
 
 import actions from 'actions';
 import store from 'store';
