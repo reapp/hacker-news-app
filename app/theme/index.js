@@ -1,7 +1,6 @@
 import { theme } from 'reapp-kit';
 import iOS from 'reapp-ui/themes/ios';
 
-import 'reapp-ui/themes/ios/stylesheets';
 import './theme.css';
 
 import base from './constants/base';

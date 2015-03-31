@@ -79,11 +79,9 @@ function insertArticle(res, rej) {
   let lastArticle;
 
   res.map(article => {
-    // data transforms
-    setHost(article);
-
     if (loadingStatus[article.id] !== false)
-      store().updateIn(['articles', article.id], () => fromJS(article));
+      store().updateIn(['articles', article.id], () =>
+        fromJS(setHost(article)));
   });
 
   return lastArticle;
@@ -91,6 +89,7 @@ function insertArticle(res, rej) {
 
 function setHost(article) {
   article.data.host = parseUrl({ url: article.data.url }).hostname;
+  return article;
 }
 
 function insertArticles(articles) {
