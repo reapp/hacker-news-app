@@ -1,6 +1,5 @@
 import {
   React,
-  Component,
   Icon,
   List,
   Badge,
@@ -8,9 +7,7 @@ import {
   Tappable
   } from 'reapp-kit';
 
-import './ArticleItem.styl';
-
-export default class ArticleItem extends Component {
+export default class ArticleItem extends React.Component {
   handleTap() {
     var url = this.props.article.getIn(['data', 'url']);
     window.open(url, window.cordova ? '_system' : '_blank');
@@ -38,21 +35,21 @@ export default class ArticleItem extends Component {
       return null;
 
     const stats = (
-      <div className="meta">
-        <div className="score">
+      <div styles={styles.meta}>
+        <div styles={styles.score}>
           <Badge>{article.get('score')}</Badge>
         </div>
-        <div className="author">
+        <div styles={styles.author}>
           <Tappable onTap={() => this.router.transitionTo('user', {
             id: article.get('by')
           })}>
             {article.get('by')}
           </Tappable>
         </div>
-        <div className="time">
+        <div styles={styles.time}>
           {new Date(article.get('time') * 1000)}
         </div>
-        <div className="url">
+        <div styles={styles.url}>
           {article.get('host')}
         </div>
       </div>
@@ -77,7 +74,6 @@ export default class ArticleItem extends Component {
     return (
       <List.Item
         key={key || index}
-        className="ArticleItem"
         styles={styles.item}
         onTap={this.handleTap.bind(this)}
         title={article.get('title')}
@@ -93,6 +89,12 @@ export default class ArticleItem extends Component {
 
 const styles = {
   item: {
+    self: {
+      flexFlow: 'row',
+      flexWrap: 'nowrap',
+      width: '100%'
+    },
+
     content: {
       paddingTop: 12,
       paddingBottom: 12
@@ -100,7 +102,12 @@ const styles = {
 
     after: {
       margin: 0,
-      padding: 0
+      padding: 0,
+      flexGrow: 1,
+      WebkitFlexGrow: 1,
+      width: '66px',
+      zIndex: 3,
+      position: 'relative'
     },
 
     children: {
@@ -110,7 +117,7 @@ const styles = {
 
   commentsButton: {
     self: {
-      width:'100%',
+      width: '100%',
       flexGrow: 1,
       WebkitFlexGrow: 1
     }
@@ -120,5 +127,35 @@ const styles = {
     self: {
       margin: 'auto'
     }
+  },
+
+  meta: {
+    color: '#999',
+    listStyle: 'none',
+    padding: 0,
+    margin: '3px 0 0',
+    flexFlow: 'row',
+    WebkitFlexFlow: 'row',
+    width: '100%'
+  },
+
+  score: {
+    flexGrow: 0,
+    WebkitFlexGrow: 0,
+    padding: 0
+  },
+
+  url: {
+    flexGrow: 2,
+    WebkitFlexGrow: 2,
+    textAlign: 'right'
+  },
+
+  author: {
+    marginLeft: '10px'
+  },
+
+  a: {
+    color: '#999 !important'
   }
 };

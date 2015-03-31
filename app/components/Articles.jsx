@@ -1,7 +1,6 @@
 import {
   React,
   Reapp,
-  Component,
   View,
   NestedViewList,
   List } from 'reapp-kit';
@@ -17,7 +16,7 @@ import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
 actions.articlesHotLoad();
 
-export default Reapp(context, class extends Component {
+export default Reapp(context, class extends React.Component {
   constructor() {
     this.state = {
       refreshing: false

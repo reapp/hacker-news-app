@@ -1,6 +1,5 @@
 import {
   React,
-  Component,
   View,
   BackButton,
   TreeNode
@@ -9,7 +8,7 @@ import ArticleItem from './ArticleItem';
 import Comment from './Comment';
 import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
 
-export default class Article extends Component {
+export default class Article extends React.Component {
   constructor(props) {
     super(props);
 

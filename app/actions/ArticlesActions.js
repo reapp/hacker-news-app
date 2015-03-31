@@ -91,11 +91,8 @@ function insertArticle(res, rej) {
     // data transforms
     setHost(article);
 
-    if (loadingStatus[article.id] !== false) {
-      // save ref to last article and store
-      lastArticle = fromJS(article);
-      store().setIn(['articles', article.id], lastArticle);
-    }
+    if (loadingStatus[article.id] !== false)
+      store().updateIn(['articles', article.id], () => fromJS(article));
   });
 
   return lastArticle;
