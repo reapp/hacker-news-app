@@ -18,7 +18,7 @@ export default Reapp(class extends React.Component {
   handleRefresh() {
     if (this.state.refreshing) return;
     this.setState({ refreshing: true });
-    this.actions.articlesHotRefresh().then(() => {
+    this.context.actions.articlesHotRefresh().then(() => {
       this.setState({ refreshing: false });
     });
   }
@@ -26,7 +26,7 @@ export default Reapp(class extends React.Component {
   handleLoadMore(e) {
     e.target.innerHTML = 'Loading...';
     this.setState({ refreshing: true });
-    this.actions.articlesHotLoadMore().then(() => {
+    this.context.actions.articlesHotLoadMore().then(() => {
       this.setState({ refreshing: false });
     });
   }

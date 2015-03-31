@@ -1,6 +1,5 @@
-import { React } from 'reapp-kit';
+import { React, theme } from 'reapp-kit';
 import LoadingIcon from './LoadingIcon';
-import theme from 'theme';
 
 export default class extends React.Component {
   render() {
@@ -11,7 +10,7 @@ export default class extends React.Component {
             margin: 'auto',
           }
         }}
-        iconProps={{ color: theme.constants.mid }}
+        iconProps={{ color: theme().constants.mid }}
         {...this.props}
       />
     );
