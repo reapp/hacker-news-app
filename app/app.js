@@ -9,4 +9,4 @@ router(require,
     route('article', '/article/:id'),
     route('user', '/user/:id')
   )
-)
+);
