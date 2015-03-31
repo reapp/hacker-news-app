@@ -5,7 +5,7 @@ export default class extends React.Component {
     return (
       <AnimationLoop animation="rotate" {...this.props}>
         <Icon
-          file={require('reapp-ui/assets/icons/arrow-refresh.svg')}
+          file={require('reapp-kit/icons/arrow-refresh.svg')}
           size={24}
           stroke={1}
           styles={{

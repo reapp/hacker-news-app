@@ -6,8 +6,8 @@ import parseUrl from 'parseurl';
 const store = s();
 
 // dont do stuff during view list animations
-const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
-const waitForViewList = res => waitForAnimation('viewList').then(() => res);
+// const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));
+// const waitForViewList = res => waitForAnimation('viewList').then(() => res);
 
 const url = path => `https://hacker-news.firebaseio.com/v0/${path}`;
 const get = path => fetch(url(path)).then(validResponse);
@@ -22,7 +22,7 @@ actions('articlesHotRefresh', opts => loadHotArticles(opts));
 
 actions('articlesHotLoadMore', () =>
   get('topstories.json')
-    .then(waitForViewList)
+    // .then(waitForViewList)
     .then(insertNextArticles)
     .then(returnArticlesStore)
 );
@@ -40,10 +40,10 @@ actions('articleLoad', id => {
         res.parentId = res.id;
         return res;
       })
-      .then(waitForViewList)
+      // .then(waitForViewList)
       .then(getAllKids)
       .then(loadedReducer)
-      .then(waitForViewList)
+      // .then(waitForViewList)
       .then(insertArticle);
 });
 
@@ -56,7 +56,7 @@ actions('articleUnload', id => {
 
 function loadHotArticles() {
   return get('topstories.json')
-    .then(waitForViewList)
+    // .then(waitForViewList)
     .then(articles => {
       const start = page * per;
       const hotArticles = articles.slice(0, start + per);

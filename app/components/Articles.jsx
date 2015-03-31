@@ -69,7 +69,7 @@ export default Reapp(class extends React.Component {
         </View>
 
         {Child &&
-          <Child article={article} />
+          Child({ article: article })
         }
       </NestedViewList>
     );

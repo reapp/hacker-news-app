@@ -1,5 +1,5 @@
 import { theme } from 'reapp-kit';
-import iOS from 'reapp-ui/themes/ios';
+import iOS from 'reapp-kit/themes/ios';
 
 import './theme.css';
 

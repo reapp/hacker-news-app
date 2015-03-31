@@ -13,7 +13,7 @@ export default class Article extends React.Component {
   }
 
   componentDidMount() {
-    this._id = this.router.getCurrentParams().id;
+    this._id = this.context.router.getCurrentParams().id;
     const self = this;
 
     setTimeout(() => {

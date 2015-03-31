@@ -56,7 +56,7 @@ export default class ArticleItem extends React.Component {
         stopPropagation
         chromeless>
         <Icon
-          file={require('reapp-ui/assets/icons/speech.svg')}
+          file={require('reapp-kit/icons/speech.svg')}
           color={'#ab511f'}
           stroke={0}
           styles={styles.commentsIcon}
