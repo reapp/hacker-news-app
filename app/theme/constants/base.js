@@ -1,8 +1,7 @@
-var themeColor = '#f97d08';
-
-var light = '#f3f3ea';
-var mid = '#dc7550';
-var dark = '#dc781f';
+const themeColor = '#f97d08';
+const light = '#f3f3ea';
+const mid = '#dc7550';
+const dark = '#dc781f';
 
 export default {
   themeColor, light, mid, dark,
