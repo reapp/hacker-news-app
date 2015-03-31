@@ -52,7 +52,7 @@ export default Reapp(context, class extends React.Component {
       <NestedViewList {...this.props.viewListProps}>
         <View title="Hot Articles" titleRight={refresh}>
           {!articles &&
-            <div style={{ padding: 20, marginLeft: -10 }}>
+            <div style={styles.iconContainer}>
               <RotatingLoadingIcon />
             </div>
           }
@@ -80,6 +80,11 @@ export default Reapp(context, class extends React.Component {
 });
 
 const styles = {
+  iconContainer: {
+    padding: 20,
+    marginLeft: -10
+  },
+
   loadMore: {
     content: {
       textAlign: 'center',
