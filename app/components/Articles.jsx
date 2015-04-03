@@ -5,7 +5,8 @@ import ArticleItem from './articles/ArticleItem';
 import RotatingLoadingIcon from './shared/RotatingLoadingIcon';
 
 export default Reapp(class extends React.Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = {
       refreshing: false
     };
