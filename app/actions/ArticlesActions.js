@@ -1,9 +1,7 @@
-import { actions, store as s } from 'reapp-kit';
+import { actions, store } from 'reapp-kit';
 import { fromJS } from 'immutable';
 import reducer from 'reapp-reducer';
 import parseUrl from 'parseurl';
-
-const store = s();
 
 // dont do stuff during view list animations
 // const waitForAnimation = Promise.promisify(require('reapp-ui/lib/waitForAnimation'));

@@ -55,12 +55,9 @@ export default class ArticleItem extends React.Component {
         styles={styles.commentsButton}
         stopPropagation
         chromeless>
-        <Icon
-          file={require('reapp-kit/icons/speech.svg')}
-          color={'#ab511f'}
-          stroke={0}
-          styles={styles.commentsIcon}
-        />
+          <div style={styles.commentsText}>
+            {article.get('descendants')}
+          </div>
       </Button>
     );
 
@@ -120,6 +117,10 @@ const styles = {
     self: {
       margin: 'auto'
     }
+  },
+
+  commentsText: {
+    color: '#ab511f'
   },
 
   meta: {
