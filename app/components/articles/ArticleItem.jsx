@@ -27,7 +27,7 @@ export default class ArticleItem extends React.Component {
     if (!article)
       return null;
 
-    const stats = (
+    const stats =
       <div styles={styles.meta}>
         <div styles={styles.score}>
           <Badge>{article.get('score')}</Badge>
@@ -46,9 +46,8 @@ export default class ArticleItem extends React.Component {
           {article.get('host')}
         </div>
       </div>
-    );
 
-    const articleRight = (
+    const articleRight =
       <Button
         onTap={this.openComments.bind(this)}
         tapFocusStyle={{opacity: 0.2}}
@@ -59,7 +58,6 @@ export default class ArticleItem extends React.Component {
             {article.get('descendants')}
           </div>
       </Button>
-    );
 
     return (
       <List.Item
