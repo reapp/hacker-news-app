@@ -13,13 +13,13 @@ export default Reapp(class extends React.Component {
   }
 
   componentWillMount() {
-    this.context.actions.articlesHotLoad();
+    this.action.articlesHotLoad();
   }
 
   handleRefresh() {
     if (this.state.refreshing) return;
     this.setState({ refreshing: true });
-    this.context.actions.articlesHotRefresh().then(() => {
+    this.action.articlesHotRefresh().then(() => {
       this.setState({ refreshing: false });
     });
   }
@@ -27,7 +27,7 @@ export default Reapp(class extends React.Component {
   handleLoadMore(e) {
     e.target.innerHTML = 'Loading...';
     this.setState({ refreshing: true });
-    this.context.actions.articlesHotLoadMore().then(() => {
+    this.action.articlesHotLoadMore().then(() => {
       this.setState({ refreshing: false });
     });
   }

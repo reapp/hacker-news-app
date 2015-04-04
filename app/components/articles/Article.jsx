@@ -6,25 +6,24 @@ import RotatingLoadingIcon from 'components/shared/RotatingLoadingIcon';
 export default class Article extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       showLoader: false
     };
   }
 
   componentDidMount() {
-    this._id = this.context.router.getCurrentParams().id;
+    this._id = this.router().getCurrentParams().id;
     const self = this;
 
     setTimeout(() => {
-      self.context.actions.articleLoad(self._id);
+      self.action.articleLoad(self._id);
     }, 450);
 
     setTimeout(() => this.setState({ showLoader: true }), 800);
   }
 
   componentWillUnmount() {
-    this.context.actions.articleUnload(this._id);
+    this.action.articleUnload(this._id);
   }
 
   goBackView() {
