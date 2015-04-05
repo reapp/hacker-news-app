@@ -1,5 +1,4 @@
-import { actions, store } from 'reapp-kit';
-import { fromJS } from 'immutable';
+import { actions, store, Immutable } from 'reapp-kit';
 import reducer from 'reapp-reducer';
 import parseUrl from 'parseurl';
 
@@ -79,7 +78,7 @@ function insertArticle(res, rej) {
   res.map(article => {
     if (loadingStatus[article.id] !== false)
       store().updateIn(['articles', article.id], () =>
-        fromJS(setHost(article)));
+        Immutable.fromJS(setHost(article)));
   });
 
   return lastArticle;

@@ -1,6 +1,3 @@
-import { Promise } from 'bluebird';
-window.Promise = Promise;
-
 import './theme';
 import './store';
 import './actions';
