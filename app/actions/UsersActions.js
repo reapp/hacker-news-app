@@ -1,6 +1,6 @@
-import { actions, store } from 'reapp-kit';
+import { action, store } from 'reapp-kit';
 
-actions('userLoad', id => {
+action('userLoad', id => {
   fetch(`https://hacker-news.firebaseio.com/v0/user/${id}.json`).then(res => {
     store().set('users', res);
   });

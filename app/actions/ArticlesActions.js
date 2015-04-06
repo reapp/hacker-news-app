@@ -1,4 +1,4 @@
-import { actions, store, Immutable } from 'reapp-kit';
+import { action, store, Immutable } from 'reapp-kit';
 import reducer from 'reapp-reducer';
 import parseUrl from 'parseurl';
 
@@ -14,17 +14,17 @@ const loadingStatus = {};
 let page = 0;
 const per = 10;
 
-actions('articlesHotLoad', opts => loadHotArticlesOnce(opts));
-actions('articlesHotRefresh', opts => loadHotArticles(opts));
+action('articlesHotLoad', opts => loadHotArticlesOnce(opts));
+action('articlesHotRefresh', opts => loadHotArticles(opts));
 
-actions('articlesHotLoadMore', () =>
+action('articlesHotLoadMore', () =>
   get('topstories.json')
     // .then(waitForViewList)
     .then(insertNextArticles)
     .then(returnArticlesStore)
 );
 
-actions('articleLoad', id => {
+action('articleLoad', id => {
   id = parseInt(id, 10);
   loadingStatus[id] = true;
   let article = store().getIn(['articles', id]);
@@ -44,7 +44,7 @@ actions('articleLoad', id => {
       .then(insertArticle);
 });
 
-actions('articleUnload', id => {
+action('articleUnload', id => {
   id = parseInt(id, 10);
   loadingStatus[id] = false;
   store().setIn(['articles', id, 'data', 'kids'], null);
