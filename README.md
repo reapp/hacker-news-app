@@ -7,7 +7,17 @@ we'll be documenting in short order.
 ## How to run this app
 
 ```
-1. clone repository
-2. cd hacker-news-app
-3. reapp run -V && reapp run -d
+# Install reapp globally
+npm install -g reapp
+
+# Get the code
+git clone git@github.com:reapp/hacker-news-app.git
+cd hacker-news-app
+
+# Download NPM modules
+npm install
+
+# Print reapp version, then start the server.  Default is http://localhost:3010
+reapp run -V
+reapp run -d
 ```
