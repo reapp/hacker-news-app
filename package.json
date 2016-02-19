@@ -15,7 +15,8 @@
   "dependencies": {
     "parseurl": "^1.3.0",
     "react": "0.13.2",
-    "reapp-kit": "^1.2.0",
+    "reapp-kit": "1.2.15",
+    "reapp-ui": "0.12.54",
     "reapp-reducer": "^1.0.0"
   }
 }
